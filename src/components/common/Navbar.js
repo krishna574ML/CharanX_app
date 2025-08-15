@@ -45,32 +45,6 @@ const Navbar = () => {
         setDrawerOpen(!drawerOpen);
     };
 
-    const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', backgroundColor: 'background.paper', height: '100%' }}>
-            <Typography variant="h6" sx={{ my: 2, color: 'primary.main' }}>
-                charanX
-            </Typography>
-            <List>
-                {navLinks.map((link) => (
-                    <ListItem button component={RouterLink} to={link.path} key={link.title}>
-                        <ListItemText primary={link.title} sx={{ textAlign: 'center' }}/>
-                    </ListItem>
-                ))}
-                 <ListItem>
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        component={RouterLink} 
-                        to="/contact"
-                        sx={{ width: '100%' }}
-                    >
-                        Book Consultation
-                    </Button>
-                </ListItem>
-            </List>
-        </Box>
-    );
-
     return (
         <>
             <AppBar 
@@ -191,7 +165,7 @@ const Navbar = () => {
                     },
                 }}
             >
-                <Box sx={{ 
+                <Box onClick={handleDrawerToggle} sx={{ 
                     p: 3,
                     height: '100%',
                     display: 'flex',
