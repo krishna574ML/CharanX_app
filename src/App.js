@@ -11,7 +11,7 @@ import BlogPage from './pages/BlogPage'; // Import new page
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'background.default' }}>
         <Navbar />
         <Box component="main" sx={{ flexGrow: 1 }}>
