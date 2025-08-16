@@ -11,3 +11,86 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root{
+  --brand-gold: #D4AF37;
+  --accent-1: #7CFFCB;
+  --bg-dark: #0A0A0A;
+  --glass: rgba(255,255,255,0.9);
+}
+
+/* Smooth baseline tweaks and utility */
+html,body,#root{
+  height: 100%;
+}
+
+/* Horizontal snap for social cards */
+.hero-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+.hero-scroll > * {
+  scroll-snap-align: center;
+}
+
+/* Scroll hint chevron */
+.scroll-hint {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.35);
+  position: relative;
+}
+.scroll-hint::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-bottom: 2px solid rgba(255,255,255,0.85);
+  border-right: 2px solid rgba(255,255,255,0.85);
+  transform: rotate(45deg) translateY(-2px);
+  display: inline-block;
+  animation: chevron-bob 1.6s infinite;
+}
+@keyframes chevron-bob {
+  0% { transform: rotate(45deg) translateY(-2px); opacity: 0.95 }
+  50% { transform: rotate(45deg) translateY(4px); opacity: 0.6 }
+  100% { transform: rotate(45deg) translateY(-2px); opacity: 0.95 }
+}
+
+/* Fancy small new pill helper */
+.pill-new {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: linear-gradient(45deg,#FFD700,#FF7BD5);
+  color: #111;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* subtle global glass shimmer for hero */
+.hero-glass-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(600px 200px at 30% 10%, rgba(255,255,255,0.04), transparent 15%),
+                    radial-gradient(500px 180px at 85% 80%, rgba(255,255,255,0.03), transparent 18%);
+  mix-blend-mode: overlay;
+}
+
+/* Thin, elegant scrollbar for modern browsers */
+::-webkit-scrollbar { height: 8px; width: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce){
+  * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

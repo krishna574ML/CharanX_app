@@ -21,6 +21,7 @@ import {
   PieChart,
   CameraEnhance,
   Group,
+  Star,
 } from "@mui/icons-material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -31,25 +32,26 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 const lerp = (a, b, t) => a + (b - a) * t;
 
+// Professional Color Palette (Dark Theme)
+const professionalColors = {
+  primary: "#0B1527",
+  secondary: "#192842",
+  accent: "#4A90E2", // A clean, trustworthy blue
+  light: "#FFFFFF",
+  muted: "#BCC5D9",
+  text: "#E0E6F0",
+  subtleAccent: "rgba(74, 144, 226, 0.1)",
+};
+
 // Slides: per-slide styles, text, and animations
+// Simplified variants and more consistent professional styling
 const heroSlides = [
   {
-    headlineWords: "Grow your business with digital marketing!",
-    text: "Unleash your brand's voice with data-driven content that resonates.",
-    variant: "slideUp",
-    bgImage:
-      "url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1600&auto=format&fit=crop')",
-    gradientOverlay:
-      "linear-gradient(120deg, rgba(0,0,0,0.65), rgba(22,12,4,0.55))",
-    accent: "#FFD700",
-    textGradient: "linear-gradient(45deg, #FFD700, #FFE680, #FFFFFF)",
-    headlineFont: "'Playfair Display', serif",
-    bodyFont: "'Poppins', sans-serif",
-    cardBg: "rgba(255, 255, 255, 0.9)",
-    cardAccent: "#FFD700",
-    cardTitle: "Content Mastery",
-    cardDescription:
-      "Curate, create, and deploy powerful content across all channels to tell your story.",
+    headline: "Elevate your brand with digital marketing excellence.",
+    text: "Strategically craft your digital presence with data-driven content that connects and converts.",
+    bgImage: "url('https://images.unsplash.com/photo-1557804506-6632f05c0f71?q=80&w=1600&auto=format&fit=crop')",
+    cardTitle: "Content Strategy",
+    cardDescription: "Curate, create, and deploy powerful content across all channels to tell your story.",
     cardServices: [
       { name: "Content Strategy", icon: <AutoAwesome sx={{ fontSize: 16 }} /> },
       { name: "Copywriting", icon: <Edit sx={{ fontSize: 16 }} /> },
@@ -57,22 +59,11 @@ const heroSlides = [
     ],
   },
   {
-    headlineWords: "Expand your reach with strategic campaigns!",
-    text: "Reach the right people at the right time with precision-targeted campaigns.",
-    variant: "fadeIn",
-    bgImage:
-      "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop')",
-    gradientOverlay:
-      "linear-gradient(120deg, rgba(9,12,24,0.65), rgba(0,0,0,0.65))",
-    accent: "#7CFFCB",
-    textGradient: "linear-gradient(45deg, #7CFFCB, #74F2CE, #E3FDFD)",
-    headlineFont: "'Playfair Display', serif",
-    bodyFont: "'Poppins', sans-serif",
-    cardBg: "rgba(255, 255, 255, 0.9)",
-    cardAccent: "#7CFFCB",
+    headline: "Expand your market reach with intelligent campaigns.",
+    text: "Target the right people at the right time with precision-targeted campaigns for maximum ROI.",
+    bgImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop')",
     cardTitle: "Performance Marketing",
-    cardDescription:
-      "Execute high-impact ad campaigns and optimize for maximum ROI and lead generation.",
+    cardDescription: "Execute high-impact ad campaigns and optimize for maximum ROI and lead generation.",
     cardServices: [
       { name: "Paid Social", icon: <Campaign sx={{ fontSize: 16 }} /> },
       { name: "PPC Management", icon: <Search sx={{ fontSize: 16 }} /> },
@@ -80,22 +71,11 @@ const heroSlides = [
     ],
   },
   {
-    headlineWords: "Optimize your presence and drive results!",
-    text: "Make smarter decisions with real-time analytics and actionable insights.",
-    variant: "scaleIn",
-    bgImage:
-      "url('https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1600&auto=format&fit=crop')",
-    gradientOverlay:
-      "linear-gradient(120deg, rgba(8,8,8,0.6), rgba(55,0,40,0.55))",
-    accent: "#FF7BD5",
-    textGradient: "linear-gradient(45deg, #FF7BD5, #FFB86C, #FFFFFF)",
-    headlineFont: "'Playfair Display', serif",
-    bodyFont: "'Poppins', sans-serif",
-    cardBg: "rgba(255, 255, 255, 0.9)",
-    cardAccent: "#FF7BD5",
+    headline: "Optimize for growth with real-time analytics.",
+    text: "Make smarter business decisions with actionable insights from comprehensive data analysis.",
+    bgImage: "url('https://images.unsplash.com/photo-1520697204987-a3a10058b291?q=80&w=1600&auto=format&fit=crop')",
     cardTitle: "Actionable Analytics",
-    cardDescription:
-      "Track key metrics, understand user behavior, and unlock new growth opportunities.",
+    cardDescription: "Track key metrics, understand user behavior, and unlock new growth opportunities.",
     cardServices: [
       { name: "Data Analysis", icon: <PieChart sx={{ fontSize: 16 }} /> },
       { name: "Conversion Funnels", icon: <Search sx={{ fontSize: 16 }} /> },
@@ -103,22 +83,11 @@ const heroSlides = [
     ],
   },
   {
-    headlineWords: "Innovate your online identity!",
-    text: "Build a captivating online hub with custom web design and development.",
-    variant: "rotateIn",
-    bgImage:
-      "url('https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1600&auto=format&fit=crop')",
-    gradientOverlay:
-      "linear-gradient(120deg, rgba(0,0,0,0.55), rgba(5,40,70,0.55))",
-    accent: "#90E0EF",
-    textGradient: "linear-gradient(45deg, #90E0EF, #CAF0F8, #FFFFFF)",
-    headlineFont: "'Playfair Display', serif",
-    bodyFont: "'Poppins', sans-serif",
-    cardBg: "rgba(255, 255, 255, 0.9)",
-    cardAccent: "#90E0EF",
+    headline: "Innovate your online identity with modern web design.",
+    text: "Build a captivating online hub with custom web design that provides an exceptional user experience.",
+    bgImage: "url('https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1600&auto=format&fit=crop')",
     cardTitle: "Web & UX/UI",
-    cardDescription:
-      "Craft stunning, high-performing websites that captivate your audience from the first click.",
+    cardDescription: "Craft stunning, high-performing websites that captivate your audience from the first click.",
     cardServices: [
       { name: "Web Development", icon: <Code sx={{ fontSize: 16 }} /> },
       { name: "UI/UX Design", icon: <Edit sx={{ fontSize: 16 }} /> },
@@ -128,176 +97,58 @@ const heroSlides = [
 ];
 
 // Update explore platforms to match slides
-const explorePlatforms = [
-  { 
-    name: "Content", 
-    colors: { 
-      activeBg: "linear-gradient(45deg, #FFD700, #DAA520)", 
-      activeText: "#111" 
-    } 
-  },
-  { 
-    name: "Campaigns", 
-    colors: { 
-      activeBg: "linear-gradient(45deg, #7CFFCB, #74F2CE)", 
-      activeText: "#111" 
-    } 
-  },
-  { 
-    name: "Analytics", 
-    colors: { 
-      activeBg: "linear-gradient(45deg, #FF7BD5, #FFB86C)", 
-      activeText: "#111" 
-    } 
-  },
-  { 
-    name: "Web Dev", 
-    colors: { 
-      activeBg: "linear-gradient(45deg, #90E0EF, #CAF0F8)", 
-      activeText: "#111" 
-    } 
-  },
-];
+const explorePlatforms = heroSlides.map((slide) => ({
+  name: slide.cardTitle.split(' ')[0],
+}));
 
-// Social
+// Social platforms, kept as requested
 const socialPlatforms = [
   {
-    icon: <InstagramIcon sx={{ fontSize: "3rem", color: "#000" }} />,
+    icon: <InstagramIcon sx={{ fontSize: "2.5rem", color: professionalColors.light }} />,
     title: "Instagram",
-    gradient:
-      "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
+    gradient: "linear-gradient(45deg, #405DE6, #5B51D8, #833AB4, #C13584, #E1306C, #FD1D1D)",
   },
   {
-    icon: <YouTubeIcon sx={{ fontSize: "3rem", color: "#000" }} />,
+    icon: <YouTubeIcon sx={{ fontSize: "2.5rem", color: professionalColors.light }} />,
     title: "YouTube",
-    gradient: "linear-gradient(45deg,#FF0000, #C40000)",
+    gradient: "linear-gradient(45deg, #FF0000, #CD201F)",
   },
   {
-    icon: <FacebookIcon sx={{ fontSize: "3rem", color: "#000" }} />,
+    icon: <FacebookIcon sx={{ fontSize: "2.5rem", color: professionalColors.light }} />,
     title: "Facebook",
-    gradient: "linear-gradient(45deg,#4267B2, #3b5998)",
+    gradient: "linear-gradient(45deg, #4267B2, #3B5998)",
   },
 ];
 
-// Variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
+// Simplified variants for clean transitions
+const fadeInVariant = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.5, ease: "easeIn" } },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
-// Headline flip-up
-const headlineContainerVariants = {
-  visible: { transition: { staggerChildren: 0.09 } },
-};
-const wordContainerVariants = {
-  visible: { transition: { staggerChildren: 0.025 } },
-};
-const characterVariants = {
-  hidden: { y: "100%", rotateX: -90, opacity: 0 },
-  visible: {
-    y: "0%",
-    rotateX: 0,
-    opacity: 1,
-    transition: { type: "spring", damping: 16, stiffness: 260 },
-  },
-};
-
-// Update the dynamic text variants for smoother animations
-const dynamicTextVariants = {
-  slideUp: {
-    initial: { y: 30, opacity: 0, filter: "blur(8px)" },
-    animate: {
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-    },
-    exit: {
-      y: -30,
-      opacity: 0,
-      filter: "blur(8px)",
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-  fadeIn: {
-    initial: { opacity: 0, scale: 0.98, filter: "blur(10px)" },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)",
-      transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
-    },
-    exit: {
-      opacity: 0,
-      scale: 1.02,
-      filter: "blur(10px)",
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-  scaleIn: {
-    initial: { scale: 0.94, opacity: 0, filter: "blur(6px)" },
-    animate: {
-      scale: 1,
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] },
-    },
-    exit: {
-      scale: 0.96,
-      opacity: 0,
-      filter: "blur(6px)",
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-  rotateIn: {
-    initial: { rotateX: 80, opacity: 0, filter: "blur(8px)", y: 50 },
-    animate: {
-      rotateX: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      y: 0,
-      transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-    },
-    exit: {
-      rotateX: -40,
-      opacity: 0,
-      filter: "blur(8px)",
-      y: -30,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-};
-
-// CTA
+// Simplified CTA button
 const ActionButton = ({ children, ...props }) => (
   <Button
     component={motion.button}
-    whileHover={{
-      scale: 1.05,
-      transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-    }}
+    whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.98 }}
     variant="contained"
     sx={{
-      background: "linear-gradient(45deg, #FFD700, #DAA520)",
+      background: professionalColors.accent,
       borderRadius: "999px",
       px: { xs: 3, sm: 4 },
       py: { xs: 1.1, sm: 1.4 },
       fontSize: { xs: "0.95rem", sm: "1rem" },
       fontWeight: 700,
       letterSpacing: 0.4,
-      boxShadow: "0 14px 40px rgba(255, 215, 0, 0.22)",
+      boxShadow: `0 8px 24px ${professionalColors.accent}33`,
       "&:hover": {
-        background: "linear-gradient(45deg, #DAA520, #FFD700)",
+        background: professionalColors.accent,
+        boxShadow: `0 12px 30px ${professionalColors.accent}44`,
         transform: "translateY(-2px)",
-        boxShadow: "0 20px 40px rgba(255, 215, 0, 0.3)",
       },
-      color: "#111",
+      color: professionalColors.light,
       alignSelf: "flex-start",
       textTransform: "none",
     }}
@@ -309,40 +160,28 @@ const ActionButton = ({ children, ...props }) => (
 
 const FullScreenHeroSection = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const prefersReducedMotion = useReducedMotion();
 
   const [activeTab, setActiveTab] = useState(0);
-  const [isServicesExpanded, setIsServicesExpanded] = useState(!isMobile);
-
-  // Carousel state (autoplay only)
   const [slideIndex, setSlideIndex] = useState(0);
   const autoSlideMs = 8000;
 
-  // Progress bar
   const [progress, setProgress] = useState(0);
   const progressRef = useRef(0);
   const rafRef = useRef(null);
   const lastTsRef = useRef(null);
-
-  // Parallax background (on device tilt / mouse move)
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
-  const parallaxTarget = useRef({ x: 0, y: 0 });
   const containerRef = useRef(null);
+  
+  // New state to manage card visibility on mobile
+  const [isCardVisible, setIsCardVisible] = useState(false);
 
-  // Update the useEffect to include slideIndex
+  // Sync tab and slide state
   useEffect(() => {
-    if (activeTab !== slideIndex) {
-      setSlideIndex(activeTab);
-      progressRef.current = 0;
-      setProgress(0);
-    }
-  }, [activeTab, slideIndex]); // Add slideIndex to dependencies
-
-  // Sync tab changes with slide changes
-  useEffect(() => {
-    setActiveTab(slideIndex);
-  }, [slideIndex]);
+    setSlideIndex(activeTab);
+    progressRef.current = 0;
+    setProgress(0);
+  }, [activeTab]);
 
   // Autoplay and progress
   useEffect(() => {
@@ -358,7 +197,7 @@ const FullScreenHeroSection = () => {
       if (progressRef.current >= autoSlideMs) {
         const nextIndex = (slideIndex + 1) % heroSlides.length;
         setSlideIndex(nextIndex);
-        setActiveTab(nextIndex); // Update both states together
+        setActiveTab(nextIndex);
         progressRef.current = 0;
       }
       rafRef.current = requestAnimationFrame(step);
@@ -373,218 +212,145 @@ const FullScreenHeroSection = () => {
       progressRef.current = 0;
       setProgress(0);
     };
-  }, [slideIndex]); // Only depend on slideIndex
+  }, [slideIndex]);
 
-  // Parallax handlers (mouse + device orientation)
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+  // Touch / swipe handlers for mobile slide control
+  const touchStartX = useRef(null);
+  const touchCurrentX = useRef(null);
+  const SWIPE_THRESHOLD = 50; // px
 
-    const onMove = (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1..1
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-      parallaxTarget.current = { x, y };
-    };
+  const onTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchCurrentX.current = touchStartX.current;
+  };
+  const onTouchMove = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchCurrentX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = () => {
+    if (touchStartX.current == null || touchCurrentX.current == null) return;
+    const delta = touchCurrentX.current - touchStartX.current;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      if (delta < 0) {
+        // swipe left -> next
+        setSlideIndex((s) => (s + 1) % heroSlides.length);
+      } else {
+        // swipe right -> prev
+        setSlideIndex((s) => (s - 1 + heroSlides.length) % heroSlides.length);
+      }
+    }
+    touchStartX.current = null;
+    touchCurrentX.current = null;
+  };
 
-    const onLeave = () => {
-      parallaxTarget.current = { x: 0, y: 0 };
-    };
-
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-
-    let raf;
-    const animate = () => {
-      setParallax((p) => {
-        const nx = lerp(p.x, parallaxTarget.current.x, 0.06);
-        const ny = lerp(p.y, parallaxTarget.current.y, 0.06);
-        return Math.abs(nx - p.x) < 0.001 && Math.abs(ny - p.y) < 0.001
-          ? p
-          : { x: nx, y: ny };
-      });
-      raf = requestAnimationFrame(animate);
-    };
-    raf = requestAnimationFrame(animate);
-
-    return () => {
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  // Device tilt parallax (mobile)
-  useEffect(() => {
-    const onTilt = (e) => {
-      const gamma = clamp(e.gamma || 0, -30, 30) / 30; // left-right
-      const beta = clamp(e.beta || 0, -30, 30) / 30; // front-back
-      parallaxTarget.current = { x: gamma, y: beta };
-    };
-    window.addEventListener("deviceorientation", onTilt, true);
-    return () => window.removeEventListener("deviceorientation", onTilt, true);
-  }, []);
-
-  // Active slide
   const currentSlide = heroSlides[slideIndex];
-
-  // Safe variant pick
-  const selectedVariant =
-    dynamicTextVariants[currentSlide.variant] || dynamicTextVariants.slideUp;
-
-  // Smaller heading on very small phones
-  const headingVariant = isMobile ? "h4" : "h1";
-
-  // New: Headline words split and prepared for animation
-  const headlineWords = useMemo(
-    () => currentSlide.headlineWords.split(" "),
-    [currentSlide.headlineWords]
-  );
 
   return (
     <Box
       ref={containerRef}
       component={motion.div}
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
       sx={{
         position: "relative",
         minHeight: "100vh",
-        width: "100vw",
-        color: "#fff",
+        width: "100%",
+        color: professionalColors.text,
         overflow: "hidden",
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        backgroundImage: `${currentSlide.gradientOverlay}, ${currentSlide.bgImage}`,
+        flexDirection: "column",
+        // Simple, professional background
+        backgroundImage: `linear-gradient(120deg, ${professionalColors.primary}CC, ${professionalColors.secondary}DD), ${currentSlide.bgImage}`,
         backgroundSize: "cover, cover",
         backgroundPosition: "center, center",
-        transform: `translate3d(${parallax.x * 8}px, ${parallax.y * 6}px, 0)`,
-        transition: "all 1.8s cubic-bezier(0.22, 1, 0.36, 1)", // Smoother transition
+        // Simple overlay
         "&::before": {
           content: '""',
           position: "absolute",
           inset: 0,
           background: "rgba(0,0,0,0.2)",
           opacity: 0.4,
-          transition: "opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1)",
-        },
-        "&:hover::before": {
-          opacity: 0.3,
-        },
-        // Respect prefers-reduced-motion for accessibility
-        "@media (prefers-reduced-motion: reduce)": {
-          transition: "none",
-          animation: "none",
+          transition: "opacity 1.8s ease",
         },
       }}
     >
-      {/* Soft lighting and vignette */}
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(1200px 600px at 85% -20%, rgba(255,255,255,0.06), transparent 60%), radial-gradient(800px 460px at 10% 110%, rgba(255,255,255,0.06), transparent 60%)",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      />
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35))",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      />
-
       {/* Content */}
       <Box
         sx={{
           position: "relative",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "stretch",
           p: { xs: 3, sm: 4, md: 8, lg: 10 },
-          gap: { xs: 3, md: 6 },
+          gap: { xs: 4, md: 8 },
           minHeight: "100vh",
           zIndex: 3,
         }}
       >
         {/* Left: Headline + Dynamic Text + CTA */}
         <Box
-          component={motion.div}
-          variants={itemVariants}
           sx={{
             flex: { xs: "1 1 auto", md: 2 },
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             pr: { xs: 0, md: 4 },
-            maxWidth: { xs: "100%", md: "58vw" },
+            maxWidth: { xs: "100%", sm: "90%", md: "58vw" },
+            py: { xs: 2, sm: 3, md: 0 },
+            alignSelf: 'center',
+            textAlign: { xs: 'center', md: 'left' }
           }}
         >
-          <Typography
-            component={motion.h1}
-            variants={headlineContainerVariants}
-            initial="hidden"
-            animate="visible"
-            variant={headingVariant}
-            fontWeight={800}
-            gutterBottom
-            sx={{
-              letterSpacing: { xs: "-0.01em", md: "-0.02em" },
-              textShadow: "0 4px 30px rgba(0,0,0,0.6)",
-              fontFamily: currentSlide.headlineFont,
-              lineHeight: 1.1,
-            }}
-          >
-            {headlineWords.map((word, wordIndex) => (
-              <motion.span
-                key={wordIndex}
-                variants={wordContainerVariants}
-                style={{
-                  display: "inline-block",
-                  marginRight: "0.25em",
-                  whiteSpace: "nowrap",
+          {/* Dynamic headline + crossfade per slide */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={slideIndex + "headline"}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={prefersReducedMotion ? {} : fadeInVariant}
+            >
+              <Typography
+                component="h1"
+                variant={isMobile ? "h4" : "h1"}
+                fontWeight={800}
+                gutterBottom
+                sx={{
+                  letterSpacing: { xs: "-0.01em", md: "-0.02em" },
+                  textShadow: "0 4px 30px rgba(0,0,0,0.6)",
+                  fontFamily: 'Roboto, sans-serif',
+                  lineHeight: 1.1,
+                  color: professionalColors.light,
+                  span: {
+                    color: professionalColors.accent
+                  }
                 }}
               >
-                {word.split("").map((char, charIndex) => (
-                  <motion.span
-                    key={charIndex}
-                    variants={characterVariants}
-                    style={{
-                      display: "inline-block",
-                      color:
-                        word.toLowerCase() === "digital" ||
-                        word.toLowerCase() === "marketing!"
-                          ? currentSlide.accent
-                          : "inherit",
-                    }}
-                  >
-                    {char}
-                  </motion.span>
+                {currentSlide.headline.split(" with ").map((part, index) => (
+                  <React.Fragment key={index}>
+                    {part}
+                    {index < currentSlide.headline.split(" with ").length - 1 && (
+                      <span style={{ color: professionalColors.accent, whiteSpace: 'nowrap' }}> with </span>
+                    )}
+                  </React.Fragment>
                 ))}
-              </motion.span>
-            ))}
-          </Typography>
+              </Typography>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Dynamic subtext + crossfade per slide */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={slideIndex}
+              key={slideIndex + "text"}
               initial="initial"
               animate="animate"
               exit="exit"
-              variants={
-                prefersReducedMotion
-                  ? dynamicTextVariants.fadeIn
-                  : selectedVariant
-              }
+              variants={prefersReducedMotion ? {} : fadeInVariant}
               style={{ position: "relative", minHeight: "2rem" }}
             >
               <Typography
@@ -592,12 +358,11 @@ const FullScreenHeroSection = () => {
                 variant={isMobile ? "body1" : "h5"}
                 sx={{
                   maxWidth: 680,
-                  background: currentSlide.textGradient,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  color: professionalColors.muted,
+                  fontFamily: 'Roboto, sans-serif',
+                  fontWeight: 400,
                   textShadow: "0 2px 10px rgba(0,0,0,0.2)",
-                  fontFamily: currentSlide.bodyFont,
-                  fontWeight: 600,
+                  mt: 2
                 }}
               >
                 {currentSlide.text}
@@ -609,11 +374,13 @@ const FullScreenHeroSection = () => {
           <Stack
             direction="row"
             spacing={1.5}
-            sx={{ mt: { xs: 2.5, md: 3.5 }, alignItems: "center" }}
+            sx={{
+              mt: { xs: 2.5, md: 3.5 },
+              alignItems: "center",
+              justifyContent: { xs: 'center', md: 'flex-start' }
+            }}
           >
-            <ActionButton>Get Started</ActionButton>
-
-            {/* Slim progress bar */}
+            <ActionButton sx={{ px: { xs: 2.5, sm: 3.5 }}}>Get Started</ActionButton>
             <Box
               sx={{
                 position: "relative",
@@ -632,7 +399,7 @@ const FullScreenHeroSection = () => {
                   top: 0,
                   bottom: 0,
                   width: `${progress}%`,
-                  bgcolor: currentSlide.accent,
+                  bgcolor: professionalColors.accent,
                   transition: "width 120ms linear",
                 }}
               />
@@ -640,303 +407,293 @@ const FullScreenHeroSection = () => {
           </Stack>
         </Box>
 
-        {/* Right: Card with Explore, Marquee, Services */}
+        {/* Right: Card with Explore, Social, Services */}
         <Box
           sx={{
             flex: 1,
-            maxWidth: { xs: "100%", md: "46%" },
-            mt: { xs: 1, md: 0 },
-            p: { xs: 2.2, sm: 2.8, md: 4 },
-            borderRadius: "22px",
-            background: currentSlide.cardBg,
-            backdropFilter: "blur(18px)",
-            border: "1px solid rgba(200,200,255,0.16)",
-            boxShadow: "0 28px 64px rgba(0,0,0,0.35)",
-            color: "#111",
+            width: { xs: "100%", md: "46%" },
+            mt: { xs: 4, md: 0 },
+            position: { xs: "relative", md: "sticky" },
+            top: { md: 96 },
+            p: { xs: 2, sm: 3, md: 4 },
+            borderRadius: { xs: "12px", md: "22px" },
+            background: professionalColors.secondary,
+            border: `1px solid ${professionalColors.subtleAccent}`,
+            boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+            color: professionalColors.text,
             display: "flex",
             flexDirection: "column",
-            alignSelf: "center",
-            transition: "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+            alignSelf: { xs: 'stretch', md: 'center' },
+            transition: "all 0.45s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
           component={motion.div}
-          variants={containerVariants}
+          initial="initial"
+          animate="animate"
+          variants={prefersReducedMotion ? {} : fadeInVariant}
         >
-          {isMobile && (
-            <Button
-              onClick={() => setIsServicesExpanded(!isServicesExpanded)}
+          {/* Featured badge */}
+          <Box sx={{
+            position: 'absolute',
+            right: 14,
+            top: 14,
+            zIndex: 11,
+            px: 1.25,
+            py: 0.5,
+            borderRadius: 99,
+            fontWeight: 800,
+            fontSize: '0.75rem',
+            background: professionalColors.accent,
+            color: professionalColors.light,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+            boxShadow: `0 8px 24px ${professionalColors.accent}1A`
+          }}>
+            <Star sx={{ fontSize: '0.8rem' }}/> Featured
+          </Box>
+
+          <Button
+              onClick={() => setIsCardVisible(!isCardVisible)}
               sx={{
                 width: "100%",
                 justifyContent: "space-between",
-                color: "#111",
+                color: professionalColors.muted,
                 textTransform: "none",
                 fontWeight: "bold",
                 mb: 2,
+                display: { xs: 'flex', md: 'none' }
               }}
-              endIcon={isServicesExpanded ? <ExpandMore /> : <ChevronRight />}
+              endIcon={isCardVisible ? <ExpandMore /> : <ChevronRight />}
             >
-              Explore Platforms
-            </Button>
-          )}
-
-          {/* Right box content with improved transitions */}
-          {(!isMobile || isServicesExpanded) && (
+              Explore Our Expertise
+          </Button>
+          
+          <Box sx={{
+            display: { xs: isCardVisible ? 'block' : 'none', md: 'block' }
+          }}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={slideIndex}
-                variants={{
-                  initial: { 
-                    opacity: 0,
-                    y: 20,
-                    transition: { duration: 0.3 }
-                  },
-                  animate: { 
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-                  },
-                  exit: { 
-                    opacity: 0,
-                    y: -20,
-                    transition: { duration: 0.3 }
-                  }
-                }}
                 initial="initial"
                 animate="animate"
                 exit="exit"
+                variants={prefersReducedMotion ? {} : fadeInVariant}
                 style={{ width: '100%' }}
               >
-                {!isMobile && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                  >
-                    <Typography
-                      variant="h5"
-                      fontWeight="bold"
-                      mb={3}
-                      sx={{ 
-                        fontFamily: "'Poppins', sans-serif",
-                        color: "rgba(0,0,0,0.87)" 
-                      }}
-                    >
-                      {currentSlide.cardTitle}
-                    </Typography>
-                  </motion.div>
-                )}
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.4 }}
-                >
-                  <Typography
-                    variant="body2"
-                    fontWeight="bold"
-                    sx={{ mb: 2, color: "rgba(0,0,0,0.6)" }}
-                  >
-                    {currentSlide.cardDescription}
-                  </Typography>
-
-                  {/* Segmented control with improved transitions */}
-                  <Stack
-                    direction="row"
-                    spacing={0.8}
-                    sx={{
-                      p: 0.5,
-                      bgcolor: "rgba(0,0,0,0.06)",
-                      borderRadius: "999px",
-                      mb: 3.5,
-                      transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)"
-                    }}
-                  >
-                    {explorePlatforms.map((platform, index) => (
-                      <Button
-                        key={index}
-                        onClick={() => setActiveTab(index)}
-                        sx={{
-                          flex: 1,
-                          borderRadius: "999px",
-                          textTransform: "none",
-                          color: activeTab === index ? platform.colors.activeText : "#111",
-                          background: activeTab === index ? platform.colors.activeBg : "transparent",
-                          transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                          fontWeight: 700,
-                          fontSize: { xs: "0.85rem", sm: "0.9rem" },
-                          "&:hover": {
-                            background: activeTab === index 
-                              ? platform.colors.activeBg 
-                              : "rgba(0,0,0,0.08)",
-                          },
-                        }}
-                      >
-                        {platform.name}
-                      </Button>
-                    ))}
-                  </Stack>
-                </motion.div>
-
-                {/* Marquee */}
-                <Box
-                  sx={{
-                    mb: 3.5,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: 2,
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  mb={1}
+                  sx={{ 
+                    fontFamily: 'Roboto, sans-serif',
+                    color: professionalColors.light,
+                    mt: { xs: 1, md: 0 }
                   }}
                 >
-                  {socialPlatforms.map((platform, i) => (
-                    <Card
-                      key={`${platform.title}-${i}`}
-                      component={motion.div}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ 
-                        opacity: 1, 
-                        scale: 1,
-                        transition: {
-                          type: "spring",
-                          delay: i * 0.1,
-                          duration: 0.5,
-                          damping: 12,
-                          stiffness: 200,
-                        },
-                      }}
-                      whileHover={{
-                        scale: 1.05,
-                        rotateY: 12,
-                        transition: {
-                          duration: 0.4,
-                          ease: [0.22, 1, 0.36, 1],
-                        },
-                      }}
-                      sx={{
-                        width: { xs: '90px', sm: '120px' },
-                        borderRadius: 4,
-                        bgcolor: "rgba(0,0,0,0.04)",
-                        cursor: "pointer",
-                        border: "1.3px solid rgba(0,0,0,0.18)",
-                        boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
-                        transition: "transform 0.3s ease, border-color 0.3s ease",
-                        "&:hover": {
-                          borderColor: currentSlide.cardAccent,
-                          boxShadow: `0 16px 32px rgba(0,0,0,0.2), 0 0 0 2px ${currentSlide.cardAccent}40`,
-                        },
-                      }}
-                    >
-                      <CardContent sx={{ p: 1.5, textAlign: "center" }}>
-                        <Box
-                          sx={{
-                            width: "100%",
-                            height: { xs: 80, sm: 100 },
-                            borderRadius: 3,
-                            mb: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            background: platform.gradient,
-                          }}
-                        >
-                          {platform.icon}
-                        </Box>
-                        <Typography
-                          variant="body2"
-                          fontWeight="bold"
-                          sx={{
-                            mt: 1,
-                            color: "#111",
-                            fontFamily: "'Poppins', sans-serif",
-                            fontSize: { xs: '0.8rem', sm: '0.875rem' }
-                          }}
-                        >
-                          {platform.title}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </Box>
+                  {currentSlide.cardTitle}
+                </Typography>
 
                 <Typography
-                  variant="subtitle1"
+                  variant="body2"
                   fontWeight="bold"
-                  mb={1.5}
-                  sx={{ fontFamily: "'Poppins', sans-serif" }}
+                  sx={{ mb: 2, color: professionalColors.muted }}
                 >
-                  Need a Quick Boost?
+                  {currentSlide.cardDescription}
                 </Typography>
+
+                {/* Segmented control with improved transitions */}
                 <Stack
                   direction="row"
-                  spacing={1}
-                  sx={{ flexWrap: "wrap", gap: 1 }}
+                  spacing={0.8}
+                  sx={{
+                    p: 0.5,
+                    bgcolor: professionalColors.subtleAccent,
+                    borderRadius: "999px",
+                    mb: 3,
+                    transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)"
+                  }}
                 >
-                  <AnimatePresence mode="wait">
-                    <Stack
-                      key={slideIndex} // Animate the whole stack on slide change
-                      direction="row"
-                      spacing={1}
-                      sx={{ flexWrap: "wrap", gap: 1 }}
-                      component={motion.div}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
+                  {explorePlatforms.map((platform, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => setActiveTab(index)}
+                      sx={{
+                        flex: 1,
+                        borderRadius: "999px",
+                        textTransform: "none",
+                        color: activeTab === index ? professionalColors.light : professionalColors.muted,
+                        background: activeTab === index ? professionalColors.accent : "transparent",
+                        transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                        fontWeight: 700,
+                        fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                        "&:hover": {
+                          background: activeTab === index ? professionalColors.accent : professionalColors.subtleAccent,
+                          color: professionalColors.light
+                        },
+                      }}
                     >
-                      {currentSlide.cardServices.map((service, i) => (
-                        <Button
-                          key={i}
-                          component={motion.button}
-                          whileHover={{
-                            y: -3,
-                            boxShadow: "0 10px 22px rgba(0, 0, 0, 0.18)",
-                          }}
-                          whileTap={{ scale: 0.98 }}
-                          startIcon={service.icon}
-                          sx={{
-                            p: "8px 14px",
-                            borderRadius: 3,
-                            bgcolor: "rgba(0,0,0,0.06)",
-                            border: "1px solid rgba(0,0,0,0.18)",
-                            color: "rgba(0,0,0,0.9)",
-                            textTransform: "none",
-                            fontWeight: 700,
-                            transition: "all 0.22s",
-                            fontFamily: "'Poppins', sans-serif",
-                            "&:hover": {
-                              backgroundColor: currentSlide.cardAccent,
-                              color: "#111",
-                            },
-                            fontSize: { xs: "0.85rem", sm: "0.9rem" },
-                          }}
-                        >
-                          {service.name}
-                        </Button>
-                      ))}
-                    </Stack>
-                  </AnimatePresence>
+                      {platform.name}
+                    </Button>
+                  ))}
                 </Stack>
               </motion.div>
             </AnimatePresence>
-          )}
-
-          {/* Mobile quick toggle */}
-          {isMobile && !isServicesExpanded && (
-            <Box sx={{ position: "fixed", bottom: 16, right: 16, zIndex: 99 }}>
-              <IconButton
-                onClick={() => setIsServicesExpanded(true)}
-                sx={{
-                  width: "56px",
-                  height: "56px",
-                  background: "linear-gradient(45deg, #FFD700, #DAA520)",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-                  "&:hover": {
-                    background: "linear-gradient(45deg, #DAA520, #FFD700)",
+          </Box>
+          
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+            mb={1.5}
+            sx={{ fontFamily: 'Roboto, sans-serif', mt: { xs: 0, md: 2 } }}
+          >
+            Connect with us:
+          </Typography>
+          
+          <Box
+            sx={{
+              mb: 3.5,
+              display: 'flex',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              gap: 2,
+              overflowX: 'auto',
+              px: { xs: 0.5, md: 0 },
+              '-webkit-overflow-scrolling': 'touch',
+              scrollbarWidth: 'none', // For Firefox
+              '::-webkit-scrollbar': {
+                display: 'none', // For Chrome, Safari, etc.
+              },
+            }}
+          >
+            {socialPlatforms.map((platform, i) => (
+              <Card
+                key={`${platform.title}-${i}`}
+                component={motion.div}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  transition: {
+                    type: "spring",
+                    delay: i * 0.1,
+                    duration: 0.5,
+                    damping: 12,
+                    stiffness: 200,
                   },
                 }}
+                whileHover={{
+                  scale: 1.06,
+                  transition: {
+                    duration: 0.28,
+                  },
+                }}
+                sx={{
+                  minWidth: { xs: '110px', sm: '130px' },
+                  width: { xs: '110px', sm: '130px' },
+                  position: 'relative',
+                  overflow: 'hidden',
+                  borderRadius: 4,
+                  bgcolor: professionalColors.subtleAccent,
+                  cursor: "pointer",
+                  border: `1.3px solid ${professionalColors.subtleAccent}`,
+                  boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
+                  transition: "transform 0.25s ease, border-color 0.2s ease",
+                  '&:focus, &:hover': { borderColor: professionalColors.accent },
+                  
+                }}
               >
-                <Search sx={{ color: "#111" }} />
-              </IconButton>
-            </Box>
-          )}
+                <CardContent sx={{ p: 1.5, textAlign: "center", position: 'relative', zIndex: 3 }}>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: { xs: 68, sm: 80 },
+                      borderRadius: 3,
+                      mb: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: platform.gradient,
+                      boxShadow: "inset 0 0 10px rgba(0,0,0,0.2)"
+                    }}
+                  >
+                    {platform.icon}
+                  </Box>
+                  <Typography
+                    variant="body2"
+                    fontWeight="bold"
+                    sx={{
+                      mt: 1,
+                      color: professionalColors.text,
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                    }}
+                  >
+                    {platform.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
+
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+            mb={1.5}
+            sx={{ fontFamily: 'Roboto, sans-serif' }}
+          >
+            Need a Quick Boost?
+          </Typography>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ flexWrap: "wrap", gap: 1 }}
+          >
+            <AnimatePresence mode="wait">
+              <Stack
+                key={slideIndex}
+                direction="row"
+                spacing={1}
+                sx={{ flexWrap: "wrap", gap: 1 }}
+                component={motion.div}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                {currentSlide.cardServices.map((service, i) => (
+                  <Button
+                    key={i}
+                    component={motion.button}
+                    whileHover={{
+                      y: -3,
+                      boxShadow: "0 10px 22px rgba(0, 0, 0, 0.18)",
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    startIcon={service.icon}
+                    sx={{
+                      p: "8px 14px",
+                      borderRadius: 3,
+                      bgcolor: professionalColors.subtleAccent,
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      color: professionalColors.light,
+                      textTransform: "none",
+                      fontWeight: 700,
+                      transition: "all 0.22s",
+                      fontFamily: 'Roboto, sans-serif',
+                      "&:hover": {
+                        backgroundColor: professionalColors.accent,
+                        color: professionalColors.light,
+                      },
+                      fontSize: { xs: "0.85rem", sm: "0.9rem" },
+                    }}
+                  >
+                    {service.name}
+                  </Button>
+                ))}
+              </Stack>
+            </AnimatePresence>
+          </Stack>
         </Box>
       </Box>
     </Box>

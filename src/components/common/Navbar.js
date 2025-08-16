@@ -25,7 +25,8 @@ const navLinks = [
 
 const Navbar = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    // use 'sm' as mobile threshold for tighter mobile UX parity with hero
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
@@ -51,9 +52,10 @@ const Navbar = () => {
                 position="fixed" 
                 elevation={scrolled ? 24 : 0}
                 sx={{
+                    zIndex: 1400,
                     background: scrolled 
-                        ? 'rgba(10, 10, 10, 0.85)'
-                        : 'rgba(10, 10, 10, 0.45)',
+                        ? 'rgba(8, 8, 8, 0.92)'
+                        : 'rgba(8, 8, 8, 0.62)',
                     backdropFilter: 'blur(10px)',
                     borderBottom: '1px solid',
                     borderColor: scrolled 
@@ -137,6 +139,7 @@ const Navbar = () => {
                                     borderRadius: '999px',
                                     background: 'linear-gradient(45deg, #D4AF37, #FFD700)',
                                     fontWeight: 600,
+                                    position: 'relative',
                                     '&:hover': {
                                         background: 'linear-gradient(45deg, #FFD700, #D4AF37)',
                                         transform: 'translateY(-1px)',
@@ -144,7 +147,10 @@ const Navbar = () => {
                                     },
                                 }}
                             >
-                                Book Consultation
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <span>Book Consultation</span>
+                                    <Box className="pill-new" component="span" sx={{ ml: 0.5, display: { xs: 'none', sm: 'inline-flex' }}}>NEW</Box>
+                                </Box>
                             </Button>
                         </Box>
                     )}
