@@ -12,11 +12,6 @@ import {
     useTheme
 } from '@mui/material';
 import { 
-    Facebook, 
-    Instagram, 
-    LinkedIn, 
-    Twitter, 
-    YouTube,
     Email,
     Phone,
     LocationOn,
@@ -57,39 +52,6 @@ const Footer = () => {
             { name: 'GDPR Compliance', path: '/gdpr' }
         ]
     };
-
-    const socialLinks = [
-        { 
-            icon: <Facebook />, 
-            url: 'https://facebook.com/charanx', 
-            color: '#4267B2',
-            name: 'Facebook' 
-        },
-        { 
-            icon: <Instagram />, 
-            url: 'https://instagram.com/charanx', 
-            color: '#E1306C',
-            name: 'Instagram' 
-        },
-        { 
-            icon: <LinkedIn />, 
-            url: 'https://linkedin.com/company/charanx', 
-            color: '#0077B5',
-            name: 'LinkedIn' 
-        },
-        { 
-            icon: <Twitter />, 
-            url: 'https://twitter.com/charanx', 
-            color: '#1DA1F2',
-            name: 'Twitter' 
-        },
-        { 
-            icon: <YouTube />, 
-            url: 'https://youtube.com/charanx', 
-            color: '#FF0000',
-            name: 'YouTube' 
-        }
-    ];
 
     const contactInfo = [
         { icon: <Email />, text: 'hello@charanx.com', href: 'mailto:hello@charanx.com' },
@@ -260,39 +222,12 @@ const Footer = () => {
                                 viewport={{ once: true }}
                             >
                                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                                    Stay Connected
+                                    Get In Touch
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                                    Follow us on social media for the latest digital marketing insights, 
-                                    tips, and updates from the CharanX team.
+                                    Ready to transform your digital presence? Contact us today for a 
+                                    personalized consultation and let's discuss your growth strategy.
                                 </Typography>
-
-                                {/* Social Media Links */}
-                                <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
-                                    {socialLinks.map((social, index) => (
-                                        <IconButton
-                                            key={index}
-                                            href={social.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={`Follow us on ${social.name}`}
-                                            sx={{
-                                                bgcolor: 'rgba(2, 6, 23, 0.04)',
-                                                border: '1px solid',
-                                                borderColor: 'divider',
-                                                color: 'text.primary',
-                                                transition: 'all 0.3s ease',
-                                                '&:hover': {
-                                                    bgcolor: 'rgba(34, 197, 94, 0.1)',
-                                                    borderColor: 'primary.light',
-                                                    transform: 'translateY(-2px)'
-                                                },
-                                            }}
-                                        >
-                                            {social.icon}
-                                        </IconButton>
-                                    ))}
-                                </Stack>
 
                                 {/* Back to Top Button */}
                                 <IconButton

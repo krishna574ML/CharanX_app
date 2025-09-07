@@ -166,6 +166,7 @@ const HeroSection = () => {
           </IconButton>
         </Container>
       </Box>
+
       {/* Network Background Graphics */}
       <Box aria-hidden sx={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
         {/* Connection lines and nodes */}
@@ -194,20 +195,6 @@ const HeroSection = () => {
             <line x1="600" y1="450" x2="800" y2="380" />
             <line x1="300" y1="150" x2="400" y2="350" />
             <line x1="500" y1="250" x2="600" y2="450" />
-            
-            {/* Dynamic Social Media Connections */}
-            <line x1="800" y1="120" x2="950" y2="200" strokeDasharray="4,4" opacity="0.6">
-              <animate attributeName="stroke-dashoffset" values="0;8" dur="2s" repeatCount="indefinite" />
-            </line>
-            <line x1="950" y1="200" x2="1050" y2="350" strokeDasharray="4,4" opacity="0.6">
-              <animate attributeName="stroke-dashoffset" values="0;8" dur="2.5s" repeatCount="indefinite" />
-            </line>
-            <line x1="150" y1="300" x2="200" y2="180" strokeDasharray="3,3" opacity="0.5">
-              <animate attributeName="stroke-dashoffset" values="0;6" dur="3s" repeatCount="indefinite" />
-            </line>
-            <line x1="1100" y1="150" x2="1000" y2="450" strokeDasharray="5,5" opacity="0.5">
-              <animate attributeName="stroke-dashoffset" values="0;10" dur="2.2s" repeatCount="indefinite" />
-            </line>
           </g>
           
           {/* Network Nodes with Pulse Animation */}
@@ -240,11 +227,6 @@ const HeroSection = () => {
               <animate attributeName="r" values="12;16;12" dur="3.1s" repeatCount="indefinite" />
             </circle>
           </g>
-          
-          {/* Social Media Platform Icons - Removed scattered icons */}
-          <g fill="#22c55e" opacity="0.5">
-            {/* Keep only the network connection visual elements */}
-          </g>
         </svg>
 
 
@@ -262,26 +244,70 @@ const HeroSection = () => {
                 textAlign: { xs: 'center', lg: 'left' },
               }}
             >
+              {/* Trust Badge */}
+              <motion.div variants={staggerItem}>
+                <Chip 
+                  label="Trusted by Industry Leaders:" 
+                  sx={{
+                    bgcolor: 'rgba(255, 255, 255, 0.1)',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    mb: 3,
+                    fontSize: '0.875rem',
+                    fontWeight: 500
+                  }} 
+                />
+              </motion.div>
+
+              {/* Brand Logos */}
+              <motion.div variants={staggerItem}>
+                <Stack 
+                  direction="row" 
+                  spacing={4} 
+                  sx={{ 
+                    mb: 4, 
+                    alignItems: 'center',
+                    justifyContent: { xs: 'center', lg: 'flex-start' },
+                    flexWrap: 'wrap',
+                    gap: 2
+                  }}
+                >
+                  {['InnovateTech', 'FRESHBITES', 'GLOBALLINK', 'AURAWEAR'].map((brand) => (
+                    <Typography 
+                      key={brand}
+                      variant="body2" 
+                      sx={{ 
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        fontWeight: 600,
+                        fontSize: '0.75rem',
+                        letterSpacing: '0.5px'
+                      }}
+                    >
+                      {brand}
+                    </Typography>
+                  ))}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                      5 star rated on
+                    </Typography>
+                    <StarRate sx={{ color: '#fbbf24', fontSize: 16 }} />
+                  </Box>
+                </Stack>
+              </motion.div>
+
               {/* Main Headline */}
               <motion.div variants={staggerItem}>
                 <Typography 
                   component="h1" 
                   sx={{ 
-                    fontSize: { xs: '2.8rem', md: '4rem', lg: '4.5rem' },
+                    fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' },
                     fontWeight: 900, 
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.1,
                     mb: 3,
-                    mt: { xs: 4, lg: 0 }
                   }}
                 >
                   Ignite Your Brand.{' '}
-                  <Box component="span" sx={{ 
-                    background: 'linear-gradient(90deg, #22c55e, #86efac)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}>
+                  <Box component="span" sx={{ color: '#22c55e' }}>
                     Dominate Social.
                   </Box>
                   <br />
@@ -450,4 +476,3 @@ const HeroSection = () => {
 const BUILD_TIMESTAMP = process.env.REACT_APP_BUILD_TIMESTAMP || new Date().toISOString();
 
 export default HeroSection;
-

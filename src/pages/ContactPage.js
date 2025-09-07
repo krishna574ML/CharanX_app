@@ -17,11 +17,7 @@ import {
     Phone, 
     Email, 
     LocationOn, 
-    Send,
-    Facebook,
-    Instagram,
-    LinkedIn,
-    Twitter
+    Send
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
@@ -69,13 +65,6 @@ const ContactPage = () => {
             details: "123 Digital Ave, Suite 100",
             subtitle: "New York, NY 10001"
         }
-    ];
-
-    const socialLinks = [
-        { icon: <Facebook />, url: "https://facebook.com/charanx", color: "#4267B2" },
-        { icon: <Instagram />, url: "https://instagram.com/charanx", color: "#E1306C" },
-        { icon: <LinkedIn />, url: "https://linkedin.com/company/charanx", color: "#0077B5" },
-        { icon: <Twitter />, url: "https://twitter.com/charanx", color: "#1DA1F2" }
     ];
 
     return (
@@ -293,45 +282,6 @@ const ContactPage = () => {
                                     </Card>
                                 </motion.div>
                             ))}
-
-                            {/* Social Links */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6, delay: 0.6 }}
-                            >
-                                <Card sx={{ 
-                                    bgcolor: 'background.paper',
-                                    border: '1px solid',
-                                    borderColor: 'divider',
-                                    boxShadow: 0
-                                }}>
-                                    <CardContent sx={{ p: 3 }}>
-                                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                                            Follow Us
-                                        </Typography>
-                                        <Stack direction="row" spacing={1}>
-                                            {socialLinks.map((social, index) => (
-                                                <IconButton
-                                                    key={index}
-                                                    sx={{
-                                                        bgcolor: social.color,
-                                                        color: 'white',
-                                                        '&:hover': {
-                                                            bgcolor: social.color,
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: `0 4px 12px ${social.color}55`,
-                                                        },
-                                                    }}
-                                                    onClick={() => window.open(social.url, '_blank')}
-                                                >
-                                                    {social.icon}
-                                                </IconButton>
-                                            ))}
-                                        </Stack>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
                         </Stack>
                     </Grid>
                 </Grid>
