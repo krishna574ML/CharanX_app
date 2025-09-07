@@ -123,9 +123,18 @@ const HeroSection = () => {
           ))}
         </Stack>
       </Box>
+
+      {/* Hidden build timestamp for quick verification on the live site */}
+      <Box aria-hidden sx={{ position: 'absolute', left: -9999, width: 1, height: 1, overflow: 'hidden' }}>
+        <Typography component="span" variant="caption">{BUILD_TIMESTAMP}</Typography>
+      </Box>
     </Box>
   );
 };
+
+// Add BUILD_TIMESTAMP so the identifier is defined for ESLint/builds.
+// Use a build-time env var when provided, otherwise fall back to a runtime ISO timestamp.
+const BUILD_TIMESTAMP = process.env.REACT_APP_BUILD_TIMESTAMP || new Date().toISOString();
 
 export default HeroSection;
 
