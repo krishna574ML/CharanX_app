@@ -21,9 +21,10 @@ import {
     Paper,
     useTheme,
     useMediaQuery,
-    Fab,
     Breadcrumbs,
-    Link
+    Link,
+    Avatar,
+    Divider
 } from '@mui/material';
 import {
     Campaign,
@@ -34,8 +35,7 @@ import {
     Close,
     ArrowForward,
     Star,
-    Speed,
-    SupportAgent, // Replaced Support24 with a valid MUI icon
+    SupportAgent,
     Verified,
     WorkspacePremium,
     AutoAwesome,
@@ -43,8 +43,11 @@ import {
     ShoppingCart,
     Brush,
     Code,
-    Phone,
-    WhatsApp
+    WhatsApp,
+    Rocket,
+    Timeline,
+    DesignServices,
+    DataObject
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
@@ -52,221 +55,235 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 const ServicesPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [selectedService, setSelectedService] = useState(null);
     const [activeCategory, setActiveCategory] = useState('all');
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const serviceCategories = [
-        { id: 'all', label: 'All Services', icon: <WorkspacePremium /> },
-        { id: 'marketing', label: 'Digital Marketing', icon: <Campaign /> },
-        { id: 'development', label: 'Development', icon: <Code /> },
-        { id: 'design', label: 'Design & Creative', icon: <Brush /> },
-        { id: 'analytics', label: 'Analytics & Insights', icon: <Analytics /> }
+        { 
+            id: 'all', 
+            label: 'All Services', 
+            icon: <WorkspacePremium />,
+            color: '#6366f1'
+        },
+        { 
+            id: 'marketing', 
+            label: 'Digital Marketing', 
+            icon: <Campaign />,
+            color: '#f59e0b'
+        },
+        { 
+            id: 'development', 
+            label: 'Development', 
+            icon: <Code />,
+            color: '#10b981'
+        },
+        { 
+            id: 'design', 
+            label: 'Design & Creative', 
+            icon: <Brush />,
+            color: '#ec4899'
+        },
+        { 
+            id: 'analytics', 
+            label: 'Analytics & Growth', 
+            icon: <Analytics />,
+            color: '#8b5cf6'
+        }
     ];
 
     const services = [
         {
             id: 1,
             category: 'marketing',
-            icon: <Campaign sx={{ fontSize: 40 }} />,
+            icon: <Campaign sx={{ fontSize: 48 }} />,
             title: "Social Media Marketing",
             subtitle: "Complete Social Media Transformation",
             shortDesc: "Amplify your brand across all social platforms with engaging content and strategic campaigns that drive real results.",
-            price: "Starting at ₹15,000/month",
-            originalPrice: "₹25,000/month",
+            price: "₹15,000",
+            period: "/month",
+            originalPrice: "₹25,000",
             discount: "40% OFF",
-            rating: 4.9,
-            reviews: 127,
             gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            badge: "Most Popular",
+            badgeColor: "#f59e0b",
             features: [
-                "Content Strategy & Creation (20-30 posts/month)",
-                "Community Management & Engagement",
-                "Paid Social Advertising (Facebook, Instagram, LinkedIn)",
-                "Influencer Partnerships & Collaborations",
-                "Advanced Analytics & Monthly Reports",
-                "Brand Voice Development & Guidelines",
+                "20-30 Premium Content Posts Monthly",
+                "Advanced Community Management",
+                "Paid Social Advertising Campaigns",
+                "Influencer Partnership Program",
+                "Real-time Analytics & Reporting",
+                "Brand Voice Development",
                 "24/7 Social Media Monitoring",
-                "Crisis Management & Reputation Control"
+                "Crisis Management Support"
             ],
             platforms: ["Facebook", "Instagram", "Twitter", "LinkedIn", "TikTok", "YouTube"],
             deliverables: [
-                "20-30 professional posts per month",
-                "Daily community management (responding to comments/DMs)",
+                "Professional content calendar with 20-30 posts",
+                "Daily engagement & community management",
                 "Weekly performance analytics reports",
                 "Monthly strategy optimization sessions",
-                "Branded content templates & graphics",
-                "Competitor analysis reports"
+                "Custom branded content templates",
+                "Comprehensive competitor analysis"
             ],
             processSteps: [
-                "Brand Analysis & Competitor Research",
+                "Brand Analysis & Market Research",
                 "Content Strategy Development",
                 "Creative Content Production",
-                "Platform Optimization & Posting",
-                "Community Engagement & Management",
-                "Performance Tracking & Reporting"
+                "Platform Optimization & Scheduling",
+                "Community Engagement Management",
+                "Performance Analytics & Optimization"
             ],
-            timeline: "Results visible in 30-60 days",
-            caseStudy: {
-                client: "TechStartup Inc.",
-                results: ["340% increase in engagement", "5K to 50K followers in 6 months", "280% boost in lead generation"]
-            }
+            timeline: "Results visible within 30-60 days"
         },
         {
             id: 2,
             category: 'marketing',
-            icon: <TrendingUp sx={{ fontSize: 40 }} />,
+            icon: <TrendingUp sx={{ fontSize: 48 }} />,
             title: "Performance Marketing",
-            subtitle: "Data-Driven ROI-Focused Campaigns",
-            shortDesc: "Scientific approach to digital advertising with measurable ROI through PPC, display ads, and conversion optimization.",
-            price: "Starting at ₹15,000/month",
-            originalPrice: "₹25,000/month",
+            subtitle: "ROI-Focused Advertising Campaigns",
+            shortDesc: "Data-driven advertising with proven ROI through strategic PPC, display ads, and conversion optimization.",
+            price: "₹10,000",
+            period: "/month",
+            originalPrice: "₹30,000",
             discount: "40% OFF",
-            rating: 4.8,
-            reviews: 98,
             gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+            badge: "High ROI",
+            badgeColor: "#ef4444",
             features: [
                 "Google Ads Management & Optimization",
-                "Facebook & Instagram Ads (Meta Business)",
-                "Landing Page A/B Testing & Optimization",
-                "Advanced Conversion Rate Optimization",
-                "Real-time Analytics & Performance Tracking",
+                "Meta Ads (Facebook & Instagram)",
+                "Advanced Landing Page Optimization",
+                "Conversion Rate Optimization (CRO)",
+                "Real-time Performance Tracking",
                 "Retargeting & Remarketing Campaigns",
-                "Shopping Ads for E-commerce",
-                "Video Advertising & YouTube Ads"
+                "E-commerce Shopping Ads",
+                "YouTube & Video Advertising"
             ],
             platforms: ["Google Ads", "Facebook Ads", "LinkedIn Ads", "Microsoft Ads", "YouTube Ads"],
             deliverables: [
                 "Campaign setup & daily optimization",
                 "Weekly performance reports with insights",
-                "Monthly strategy reviews & recommendations",
-                "ROI tracking & ROAS analysis",
+                "Monthly ROI analysis & recommendations",
+                "A/B testing for ad creatives",
                 "Custom landing pages for campaigns",
-                "Competitor ad analysis"
+                "Competitor advertising analysis"
             ],
             processSteps: [
                 "Market Research & Competitor Analysis",
-                "Campaign Strategy & Setup",
-                "Creative Development & Testing",
-                "Launch & Real-time Optimization",
+                "Campaign Strategy Development",
+                "Creative Assets Development",
+                "Campaign Launch & Optimization",
                 "Performance Monitoring & Scaling",
                 "ROI Analysis & Strategic Refinement"
             ],
-            timeline: "ROI improvements within 2-4 weeks",
-            caseStudy: {
-                client: "E-commerce Fashion Brand",
-                results: ["5.2x ROAS achieved", "450% sales increase", "60% reduction in CAC"]
-            }
+            timeline: "ROI improvements within 2-4 weeks"
         },
         {
             id: 3,
             category: 'development',
-            icon: <Web sx={{ fontSize: 40 }} />,
+            icon: <Web sx={{ fontSize: 48 }} />,
             title: "Web Design & Development",
             subtitle: "Premium Websites That Convert",
-            shortDesc: "Create stunning, mobile-responsive websites that not only look amazing but convert visitors into loyal customers.",
-            price: "Starting at ₹25,000",
-            originalPrice: "₹45,000",
-            discount: "44% OFF",
-            rating: 4.9,
-            reviews: 156,
+            shortDesc: "Create stunning, high-performance websites that not only look amazing but convert visitors into loyal customers.",
+            price: "Starting from ₹6,000",
+            period: "/project",
+            originalPrice: "₹60,000",
+            discount: "42% OFF",
             gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+            badge: "Best Value",
+            badgeColor: "#10b981",
             features: [
                 "Custom Responsive Website Design",
-                "Mobile-First Development Approach",
-                "E-commerce Solutions (Shopify, WooCommerce)",
+                "Mobile-First Development",
+                "E-commerce Solutions Integration",
                 "Advanced SEO Optimization",
                 "Page Speed Optimization (90+ scores)",
-                "CMS Integration (WordPress, Webflow)",
+                "CMS Integration & Training",
                 "SSL Certificate & Security Setup",
-                "Google Analytics & Search Console Setup"
+                "Analytics & Tracking Setup"
             ],
             platforms: ["React", "Next.js", "WordPress", "Shopify", "Webflow", "Node.js"],
             deliverables: [
-                "Fully responsive website (desktop, tablet, mobile)",
-                "Admin dashboard for content management",
-                "SEO-optimized pages with meta tags",
-                "Contact forms with email integration",
-                "Google Analytics setup & training",
-                "3 months free maintenance & support"
+                "Fully responsive website (all devices)",
+                "Content management system access",
+                "SEO-optimized pages & structure",
+                "Contact forms & lead capture",
+                "Google Analytics integration",
+                "6 months free maintenance"
             ],
             processSteps: [
-                "Requirements Analysis & Planning",
+                "Requirements Gathering & Planning",
                 "UI/UX Design & Prototyping",
-                "Development & Coding",
+                "Development & Implementation",
                 "Testing & Quality Assurance",
                 "Launch & Deployment",
                 "Training & Ongoing Support"
             ],
-            timeline: "2-6 weeks depending on complexity",
-            caseStudy: {
-                client: "Restaurant Chain",
-                results: ["300% increase in online orders", "75% faster loading speed", "200% mobile traffic boost"]
-            }
+            timeline: "2-8 weeks based on complexity"
         },
         {
             id: 4,
             category: 'design',
-            icon: <Brush sx={{ fontSize: 40 }} />,
+            icon: <Brush sx={{ fontSize: 48 }} />,
             title: "Brand Identity & Design",
             subtitle: "Complete Visual Brand Transformation",
-            shortDesc: "Comprehensive branding solutions including logo design, brand guidelines, and marketing materials that make you stand out.",
-            price: "Starting at ₹12,000",
-            originalPrice: "₹20,000",
-            discount: "40% OFF",
-            rating: 4.8,
-            reviews: 89,
+            shortDesc: "Comprehensive branding solutions that make your business stand out with professional identity and marketing materials.",
+            price: "Starting from ₹6,000",
+            period: "/project",
+            originalPrice: "₹35,000",
+            discount: "43% OFF",
             gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+            badge: "Creative",
+            badgeColor: "#ec4899",
             features: [
                 "Logo Design & Brand Mark Creation",
-                "Complete Brand Guidelines Development",
-                "Business Card & Stationery Design",
-                "Social Media Templates & Graphics",
+                "Complete Brand Guidelines",
+                "Business Stationery Design",
+                "Social Media Visual Templates",
                 "Website UI/UX Design",
                 "Marketing Collateral Design",
-                "Packaging Design (if applicable)",
+                "Packaging Design Solutions",
                 "Brand Style Guide Documentation"
             ],
             platforms: ["Adobe Creative Suite", "Figma", "Sketch", "Canva Pro"],
             deliverables: [
-                "3-5 logo concepts with revisions",
-                "Brand guidelines document (colors, fonts, usage)",
-                "Business card & letterhead designs",
-                "Social media template pack (10+ designs)",
-                "Email signature template",
-                "Brand asset library with source files"
+                "3-5 unique logo concepts with revisions",
+                "Comprehensive brand guidelines",
+                "Business card & stationery designs",
+                "Social media template collection",
+                "Email signature templates",
+                "Complete brand asset library"
             ],
             processSteps: [
                 "Brand Discovery & Research",
                 "Concept Development & Sketching",
                 "Design Creation & Refinement",
-                "Brand Guidelines Documentation",
+                "Brand Guidelines Development",
                 "Asset Creation & Delivery",
-                "Implementation Support"
+                "Implementation Support & Training"
             ],
-            timeline: "2-4 weeks for complete brand package",
-            caseStudy: {
-                client: "Healthcare Startup",
-                results: ["200% brand recognition increase", "Professional market positioning", "Cohesive brand experience"]
-            }
+            timeline: "3-5 weeks for complete brand package"
         },
         {
             id: 5,
             category: 'analytics',
-            icon: <Analytics sx={{ fontSize: 40 }} />,
+            icon: <Analytics sx={{ fontSize: 48 }} />,
             title: "Analytics & Business Intelligence",
             subtitle: "Data-Driven Decision Making",
-            shortDesc: "Advanced analytics setup and reporting to track your business performance and make informed strategic decisions.",
-            price: "Starting at ₹10,000/month",
-            originalPrice: "₹18,000/month",
-            discount: "44% OFF",
-            rating: 4.7,
-            reviews: 67,
+            shortDesc: "Advanced analytics setup and comprehensive reporting to track performance and make informed strategic decisions.",
+            price: "Starting from ₹6,000",
+            period: "/project",
+            originalPrice: "₹20,000",
+            discount: "40% OFF",
             gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            badge: "Growth",
+            badgeColor: "#8b5cf6",
             features: [
-                "Google Analytics 4 Setup & Configuration",
-                "Custom Dashboard Creation",
+                "Google Analytics 4 Setup & Config",
+                "Custom Dashboard Development",
                 "E-commerce Tracking Implementation",
-                "Goal & Conversion Tracking Setup",
+                "Goal & Conversion Optimization",
                 "Monthly Performance Reports",
                 "Competitor Analysis & Insights",
                 "ROI & ROAS Tracking",
@@ -274,95 +291,88 @@ const ServicesPage = () => {
             ],
             platforms: ["Google Analytics", "Google Data Studio", "Google Tag Manager", "Facebook Analytics"],
             deliverables: [
-                "Complete analytics setup across all platforms",
-                "Custom dashboards for key metrics",
+                "Complete analytics setup across platforms",
+                "Custom performance dashboards",
                 "Monthly detailed performance reports",
-                "Actionable insights and recommendations",
-                "Training sessions for your team",
-                "Ongoing optimization recommendations"
+                "Actionable insights & recommendations",
+                "Team training sessions",
+                "Ongoing optimization guidance"
             ],
             processSteps: [
                 "Current Analytics Audit",
                 "Tracking Strategy Development",
                 "Implementation & Configuration",
-                "Testing & Validation",
-                "Dashboard Creation",
-                "Training & Handover"
+                "Testing & Data Validation",
+                "Dashboard Creation & Setup",
+                "Training & Knowledge Transfer"
             ],
-            timeline: "1-2 weeks for complete setup",
-            caseStudy: {
-                client: "SaaS Platform",
-                results: ["Complete visibility into user journey", "30% improvement in conversion rates", "Data-driven growth strategy"]
-            }
+            timeline: "1-3 weeks for complete setup"
         },
         {
             id: 6,
             category: 'development',
-            icon: <ShoppingCart sx={{ fontSize: 40 }} />,
+            icon: <ShoppingCart sx={{ fontSize: 48 }} />,
             title: "E-commerce Solutions",
             subtitle: "Complete Online Store Development",
-            shortDesc: "Full-featured e-commerce platforms that drive sales with seamless user experience and powerful backend management.",
-            price: "Starting at ₹35,000",
-            originalPrice: "₹60,000",
-            discount: "42% OFF",
-            rating: 4.9,
-            reviews: 124,
+            shortDesc: "Full-featured e-commerce platforms with seamless user experience and powerful backend management systems.",
+            price: "Starting from ₹6,000",
+            period: "/project",
+            originalPrice: "₹80,000",
+            discount: "44% OFF",
             gradient: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+            badge: "Enterprise",
+            badgeColor: "#059669",
             features: [
-                "Custom E-commerce Website Development",
-                "Payment Gateway Integration (Razorpay, PayPal)",
-                "Inventory Management System",
-                "Order Management & Tracking",
-                "Customer Account Management",
-                "Mobile App Development (Optional)",
-                "Multi-vendor Marketplace Setup",
+                "Custom E-commerce Development",
+                "Payment Gateway Integration",
+                "Advanced Inventory Management",
+                "Order Tracking & Management",
+                "Customer Account Portal",
+                "Mobile App Development",
+                "Multi-vendor Marketplace",
                 "SEO & Performance Optimization"
             ],
             platforms: ["Shopify", "WooCommerce", "Magento", "Custom React/Node.js"],
             deliverables: [
-                "Fully functional e-commerce website",
-                "Admin panel for order & inventory management",
+                "Fully functional e-commerce platform",
+                "Admin panel for complete management",
                 "Mobile-responsive design",
-                "Payment gateway integration",
-                "Email automation setup",
-                "6 months free support & maintenance"
+                "Secure payment processing",
+                "Email automation systems",
+                "12 months support & maintenance"
             ],
             processSteps: [
                 "Business Requirements Analysis",
-                "Platform Selection & Setup",
-                "Custom Design & Development",
-                "Payment & Shipping Integration",
+                "Platform Selection & Architecture",
+                "Custom Development & Integration",
+                "Payment & Shipping Setup",
                 "Testing & Quality Assurance",
                 "Launch & Ongoing Support"
             ],
-            timeline: "4-8 weeks depending on features",
-            caseStudy: {
-                client: "Fashion Retailer",
-                results: ["500% online sales increase", "Automated order processing", "Mobile-first shopping experience"]
-            }
+            timeline: "6-12 weeks based on features"
         }
     ];
 
     const whyChooseUs = [
         {
-            icon: <Verified />,
-            title: "Proven Track Record",
-            description: "500+ successful projects with measurable results"
+            icon: <Rocket />,
+            title: "Proven Results",
+            description: "Track record of delivering measurable growth and ROI for businesses across industries."
         },
         {
-            icon: <Speed />,
-            title: "Fast Delivery",
-            description: "Quick turnaround without compromising quality"
+            icon: <Timeline />,
+            title: "Data-Driven Approach",
+            description: "Every strategy backed by comprehensive analytics and market research insights."
         },
         {
             icon: <SupportAgent />,
-            title: "24/7 Support",
-            description: "Round-the-clock support for all your needs"
+            title: "24/7 Expert Support",
+            description: "Dedicated account managers and round-the-clock support for all your needs."
         },
         {
             icon: <AutoAwesome />,
-            title: "Premium Quality",
-            description: "High-end solutions that exceed expectations"
+            title: "Cutting-Edge Technology",
+            description: "Latest tools and technologies to keep you ahead of the competition."
         }
     ];
 
@@ -392,10 +402,10 @@ const ServicesPage = () => {
 
     return (
         <Box sx={{
-            pt: 12,
-            pb: 8,
             minHeight: '100vh',
-            background: 'linear-gradient(180deg, rgba(22,163,74,0.02) 0%, rgba(255,255,255,1) 100%)'
+            background: 'linear-gradient(180deg, rgba(99,102,241,0.03) 0%, rgba(16,185,129,0.02) 50%, rgba(255,255,255,1) 100%)',
+            pt: { xs: 10, md: 12 },
+            pb: 8
         }}>
             <Container maxWidth="xl">
                 {/* Breadcrumbs */}
@@ -419,14 +429,15 @@ const ServicesPage = () => {
                             variant="h1"
                             component="h1"
                             sx={{
-                                fontWeight: 800,
-                                fontSize: { xs: '2.5rem', md: '4rem' },
+                                fontWeight: 900,
+                                fontSize: { xs: '2.5rem', md: '4.5rem' },
                                 mb: 3,
-                                background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%)',
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #16a34a 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
-                                textShadow: '0 4px 20px rgba(22,163,74,0.1)'
+                                textShadow: '0 4px 20px rgba(22,163,74,0.1)',
+                                letterSpacing: '-0.02em'
                             }}
                         >
                             Premium Digital Solutions
@@ -435,75 +446,40 @@ const ServicesPage = () => {
                             variant="h5"
                             color="text.secondary"
                             sx={{
-                                mb: 4,
-                                maxWidth: 800,
+                                mb: 6,
+                                maxWidth: 900,
                                 mx: 'auto',
                                 fontWeight: 400,
-                                lineHeight: 1.6
+                                lineHeight: 1.6,
+                                fontSize: { xs: '1.1rem', md: '1.3rem' }
                             }}
                         >
                             Transform your business with our comprehensive suite of digital marketing services.
-                            Designed to deliver measurable results and premium experiences.
+                            Designed to deliver measurable results and premium experiences that drive growth.
                         </Typography>
-
-                        {/* Stats Row */}
-                        <Grid container spacing={4} sx={{ mt: 4, mb: 6 }}>
-                            {[
-                                { number: '500+', label: 'Projects Completed' },
-                                { number: '98%', label: 'Client Satisfaction' },
-                                { number: '24/7', label: 'Support Available' },
-                                { number: '50+', label: 'Team Experts' }
-                            ].map((stat, index) => (
-                                <Grid item xs={6} md={3} key={index}>
-                                    <motion.div
-                                        initial={{ scale: 0.8, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    >
-                                        <Paper
-                                            elevation={0}
-                                            sx={{
-                                                p: 3,
-                                                textAlign: 'center',
-                                                background: 'rgba(255,255,255,0.8)',
-                                                backdropFilter: 'blur(10px)',
-                                                border: '1px solid rgba(22,163,74,0.1)',
-                                                borderRadius: 3
-                                            }}
-                                        >
-                                            <Typography variant="h4" fontWeight="800" color="primary.main">
-                                                {stat.number}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {stat.label}
-                                            </Typography>
-                                        </Paper>
-                                    </motion.div>
-                                </Grid>
-                            ))}
-                        </Grid>
                     </Box>
                 </motion.div>
 
-                {/* Service Categories Filter */}
+                {/* Category Filter */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    <Box sx={{ mb: 6, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ mb: 8, display: 'flex', justifyContent: 'center' }}>
                         <Paper
-                            elevation={0}
+                            elevation={8}
                             sx={{
-                                p: 1,
-                                background: 'rgba(255,255,255,0.9)',
-                                backdropFilter: 'blur(10px)',
-                                border: '1px solid rgba(22,163,74,0.1)',
-                                borderRadius: 6,
+                                p: 1.5,
+                                background: 'rgba(255,255,255,0.95)',
+                                backdropFilter: 'blur(20px)',
+                                border: '1px solid rgba(255,255,255,0.3)',
+                                borderRadius: 8,
                                 display: 'flex',
                                 flexWrap: 'wrap',
                                 gap: 1,
-                                justifyContent: 'center'
+                                justifyContent: 'center',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                             }}
                         >
                             {serviceCategories.map((category) => (
@@ -513,20 +489,22 @@ const ServicesPage = () => {
                                     onClick={() => handleCategoryChange(category.id)}
                                     startIcon={category.icon}
                                     sx={{
-                                        borderRadius: 5,
+                                        borderRadius: 6,
                                         px: 3,
                                         py: 1.5,
-                                        fontWeight: 600,
+                                        fontWeight: 700,
                                         textTransform: 'none',
+                                        fontSize: '0.95rem',
                                         color: activeCategory === category.id ? 'white' : 'text.primary',
                                         background: activeCategory === category.id
-                                            ? 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)'
+                                            ? `linear-gradient(135deg, ${category.color} 0%, ${category.color}cc 100%)`
                                             : 'transparent',
                                         '&:hover': {
                                             background: activeCategory === category.id
-                                                ? 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)'
-                                                : 'rgba(22,163,74,0.08)'
-                                        }
+                                                ? `linear-gradient(135deg, ${category.color} 0%, ${category.color}aa 100%)`
+                                                : `rgba(${category.color.slice(1).match(/.{1,2}/g).map(oct => parseInt(oct, 16)).join(',')}, 0.1)`
+                                        },
+                                        transition: 'all 0.3s ease'
                                     }}
                                 >
                                     {category.label}
@@ -552,199 +530,156 @@ const ServicesPage = () => {
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.6, delay: index * 0.1 }}
-                                        whileHover={{ y: -10 }}
+                                        whileHover={{ y: -10, scale: 1.02 }}
                                         style={{ height: '100%' }}
                                     >
                                         <Card
                                             sx={{
                                                 height: '100%',
+                                                background: 'linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
+                                                backdropFilter: 'blur(10px)',
+                                                border: '1px solid rgba(255,255,255,0.3)',
+                                                borderRadius: 4,
+                                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                                cursor: 'pointer',
                                                 position: 'relative',
                                                 overflow: 'hidden',
-                                                background: 'rgba(255,255,255,0.95)',
-                                                backdropFilter: 'blur(10px)',
-                                                border: '1px solid rgba(22,163,74,0.1)',
-                                                borderRadius: 4,
-                                                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                cursor: 'pointer',
-                                                display: 'flex',
-                                                flexDirection: 'column',
+                                                transition: 'all 0.3s ease',
                                                 '&:hover': {
-                                                    borderColor: 'primary.main',
-                                                    boxShadow: '0 20px 40px rgba(22,163,74,0.15)',
-                                                    '& .service-header': {
-                                                        background: service.gradient
-                                                    },
-                                                    '& .service-icon': {
-                                                        color: 'white',
-                                                        transform: 'scale(1.1) rotate(5deg)'
-                                                    },
-                                                    '& .service-title': {
-                                                        color: 'white'
-                                                    },
-                                                    '& .service-subtitle': {
-                                                        color: 'rgba(255,255,255,0.9)'
-                                                    }
+                                                    boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
+                                                    transform: 'translateY(-5px)'
                                                 }
                                             }}
                                             onClick={() => handleServiceClick(service)}
                                         >
-                                            {/* Discount Badge */}
+                                            {/* Badge */}
+                                            {service.badge && (
+                                                <Chip
+                                                    label={service.badge}
+                                                    size="small"
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        top: 16,
+                                                        right: 16,
+                                                        zIndex: 2,
+                                                        background: service.badgeColor,
+                                                        color: 'white',
+                                                        fontWeight: 700,
+                                                        fontSize: '0.75rem'
+                                                    }}
+                                                />
+                                            )}
+
+                                            {/* Gradient Overlay */}
                                             <Box
                                                 sx={{
                                                     position: 'absolute',
-                                                    top: 16,
-                                                    right: 16,
-                                                    zIndex: 2,
-                                                    background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-                                                    color: 'white',
-                                                    px: 2,
-                                                    py: 0.5,
-                                                    borderRadius: 2,
-                                                    fontSize: '0.75rem',
-                                                    fontWeight: 700
+                                                    top: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    height: 120,
+                                                    background: service.gradient,
+                                                    opacity: 0.8,
+                                                    zIndex: 0
                                                 }}
-                                            >
-                                                {service.discount}
-                                            </Box>
+                                            />
 
-                                            {/* Service Header */}
-                                            <Box
-                                                className="service-header"
-                                                sx={{
-                                                    p: 3,
-                                                    background: 'rgba(22,163,74,0.05)',
-                                                    transition: 'all 0.4s ease',
-                                                    position: 'relative'
-                                                }}
-                                            >
-                                                <Box className="service-icon" sx={{
-                                                    color: 'primary.main',
-                                                    mb: 2,
-                                                    transition: 'all 0.3s ease'
-                                                }}>
-                                                    {service.icon}
-                                                </Box>
-                                                <Typography
-                                                    variant="h5"
-                                                    className="service-title"
+                                            <CardContent sx={{ p: 3, position: 'relative', zIndex: 1 }}>
+                                                {/* Icon */}
+                                                <Avatar
                                                     sx={{
-                                                        fontWeight: 700,
-                                                        mb: 1,
-                                                        transition: 'all 0.3s ease'
+                                                        width: 80,
+                                                        height: 80,
+                                                        mb: 3,
+                                                        background: 'rgba(255,255,255,0.9)',
+                                                        color: '#333',
+                                                        boxShadow: '0 8px 20px rgba(0,0,0,0.1)'
                                                     }}
                                                 >
+                                                    {service.icon}
+                                                </Avatar>
+
+                                                {/* Content */}
+                                                <Typography variant="h5" fontWeight="800" sx={{ mb: 1, color: '#1a1a1a' }}>
                                                     {service.title}
                                                 </Typography>
-                                                <Typography
-                                                    variant="body2"
-                                                    className="service-subtitle"
-                                                    sx={{
-                                                        color: 'text.secondary',
-                                                        fontWeight: 500,
-                                                        transition: 'all 0.3s ease'
-                                                    }}
-                                                >
+                                                <Typography variant="subtitle1" sx={{ mb: 2, color: '#666', fontWeight: 600 }}>
                                                     {service.subtitle}
                                                 </Typography>
-                                            </Box>
-
-                                            <CardContent sx={{ p: 3, pt: 2, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                                                {/* Rating */}
-                                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                                    <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-                                                        <Star sx={{ color: '#fbbf24', fontSize: 18, mr: 0.5 }} />
-                                                        <Typography variant="body2" fontWeight="600">
-                                                            {service.rating}
-                                                        </Typography>
-                                                    </Box>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        ({service.reviews} reviews)
-                                                    </Typography>
-                                                </Box>
-
-                                                <Typography
-                                                    variant="body2"
-                                                    color="text.secondary"
-                                                    sx={{ mb: 3, lineHeight: 1.6 }}
-                                                >
+                                                <Typography variant="body2" sx={{ mb: 3, color: '#777', lineHeight: 1.6 }}>
                                                     {service.shortDesc}
                                                 </Typography>
 
-                                                {/* Key Features Preview */}
+                                                {/* Pricing */}
+                                                <Box sx={{ mb: 3 }}>
+                                                    <Stack direction="row" alignItems="baseline" spacing={1}>
+                                                        <Typography variant="h4" fontWeight="900" color="primary.main">
+                                                            {service.price}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            {service.period}
+                                                        </Typography>
+                                                    </Stack>
+                                                    <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
+                                                        <Typography
+                                                            variant="body2"
+                                                            sx={{
+                                                                textDecoration: 'line-through',
+                                                                color: 'text.disabled'
+                                                            }}
+                                                        >
+                                                            {service.originalPrice}
+                                                        </Typography>
+                                                        <Chip
+                                                            label={service.discount}
+                                                            size="small"
+                                                            color="error"
+                                                            sx={{ fontWeight: 700 }}
+                                                        />
+                                                    </Stack>
+                                                </Box>
+
+                                                {/* Features Preview */}
                                                 <Box sx={{ mb: 3 }}>
                                                     {service.features.slice(0, 3).map((feature, idx) => (
-                                                        <Box key={idx} sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                                            <CheckCircle sx={{ fontSize: 16, color: 'primary.main', mr: 1 }} />
+                                                        <Stack key={idx} direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+                                                            <CheckCircle sx={{ fontSize: 16, color: 'success.main' }} />
                                                             <Typography variant="body2" color="text.secondary">
                                                                 {feature}
                                                             </Typography>
-                                                        </Box>
+                                                        </Stack>
                                                     ))}
                                                     <Typography variant="body2" color="primary.main" fontWeight="600">
                                                         +{service.features.length - 3} more features
                                                     </Typography>
                                                 </Box>
 
-                                                {/* Pricing */}
-                                                <Box sx={{ mb: 3, mt: 'auto' }}>
-                                                    <Box sx={{ display: 'flex', alignItems: 'baseline', mb: 1 }}>
-                                                        <Typography
-                                                            variant="h6"
-                                                            color="primary.main"
-                                                            fontWeight="700"
-                                                        >
-                                                            {service.price}
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="body2"
-                                                            color="text.secondary"
-                                                            sx={{ textDecoration: 'line-through', ml: 1 }}
-                                                        >
-                                                            {service.originalPrice}
-                                                        </Typography>
-                                                    </Box>
-                                                    <Typography variant="caption" color="text.secondary">
-                                                        {service.timeline}
-                                                    </Typography>
-                                                </Box>
-
-                                                {/* Action Buttons */}
-                                                <Stack spacing={2}>
-                                                    <Button
-                                                        variant="contained"
-                                                        endIcon={<ArrowForward />}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleGetQuote(service);
-                                                        }}
-                                                        sx={{
-                                                            background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
-                                                            '&:hover': {
-                                                                background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)'
-                                                            }
-                                                        }}
-                                                    >
-                                                        Get Quote
-                                                    </Button>
-                                                    <Button
-                                                        variant="outlined"
-                                                        endIcon={<Insights />}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleServiceClick(service);
-                                                        }}
-                                                        sx={{
-                                                            borderColor: 'primary.main',
-                                                            color: 'primary.main',
-                                                            '&:hover': {
-                                                                borderColor: 'primary.dark',
-                                                                backgroundColor: 'rgba(22,163,74,0.08)'
-                                                            }
-                                                        }}
-                                                    >
-                                                        View Details
-                                                    </Button>
-                                                </Stack>
+                                                {/* CTA Button */}
+                                                <Button
+                                                    variant="contained"
+                                                    fullWidth
+                                                    size="large"
+                                                    endIcon={<ArrowForward />}
+                                                    sx={{
+                                                        background: service.gradient,
+                                                        color: 'white',
+                                                        fontWeight: 700,
+                                                        py: 1.5,
+                                                        borderRadius: 3,
+                                                        '&:hover': {
+                                                            background: service.gradient,
+                                                            transform: 'translateY(-2px)',
+                                                            boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
+                                                        },
+                                                        transition: 'all 0.3s ease'
+                                                    }}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleGetQuote(service);
+                                                    }}
+                                                >
+                                                    Get Started Now
+                                                </Button>
                                             </CardContent>
                                         </Card>
                                     </motion.div>
@@ -758,32 +693,39 @@ const ServicesPage = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
                 >
                     <Box sx={{ mb: 8 }}>
                         <Typography
                             variant="h3"
-                            align="center"
-                            fontWeight="700"
+                            fontWeight="800"
+                            textAlign="center"
                             sx={{
-                                mb: 6,
-                                background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+                                mb: 2,
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent'
                             }}
                         >
-                            Why Choose Us?
+                            Why Choose CharanX?
                         </Typography>
+                        <Typography
+                            variant="h6"
+                            color="text.secondary"
+                            textAlign="center"
+                            sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}
+                        >
+                            We combine expertise, innovation, and dedication to deliver exceptional results for your business.
+                        </Typography>
+
                         <Grid container spacing={4}>
                             {whyChooseUs.map((item, index) => (
-                                <Grid item xs={12} sm={6} md={3} key={index}>
+                                <Grid item xs={12} md={6} lg={3} key={index}>
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                                        whileHover={{ y: -5 }}
-                                        style={{ height: '100%' }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
                                     >
                                         <Paper
                                             elevation={0}
@@ -792,27 +734,31 @@ const ServicesPage = () => {
                                                 textAlign: 'center',
                                                 background: 'rgba(255,255,255,0.8)',
                                                 backdropFilter: 'blur(10px)',
-                                                border: '1px solid rgba(22,163,74,0.1)',
-                                                borderRadius: 3,
+                                                border: '1px solid rgba(255,255,255,0.3)',
+                                                borderRadius: 4,
                                                 height: '100%',
-                                                transition: 'all 0.3s ease',
+                                                transition: 'transform 0.3s ease',
                                                 '&:hover': {
-                                                    borderColor: 'primary.main',
-                                                    boxShadow: '0 10px 30px rgba(22,163,74,0.1)'
+                                                    transform: 'translateY(-5px)'
                                                 }
                                             }}
                                         >
-                                            <Box sx={{
-                                                color: 'primary.main',
-                                                mb: 2,
-                                                '& svg': { fontSize: 40 }
-                                            }}>
+                                            <Avatar
+                                                sx={{
+                                                    width: 70,
+                                                    height: 70,
+                                                    mx: 'auto',
+                                                    mb: 3,
+                                                    background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+                                                    color: 'white'
+                                                }}
+                                            >
                                                 {item.icon}
-                                            </Box>
-                                            <Typography variant="h6" fontWeight="600" sx={{ mb: 1 }}>
+                                            </Avatar>
+                                            <Typography variant="h6" fontWeight="700" sx={{ mb: 2 }}>
                                                 {item.title}
                                             </Typography>
-                                            <Typography variant="body2" color="text.secondary">
+                                            <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
                                                 {item.description}
                                             </Typography>
                                         </Paper>
@@ -827,42 +773,48 @@ const ServicesPage = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
                 >
                     <Paper
                         elevation={0}
                         sx={{
-                            p: { xs: 3, sm: 6 },
+                            p: { xs: 4, md: 8 },
                             textAlign: 'center',
-                            background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                             color: 'white',
-                            borderRadius: 4
+                            borderRadius: 6,
+                            position: 'relative',
+                            overflow: 'hidden'
                         }}
                     >
-                        <Typography variant="h4" fontWeight="700" sx={{ mb: 2, fontSize: { xs: '1.75rem', md: '2.5rem' } }}>
+                        <Typography variant="h3" fontWeight="800" sx={{ mb: 2 }}>
                             Ready to Transform Your Business?
                         </Typography>
-                        <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, fontSize: { xs: '1rem', md: '1.25rem' } }}>
-                            Let's discuss your project and create a custom solution that drives results.
+                        <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
+                            Let's discuss your project and create exceptional results together. 
+                            Get a free consultation and strategy session.
                         </Typography>
                         <Stack
                             direction={{ xs: 'column', sm: 'row' }}
-                            spacing={2}
+                            spacing={3}
                             justifyContent="center"
                         >
                             <Button
                                 variant="contained"
                                 size="large"
-                                endIcon={<Phone />}
                                 onClick={() => navigate('/contact')}
                                 sx={{
                                     bgcolor: 'white',
                                     color: 'primary.main',
                                     fontWeight: 700,
-                                    px: 4,
+                                    px: 6,
+                                    py: 2,
+                                    borderRadius: 3,
                                     '&:hover': {
-                                        bgcolor: 'rgba(255,255,255,0.9)'
-                                    }
+                                        bgcolor: 'rgba(255,255,255,0.9)',
+                                        transform: 'translateY(-2px)'
+                                    },
+                                    transition: 'all 0.3s ease'
                                 }}
                             >
                                 Start Your Project
@@ -878,11 +830,15 @@ const ServicesPage = () => {
                                     borderColor: 'white',
                                     color: 'white',
                                     fontWeight: 700,
-                                    px: 4,
+                                    px: 6,
+                                    py: 2,
+                                    borderRadius: 3,
                                     '&:hover': {
                                         borderColor: 'white',
-                                        bgcolor: 'rgba(255,255,255,0.1)'
-                                    }
+                                        bgcolor: 'rgba(255,255,255,0.1)',
+                                        transform: 'translateY(-2px)'
+                                    },
+                                    transition: 'all 0.3s ease'
                                 }}
                             >
                                 WhatsApp Us
@@ -892,77 +848,48 @@ const ServicesPage = () => {
                 </motion.div>
             </Container>
 
-            {/* Floating Action Button for Quick Contact */}
-            <Fab
-                color="primary"
-                aria-label="contact"
-                sx={{
-                    position: 'fixed',
-                    bottom: 24,
-                    right: 24,
-                    background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
-                    '&:hover': {
-                        background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)'
-                    }
-                }}
-                onClick={() => navigate('/contact')}
-            >
-                <Phone />
-            </Fab>
-
             {/* Service Detail Dialog */}
             <Dialog
                 open={selectedService !== null}
                 onClose={handleCloseDialog}
-                maxWidth="md"
+                maxWidth="lg"
                 fullWidth
                 PaperProps={{
                     sx: {
                         borderRadius: 4,
-                        bgcolor: 'background.paper',
-                        backgroundImage: 'none',
+                        background: 'linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%)',
+                        backdropFilter: 'blur(20px)'
                     }
                 }}
             >
                 {selectedService && (
                     <>
-                        <DialogTitle sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            background: selectedService.gradient,
-                            color: 'white',
-                            p: 2
-                        }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                {React.cloneElement(selectedService.icon, { sx: { fontSize: 32 } })}
-                                <Typography variant="h5" component="div" sx={{ fontWeight: 600 }}>
-                                    {selectedService.title}
-                                </Typography>
-                            </Box>
-                            <IconButton
-                                aria-label="close"
-                                onClick={handleCloseDialog}
-                                sx={{ color: 'white' }}
-                            >
-                                <Close />
-                            </IconButton>
+                        <DialogTitle sx={{ p: 4, pb: 2 }}>
+                            <Stack direction="row" alignItems="center" justifyContent="space-between">
+                                <Box>
+                                    <Typography variant="h4" fontWeight="800" gutterBottom>
+                                        {selectedService.title}
+                                    </Typography>
+                                    <Typography variant="h6" color="text.secondary">
+                                        {selectedService.subtitle}
+                                    </Typography>
+                                </Box>
+                                <IconButton onClick={handleCloseDialog} size="large">
+                                    <Close />
+                                </IconButton>
+                            </Stack>
                         </DialogTitle>
-                        <DialogContent sx={{ p: { xs: 2, md: 4 } }}>
-                            <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7, color: 'text.secondary' }}>
-                                {selectedService.shortDesc}
-                            </Typography>
-
+                        <DialogContent sx={{ p: 4 }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700 }}>
                                         What's Included:
                                     </Typography>
                                     <List dense>
                                         {selectedService.features.map((feature, index) => (
                                             <ListItem key={index} sx={{ py: 0.5, px: 0 }}>
                                                 <ListItemIcon sx={{ minWidth: 36 }}>
-                                                    <CheckCircle sx={{ color: 'primary.main', fontSize: 20 }} />
+                                                    <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
                                                 </ListItemIcon>
                                                 <ListItemText primary={feature} />
                                             </ListItem>
@@ -971,7 +898,7 @@ const ServicesPage = () => {
                                 </Grid>
 
                                 <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700 }}>
                                         Key Deliverables:
                                     </Typography>
                                     <List dense>
@@ -985,7 +912,7 @@ const ServicesPage = () => {
                                         ))}
                                     </List>
 
-                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mt: 3 }}>
+                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, mt: 3 }}>
                                         Platforms & Tools:
                                     </Typography>
                                     <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
@@ -994,30 +921,49 @@ const ServicesPage = () => {
                                                 key={index}
                                                 label={platform}
                                                 variant="outlined"
+                                                sx={{ fontWeight: 600 }}
                                             />
                                         ))}
                                     </Stack>
+
+                                    <Box sx={{ mt: 3, p: 3, bgcolor: 'primary.50', borderRadius: 2 }}>
+                                        <Typography variant="subtitle2" color="primary.main" fontWeight="700">
+                                            Timeline: {selectedService.timeline}
+                                        </Typography>
+                                    </Box>
                                 </Grid>
                             </Grid>
                         </DialogContent>
-                        <DialogActions sx={{ p: 3, justifyContent: 'space-between' }}>
-                            <Typography variant="h6" sx={{ fontWeight: 600, color: 'primary.main' }}>
-                                {selectedService.price}
-                            </Typography>
-                            <Stack direction="row" spacing={1}>
-                                <Button onClick={handleCloseDialog}>
+                        <DialogActions sx={{ p: 4, justifyContent: 'space-between' }}>
+                            <Box>
+                                <Typography variant="h5" sx={{ fontWeight: 800, color: 'primary.main' }}>
+                                    {selectedService.price}
+                                    <Typography component="span" variant="body2" color="text.secondary">
+                                        {selectedService.period}
+                                    </Typography>
+                                </Typography>
+                                <Typography variant="body2" color="text.disabled" sx={{ textDecoration: 'line-through' }}>
+                                    {selectedService.originalPrice}
+                                </Typography>
+                            </Box>
+                            <Stack direction="row" spacing={2}>
+                                <Button onClick={handleCloseDialog} size="large">
                                     Close
                                 </Button>
                                 <Button
                                     variant="contained"
+                                    size="large"
                                     onClick={() => handleGetQuote(selectedService)}
                                     sx={{
-                                        background: 'linear-gradient(90deg, #16a34a 0%, #22c55e 100%)',
-                                        color: 'common.white',
-                                        fontWeight: 600,
+                                        background: selectedService.gradient,
+                                        color: 'white',
+                                        fontWeight: 700,
+                                        px: 4,
                                         '&:hover': {
-                                            background: 'linear-gradient(90deg, #15803d 0%, #16a34a 100%)',
+                                            background: selectedService.gradient,
+                                            transform: 'translateY(-2px)'
                                         },
+                                        transition: 'all 0.3s ease'
                                     }}
                                 >
                                     Get Started Now

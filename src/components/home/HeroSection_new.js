@@ -2,16 +2,22 @@ import React, { useEffect, useRef } from 'react';
 import { Box, Typography, Button, Stack, Chip, useMediaQuery, useTheme, Avatar, AvatarGroup, Container, Grid, IconButton } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { TrendingUp, Speed, StarRate, CheckCircle, BarChart, CampaignOutlined, ShoppingCart, Menu as MenuIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const MotionBox = motion(Box);
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 300], [0, -50]);
   const y2 = useTransform(scrollY, [0, 300], [0, 25]);
   const rotate = useTransform(scrollY, [0, 300], [0, 360]);
+
+  const handleStartJourney = () => {
+    navigate('/contact');
+  };
 
   // Floating animation variants
   const floatingVariants = {
@@ -53,119 +59,15 @@ const HeroSection = () => {
     <Box
       sx={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: { xs: '100vh', sm: '100vh' },
         background: 'linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 50%, #0d3a2e 100%)',
         color: 'white',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
+        pt: { xs: 5, sm: 6, md: 7 },
       }}
     >
-      {/* Enhanced Header Overlay */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 80,
-          background: 'linear-gradient(180deg, rgba(15, 76, 58, 0.9) 0%, rgba(15, 76, 58, 0.7) 50%, transparent 100%)',
-          backdropFilter: 'blur(10px)',
-          zIndex: 10,
-          display: 'flex',
-          alignItems: 'center',
-          px: { xs: 2, md: 6 }
-        }}
-      >
-        <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* Enhanced Logo */}
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 900,
-              fontSize: { xs: '1.75rem', md: '2rem' },
-              background: 'linear-gradient(90deg, #22c55e, #86efac)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 30px rgba(34, 197, 94, 0.3)',
-              letterSpacing: '-0.02em'
-            }}
-          >
-            charanX
-          </Typography>
-
-          {/* Enhanced Navigation */}
-          <Stack direction="row" spacing={4} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-            {['Home', 'Services', 'Portfolio', 'Blog'].map((item, index) => (
-              <Button
-                key={item}
-                sx={{
-                  color: index === 0 ? '#22c55e' : 'rgba(255, 255, 255, 0.8)',
-                  fontWeight: 600,
-                  fontSize: '1rem',
-                  textTransform: 'none',
-                  position: 'relative',
-                  '&:hover': {
-                    color: '#22c55e',
-                    background: 'rgba(34, 197, 94, 0.1)',
-                  },
-                  '&::after': index === 0 ? {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: -4,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '60%',
-                    height: 2,
-                    background: '#22c55e',
-                    borderRadius: 1,
-                  } : {},
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                {item}
-              </Button>
-            ))}
-            
-            {/* Enhanced CTA Button */}
-            <Button
-              variant="contained"
-              sx={{
-                bgcolor: '#22c55e',
-                color: 'white',
-                fontWeight: 700,
-                px: 3,
-                py: 1,
-                borderRadius: '25px',
-                textTransform: 'none',
-                fontSize: '0.95rem',
-                boxShadow: '0 4px 20px rgba(34, 197, 94, 0.4)',
-                '&:hover': {
-                  bgcolor: '#16a34a',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 8px 25px rgba(34, 197, 94, 0.5)',
-                },
-                transition: 'all 0.3s ease'
-              }}
-            >
-              Get Your Free Strategy
-            </Button>
-          </Stack>
-
-          {/* Mobile Menu Button */}
-          <IconButton
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              color: 'white',
-              bgcolor: 'rgba(34, 197, 94, 0.2)',
-              '&:hover': { bgcolor: 'rgba(34, 197, 94, 0.3)' }
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Container>
-      </Box>
 
       {/* Network Background Graphics */}
       <Box aria-hidden sx={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
@@ -179,13 +81,13 @@ const HeroSection = () => {
         >
           <defs>
             <radialGradient id="nodeGradient" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#22c55e" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#16a34a" stopOpacity="0.3" />
+              <stop offset="0%" stopColor="#22c55e" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#16a34a" stopOpacity="0.1" />
             </radialGradient>
           </defs>
           
           {/* Connection Lines */}
-          <g stroke="#22c55e" strokeWidth="1.5" opacity="0.4">
+          <g stroke="#22c55e" strokeWidth="1" opacity="0.2">
             <line x1="100" y1="200" x2="300" y2="150" />
             <line x1="300" y1="150" x2="500" y2="250" />
             <line x1="500" y1="250" x2="700" y2="180" />
@@ -197,34 +99,34 @@ const HeroSection = () => {
             <line x1="500" y1="250" x2="600" y2="450" />
           </g>
           
-          {/* Network Nodes with Pulse Animation */}
+          {/* Network Nodes with Subtle Animation */}
           <g>
-            <circle cx="100" cy="200" r="8" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite" />
+            <circle cx="100" cy="200" r="6" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="6;8;6" dur="4s" repeatCount="indefinite" />
             </circle>
-            <circle cx="300" cy="150" r="12" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="12;16;12" dur="2.5s" repeatCount="indefinite" />
+            <circle cx="300" cy="150" r="8" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="8;10;8" dur="4.5s" repeatCount="indefinite" />
             </circle>
-            <circle cx="500" cy="250" r="10" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="10;14;10" dur="3.2s" repeatCount="indefinite" />
+            <circle cx="500" cy="250" r="7" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="7;9;7" dur="4.2s" repeatCount="indefinite" />
             </circle>
-            <circle cx="700" cy="180" r="8" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="8;12;8" dur="2.8s" repeatCount="indefinite" />
+            <circle cx="700" cy="180" r="6" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="6;8;6" dur="4.8s" repeatCount="indefinite" />
             </circle>
-            <circle cx="900" cy="300" r="12" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="12;16;12" dur="3.5s" repeatCount="indefinite" />
+            <circle cx="900" cy="300" r="8" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="8;10;8" dur="4.5s" repeatCount="indefinite" />
             </circle>
-            <circle cx="200" cy="400" r="6" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="6;10;6" dur="2.2s" repeatCount="indefinite" />
+            <circle cx="200" cy="400" r="5" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="5;7;5" dur="4.2s" repeatCount="indefinite" />
             </circle>
-            <circle cx="400" cy="350" r="10" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="10;14;10" dur="3.8s" repeatCount="indefinite" />
+            <circle cx="400" cy="350" r="7" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="7;9;7" dur="4.8s" repeatCount="indefinite" />
             </circle>
-            <circle cx="600" cy="450" r="8" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="8;12;8" dur="2.7s" repeatCount="indefinite" />
+            <circle cx="600" cy="450" r="6" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="6;8;6" dur="4.7s" repeatCount="indefinite" />
             </circle>
-            <circle cx="800" cy="380" r="12" fill="url(#nodeGradient)">
-              <animate attributeName="r" values="12;16;12" dur="3.1s" repeatCount="indefinite" />
+            <circle cx="800" cy="380" r="8" fill="url(#nodeGradient)">
+              <animate attributeName="r" values="8;10;8" dur="4.1s" repeatCount="indefinite" />
             </circle>
           </g>
         </svg>
@@ -233,135 +135,220 @@ const HeroSection = () => {
       </Box>
 
       {/* Main Content */}
-      <Container maxWidth="xl" sx={{ flex: 1, display: 'flex', alignItems: 'center', py: { xs: 4, md: 8 }, pt: { xs: 12, md: 14 } }}>
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} lg={6}>
+      <Container 
+        maxWidth="xl" 
+        sx={{ 
+          flex: 1, 
+          display: 'flex', 
+          alignItems: 'center', 
+          py: { xs: 2, md: 3 }, 
+          pt: { xs: 1, md: 2 },
+          px: { xs: 2, sm: 3, md: 4 }
+        }}
+      >
+        <Grid container spacing={4} alignItems="center" justifyContent="center">
+          <Grid item xs={12} md={10} lg={8}>
             <MotionBox
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
               sx={{
-                textAlign: { xs: 'center', lg: 'left' },
+                textAlign: { xs: 'center', sm: 'left' },
+                maxWidth: '100%'
               }}
             >
-              {/* Trust Badge */}
+              {/* Trust Badge with Location Focus */}
               <motion.div variants={staggerItem}>
-                <Chip 
-                  label="Trusted by Industry Leaders:" 
-                  sx={{
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    mb: 3,
-                    fontSize: '0.875rem',
-                    fontWeight: 500
-                  }} 
-                />
-              </motion.div>
-
-              {/* Brand Logos */}
-              <motion.div variants={staggerItem}>
-                <Stack 
-                  direction="row" 
-                  spacing={4} 
-                  sx={{ 
-                    mb: 4, 
-                    alignItems: 'center',
-                    justifyContent: { xs: 'center', lg: 'flex-start' },
-                    flexWrap: 'wrap',
-                    gap: 2
-                  }}
-                >
-                  {['InnovateTech', 'FRESHBITES', 'GLOBALLINK', 'AURAWEAR'].map((brand) => (
-                    <Typography 
-                      key={brand}
-                      variant="body2" 
-                      sx={{ 
-                        color: 'rgba(255, 255, 255, 0.6)',
-                        fontWeight: 600,
-                        fontSize: '0.75rem',
-                        letterSpacing: '0.5px'
-                      }}
-                    >
-                      {brand}
-                    </Typography>
-                  ))}
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                      5 star rated on
-                    </Typography>
-                    <StarRate sx={{ color: '#fbbf24', fontSize: 16 }} />
-                  </Box>
+                <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-start', mb: 4 }}>
+                  <Chip 
+                    label="🏆 #1 Digital Growth Agency" 
+                    sx={{
+                      bgcolor: 'rgba(34, 197, 94, 0.15)',
+                      color: '#22c55e',
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                    }} 
+                  />
+                  <Chip 
+                    label="📍 Andhra Pradesh" 
+                    sx={{
+                      bgcolor: 'rgba(255, 255, 255, 0.1)',
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      fontWeight: 500,
+                      fontSize: '0.875rem',
+                    }} 
+                  />
                 </Stack>
               </motion.div>
 
-              {/* Main Headline */}
+              {/* Enhanced Main Headline with Location Focus */}
               <motion.div variants={staggerItem}>
                 <Typography 
                   component="h1" 
                   sx={{ 
-                    fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' },
+                    fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.5rem', lg: '4rem' },
                     fontWeight: 900, 
                     letterSpacing: '-0.02em',
-                    lineHeight: 1.1,
-                    mb: 3,
+                    lineHeight: { xs: 1.2, md: 1.1 },
+                    mb: { xs: 2, md: 3 },
+                    px: { xs: 1, sm: 0 }
                   }}
                 >
-                  Ignite Your Brand.{' '}
-                  <Box component="span" sx={{ color: '#22c55e' }}>
-                    Dominate Social.
+                  Elevate Your Business in{' '}
+                  <Box component="span" sx={{ color: '#22c55e', textShadow: '0 0 20px rgba(34, 197, 94, 0.5)' }}>
+                    Andhra Pradesh
                   </Box>
                   <br />
-                  Experience Rapid Growth.
+                  <Box component="span" sx={{ 
+                    background: 'linear-gradient(90deg, #ffffff 0%, #22c55e 50%, #ffffff 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}>
+                    Experience Rapid Growth
+                  </Box>
                 </Typography>
               </motion.div>
 
-              {/* Description */}
+              {/* Enhanced Description with Local Focus */}
               <motion.div variants={staggerItem}>
                 <Typography 
                   variant="h6" 
                   sx={{ 
-                    color: 'rgba(255, 255, 255, 0.8)', 
-                    maxWidth: '600px',
-                    lineHeight: 1.6,
-                    fontSize: { xs: '1rem', md: '1.125rem' },
-                    mb: 4,
-                    mx: { xs: 'auto', lg: 0 }
+                    color: 'rgba(255, 255, 255, 0.85)', 
+                    maxWidth: { xs: '100%', md: '600px' },
+                    lineHeight: { xs: 1.5, md: 1.6 },
+                    fontSize: { xs: '0.95rem', sm: '1rem', md: '1.125rem' },
+                    mb: { xs: 2, md: 2 },
+                    px: { xs: 1, sm: 0 }
                   }}
                 >
-                  We build passionate communities, amplify your message, and turn your lifelong customers.
+                  Specialized digital marketing solutions for businesses in <strong style={{ color: '#22c55e' }}>Guntur</strong>, <strong style={{ color: '#22c55e' }}>Vijayawada</strong>, and across Andhra Pradesh. We transform local businesses into market leaders through strategic digital presence.
                 </Typography>
+                
+                {/* Location Highlights */}
+                <Stack 
+                  direction="row" 
+                  spacing={1} 
+                  sx={{ 
+                    mb: { xs: 3, md: 4 },
+                    justifyContent: { xs: 'center', sm: 'flex-start' },
+                    flexWrap: 'wrap',
+                    gap: { xs: 0.5, sm: 1 },
+                    px: { xs: 1, sm: 0 }
+                  }}
+                >
+                  <Chip 
+                    label="🏢 Guntur Business Hub" 
+                    size="small"
+                    sx={{ 
+                      bgcolor: 'rgba(34, 197, 94, 0.1)', 
+                      color: '#22c55e',
+                      fontWeight: 500,
+                      '&:hover': { bgcolor: 'rgba(34, 197, 94, 0.2)' }
+                    }} 
+                  />
+                  <Chip 
+                    label="🌟 Vijayawada Excellence" 
+                    size="small"
+                    sx={{ 
+                      bgcolor: 'rgba(34, 197, 94, 0.1)', 
+                      color: '#22c55e',
+                      fontWeight: 500,
+                      '&:hover': { bgcolor: 'rgba(34, 197, 94, 0.2)' }
+                    }} 
+                  />
+                  <Chip 
+                    label="🚀 AP Digital Leaders" 
+                    size="small"
+                    sx={{ 
+                      bgcolor: 'rgba(34, 197, 94, 0.1)', 
+                      color: '#22c55e',
+                      fontWeight: 500,
+                      '&:hover': { bgcolor: 'rgba(34, 197, 94, 0.2)' }
+                    }} 
+                  />
+                </Stack>
               </motion.div>
 
-              {/* CTA Button */}
+              {/* Enhanced CTA Buttons */}
               <motion.div variants={staggerItem}>
-                <Button 
-                  size="large" 
-                  variant="contained" 
+                <Stack 
+                  direction={{ xs: 'column', sm: 'row' }} 
+                  spacing={{ xs: 2, sm: 2 }} 
                   sx={{ 
-                    px: 6,
-                    py: 2,
-                    fontSize: '1.125rem',
-                    fontWeight: 700,
-                    bgcolor: '#22c55e',
-                    borderRadius: '50px',
-                    textTransform: 'none',
-                    boxShadow: '0 8px 25px rgba(34, 197, 94, 0.3)',
-                    '&:hover': {
-                      bgcolor: '#16a34a',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 12px 35px rgba(34, 197, 94, 0.4)',
-                    },
-                    transition: 'all 0.3s ease'
+                    justifyContent: { xs: 'center', sm: 'flex-start' },
+                    px: { xs: 1, sm: 0 },
+                    alignItems: { xs: 'center', sm: 'flex-start' }
                   }}
                 >
-                  Start Your Growth Journey
-                </Button>
+                  <Button 
+                    size="large" 
+                    variant="contained" 
+                    onClick={handleStartJourney}
+                    sx={{ 
+                      px: { xs: 4, sm: 6 },
+                      py: { xs: 2, sm: 2.5 },
+                      fontSize: { xs: '1rem', sm: '1.125rem' },
+                      fontWeight: 700,
+                      bgcolor: '#22c55e',
+                      borderRadius: '50px',
+                      textTransform: 'none',
+                      boxShadow: '0 8px 25px rgba(34, 197, 94, 0.3)',
+                      minWidth: { xs: '200px', sm: 'auto' },
+                      '&:hover': {
+                        bgcolor: '#16a34a',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 12px 35px rgba(34, 197, 94, 0.4)',
+                      },
+                      transition: 'all 0.3s ease',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: '-100%',
+                        width: '100%',
+                        height: '100%',
+                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                        transition: 'left 0.5s ease',
+                      },
+                      '&:hover::before': {
+                        left: '100%'
+                      }
+                    }}
+                  >
+                    🚀 Start Your AP Growth Journey
+                  </Button>
+                  
+                  <Button 
+                    size="large" 
+                    variant="outlined"
+                    onClick={() => window.open('https://wa.me/919677303310?text=Hi! I want to learn more about digital marketing services in Andhra Pradesh', '_blank')}
+                    sx={{ 
+                      px: { xs: 4, sm: 4 },
+                      py: { xs: 2, sm: 2.5 },
+                      fontSize: { xs: '0.95rem', sm: '1rem' },
+                      fontWeight: 600,
+                      color: 'white',
+                      borderColor: 'rgba(255, 255, 255, 0.3)',
+                      borderRadius: '50px',
+                      textTransform: 'none',
+                      minWidth: { xs: '200px', sm: 'auto' },
+                      '&:hover': {
+                        borderColor: '#22c55e',
+                        bgcolor: 'rgba(34, 197, 94, 0.1)',
+                        transform: 'translateY(-2px)',
+                      },
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    💬 WhatsApp Us
+                  </Button>
+                </Stack>
               </motion.div>
             </MotionBox>
-          </Grid>
-
-          <Grid item xs={12} lg={6}>
-            {/* Right side content can be added here if needed */}
           </Grid>
         </Grid>
       </Container>
@@ -396,7 +383,7 @@ const HeroSection = () => {
             },
             { 
               icon: <CampaignOutlined sx={{ fontSize: 40, color: '#22c55e' }} />,
-              title: 'Hane Fur Dasts',
+              title: 'Digital Marketing',
               description: 'Performance advertising campaigns'
             },
             { 

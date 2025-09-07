@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     Container, 
     Typography, 
@@ -7,70 +7,88 @@ import {
     Card, 
     CardContent,
     Button,
-    Stack,
-    useMediaQuery,
-    useTheme,
-    Chip
+    Chip,
+    Stack
 } from '@mui/material';
 import { 
     Campaign,
     TrendingUp,
     Web,
     Science,
-    ContentCopy,
-    Search,
-    ArrowForward
+    ArrowForward,
+    CheckCircle
 } from '@mui/icons-material';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Link as RouterLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const ServicesOverview = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const { scrollY } = useScroll();
-    const y = useTransform(scrollY, [0, 500], [0, -100]);
+    const navigate = useNavigate();
+
+    const categories = [
+        { id: 'all', label: 'All' },
+        { id: 'marketing', label: 'Marketing' },
+        { id: 'development', label: 'Development' },
+        { id: 'data-ai', label: 'Data & AI' }
+    ];
+
+    const [filter, setFilter] = useState('all');
 
     const services = [
         {
-            icon: <Campaign sx={{ fontSize: 40 }} />,
+            icon: <Campaign sx={{ fontSize: 40, color: 'white' }} />,
             title: "Social Media Marketing",
             description: "Build engaged communities and drive brand awareness through strategic social media campaigns across all platforms.",
             gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            features: ["Content Strategy", "Community Management", "Paid Social Ads"]
+            category: 'marketing',
+            bullets: [
+                'Content strategy & creative',
+                'Community growth & engagement',
+                'Paid social optimization'
+            ]
         },
         {
-            icon: <TrendingUp sx={{ fontSize: 40 }} />,
-            title: "Digital Media Marketing",
+            icon: <TrendingUp sx={{ fontSize: 40, color: 'white' }} />,
+            title: "Performance Marketing",
             description: "Data-driven digital campaigns that deliver measurable ROI through PPC, display ads, and conversion optimization.",
             gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-            features: ["Google Ads", "Display Advertising", "Conversion Optimization"]
+            category: 'marketing',
+            bullets: [
+                'Google & Meta ads',
+                'CRO & landing pages',
+                'ROAS-focused reporting'
+            ]
         },
         {
-            icon: <Web sx={{ fontSize: 40 }} />,
+            icon: <Web sx={{ fontSize: 40, color: 'white' }} />,
             title: "Web Development",
-            description: "Create stunning, mobile-responsive websites and web applications with modern design and cutting-edge functionality.",
+            description: "Create stunning, mobile-responsive websites with modern design and cutting-edge functionality.",
             gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-            features: ["Custom Development", "Mobile-First Design", "E-commerce Solutions"]
+            category: 'development',
+            bullets: [
+                'Responsive, fast, secure',
+                'SEO-friendly builds',
+                'E-commerce ready'
+            ]
         },
         {
-            icon: <Science sx={{ fontSize: 40 }} />,
+            icon: <Science sx={{ fontSize: 40, color: 'white' }} />,
             title: "AI & Data Science",
-            description: "Leverage artificial intelligence and data science to unlock insights, automate processes, and drive intelligent business decisions.",
+            description: "Leverage AI and data science to unlock insights, automate processes, and drive intelligent business decisions.",
             gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-            features: ["Machine Learning", "Data Analytics", "AI Automation"]
+            category: 'data-ai',
+            bullets: [
+                'Analytics & dashboards',
+                'Predictive insights',
+                'Process automation'
+            ]
         }
     ];
 
     const cardVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: 50,
-            rotateX: -15
-        },
+        hidden: { opacity: 0, y: 50 },
         visible: (i) => ({
             opacity: 1,
             y: 0,
-            rotateX: 0,
             transition: {
                 delay: i * 0.15,
                 duration: 0.8,
@@ -79,367 +97,253 @@ const ServicesOverview = () => {
         })
     };
 
-    const hoverVariants = {
-        hover: {
-            y: -12,
-            rotateX: 5,
-            rotateY: 5,
-            scale: 1.02,
-            transition: {
-                duration: 0.3,
-                ease: "easeOut"
-            }
-        }
-    };
-
     return (
-    <Box id="services" sx={{ py: { xs: 8, md: 12 }, position: 'relative', overflow: 'hidden' }}>
-            {/* Enhanced 3D Background */}
-            <motion.div style={{ y }}>
+        <Box id="services" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'background.default', position: 'relative', overflow: 'hidden' }}>
+             <Box sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `
+                    radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.06) 0%, transparent 50%)
+                `,
+                pointerEvents: 'none'
+            }} />
+
+            {/* Floating decorative orbs */}
+            <Box sx={{
+                position: 'absolute', inset: 0, pointerEvents: 'none',
+                '@keyframes float1': {
+                    '0%,100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(-18px)' }
+                },
+                '@keyframes float2': {
+                    '0%,100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(14px)' }
+                }
+            }}>
                 <Box sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: `
-                        radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.12) 0%, transparent 60%),
-                        radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
-                        linear-gradient(135deg, rgba(34, 197, 94, 0.02) 0%, transparent 50%)
-                    `,
-                    pointerEvents: 'none'
+                    position: 'absolute', width: 180, height: 180, borderRadius: '50%',
+                    top: { xs: 120, md: 60 }, left: -70,
+                    background: 'linear-gradient(135deg, rgba(34,197,94,0.25), rgba(16,185,129,0.15))',
+                    filter: 'blur(10px)', animation: 'float1 14s ease-in-out infinite'
                 }} />
-            </motion.div>
+                <Box sx={{
+                    position: 'absolute', width: 220, height: 220, borderRadius: '50%',
+                    bottom: -60, right: -60,
+                    background: 'linear-gradient(135deg, rgba(22,163,74,0.20), rgba(52,211,153,0.12))',
+                    filter: 'blur(14px)', animation: 'float2 16s ease-in-out infinite'
+                }} />
+            </Box>
             
-            <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-                {/* Enhanced Section Header */}
+            <Container maxWidth="lg">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.25, 0.25, 0, 1] }}
+                    transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
                 >
                     <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 8 } }}>
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            whileInView={{ scale: 1, opacity: 1 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            viewport={{ once: true }}
-                        >
-                            <Chip 
-                                label="Our Expertise" 
-                                sx={{ 
-                                    mb: 3,
-                                    bgcolor: 'rgba(34, 197, 94, 0.1)',
-                                    color: 'primary.main',
-                                    fontWeight: 700,
-                                    fontSize: '0.875rem',
-                                    px: 2,
-                                    py: 0.5
-                                }} 
-                            />
-                        </motion.div>
-                        
+                        <Chip 
+                            label="Our Expertise" 
+                            sx={{ 
+                                mb: 2,
+                                bgcolor: 'rgba(34, 197, 94, 0.1)',
+                                color: 'primary.main',
+                                fontWeight: 700
+                            }} 
+                        />
                         <Typography 
                             variant="h2" 
                             component="h2" 
-                            gutterBottom
                             sx={{ 
                                 fontWeight: 800,
-                                mb: 3,
+                                mb: 2,
                                 background: 'linear-gradient(90deg, #16a34a, #22c55e)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
-                                fontSize: { xs: '2rem', md: '3rem' }
                             }}
                         >
                             Transform Your Digital Presence
                         </Typography>
-                        <Typography 
-                            variant="h6" 
-                            color="text.secondary" 
-                            sx={{ 
-                                maxWidth: 700, 
-                                mx: 'auto',
-                                lineHeight: 1.6,
-                                fontSize: { xs: '1rem', md: '1.125rem' }
-                            }}
-                        >
-                            Comprehensive digital marketing solutions designed to accelerate your business growth and maximize your online impact across all channels
+                        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 700, mx: 'auto' }}>
+                            Comprehensive solutions designed to accelerate growth and maximize your online impact.
                         </Typography>
                     </Box>
                 </motion.div>
 
-                {/* Enhanced Services Grid */}
-                <Grid container spacing={{ xs: 3, md: 4 }}>
-                    {services.map((service, index) => (
-                        <Grid item xs={12} sm={6} md={6} key={index}>
+                {/* Category filter chips */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
+                        {categories.map(c => (
+                            <Chip
+                                key={c.id}
+                                label={c.label}
+                                clickable
+                                onClick={() => setFilter(c.id)}
+                                sx={{
+                                    fontWeight: 700,
+                                    bgcolor: filter === c.id ? 'primary.main' : 'rgba(22,163,74,0.08)',
+                                    color: filter === c.id ? 'white' : 'primary.main',
+                                    '&:hover': { bgcolor: filter === c.id ? 'primary.dark' : 'rgba(22,163,74,0.14)' }
+                                }}
+                            />
+                        ))}
+                    </Stack>
+                </Box>
+
+                <Grid container spacing={4}>
+                    {(filter === 'all' ? services : services.filter(s => s.category === filter)).map((service, index) => (
+                        <Grid item xs={12} sm={6} key={index}>
                             <motion.div
                                 custom={index}
                                 variants={cardVariants}
                                 initial="hidden"
                                 whileInView="visible"
-                                whileHover="hover"
-                                viewport={{ once: true }}
-                                style={{ 
-                                    height: '100%',
-                                    perspective: '1000px'
-                                }}
+                                viewport={{ once: true, amount: 0.3 }}
+                                whileHover={{ y: -8 }}
+                                style={{ height: '100%' }}
                             >
-                                <Card 
+                                <Card
+                                    component={RouterLink}
+                                    to="/services"
+                                    aria-label={`${service.title} – Learn more`}
                                     sx={{ 
+                                        textDecoration: 'none',
                                         height: '100%',
-                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.95) 100%)',
-                                        backdropFilter: 'blur(10px)',
-                                        border: '1px solid',
-                                        borderColor: 'rgba(34, 197, 94, 0.1)',
-                                        transition: 'all 0.4s cubic-bezier(0.25, 0.25, 0, 1)',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        p: { xs: 2.5, sm: 3 },
                                         position: 'relative',
-                                        overflow: 'hidden',
-                                        transformStyle: 'preserve-3d',
+                                        border: '1px solid transparent',
+                                        borderRadius: 5,
+                                        background: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)) padding-box, ${service.gradient} border-box`,
+                                        backdropFilter: 'blur(10px)',
+                                        transition: 'transform 0.25s ease, box-shadow 0.35s ease',
+                                        boxShadow: '0 10px 24px rgba(0,0,0,0.06)',
                                         '&:hover': {
-                                            borderColor: 'primary.light',
-                                            boxShadow: '0 20px 40px rgba(34, 197, 94, 0.15), 0 0 0 1px rgba(34, 197, 94, 0.1)',
-                                        },
-                                        '&::before': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            height: '4px',
-                                            background: service.gradient,
-                                            opacity: 0.8,
-                                        },
-                                        '&::after': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            bottom: 0,
-                                            background: `linear-gradient(135deg, ${service.gradient.split('(')[1].split(')')[0]}20, transparent 60%)`,
-                                            opacity: 0,
-                                            transition: 'opacity 0.3s ease',
-                                            pointerEvents: 'none',
-                                        },
-                                        '&:hover::after': {
-                                            opacity: 1,
+                                            transform: 'translateY(-6px)',
+                                            boxShadow: '0 24px 48px rgba(22,163,74,0.18)'
                                         }
                                     }}
                                 >
-                                    <CardContent sx={{ p: { xs: 3, md: 4 }, height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
-                                        {/* Enhanced Service Icon */}
-                                        <motion.div
-                                            whileHover={{ 
-                                                scale: 1.1, 
-                                                rotate: [0, -5, 5, 0],
-                                                transition: { duration: 0.5 }
-                                            }}
-                                        >
+                                    <CardContent sx={{ flexGrow: 1, p: 0, display: 'flex', flexDirection: 'column' }}>
+                                        {/* Header row: icon + badge */}
+                                        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
                                             <Box sx={{ 
-                                                width: { xs: 70, md: 80 }, 
-                                                height: { xs: 70, md: 80 }, 
-                                                borderRadius: 3, 
+                                                width: 64, 
+                                                height: 64, 
+                                                borderRadius: '50%', 
                                                 background: service.gradient,
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                mb: 3,
-                                                color: 'white',
-                                                position: 'relative',
-                                                '&::before': {
-                                                    content: '""',
-                                                    position: 'absolute',
-                                                    inset: -2,
-                                                    background: service.gradient,
-                                                    borderRadius: 'inherit',
-                                                    filter: 'blur(8px)',
-                                                    opacity: 0.3,
-                                                    zIndex: -1,
-                                                }
+                                                boxShadow: '0 12px 28px rgba(22,163,74,0.25)'
                                             }}>
                                                 {service.icon}
                                             </Box>
-                                        </motion.div>
-                                        
-                                        {/* Service Content */}
-                                        <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, mb: 2, color: 'text.primary' }}>
+                                            {(index === 0 || index === 1) && (
+                                                <Chip size="small" label={index === 0 ? 'Featured' : 'Popular'} sx={{
+                                                    bgcolor: 'rgba(22,163,74,0.1)', color: 'primary.main', fontWeight: 700
+                                                }} />
+                                            )}
+                                        </Stack>
+
+                                        <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, letterSpacing: '-0.01em' }}>
                                             {service.title}
                                         </Typography>
-                                        
-                                        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, flexGrow: 1, lineHeight: 1.7 }}>
+                                        <Typography variant="body1" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
                                             {service.description}
                                         </Typography>
 
-                                        {/* Enhanced Features List */}
-                                        <Stack spacing={1.5} sx={{ mb: 4 }}>
-                                            {service.features.map((feature, idx) => (
-                                                <motion.div
-                                                    key={idx}
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    whileInView={{ opacity: 1, x: 0 }}
-                                                    transition={{ duration: 0.5, delay: 0.1 * idx }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                                        <Box sx={{
-                                                            width: 8,
-                                                            height: 8,
-                                                            borderRadius: '50%',
-                                                            background: service.gradient,
-                                                            flexShrink: 0
-                                                        }} />
-                                                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-                                                            {feature}
-                                                        </Typography>
-                                                    </Box>
-                                                </motion.div>
+                                        {/* Quick highlights */}
+                                        <Stack spacing={0.75} sx={{ mb: 2.5 }}>
+                                            {service.bullets.map((b, i) => (
+                                                <Stack key={i} direction="row" spacing={1} alignItems="center">
+                                                    <CheckCircle sx={{ fontSize: 18, color: 'primary.main' }} />
+                                                    <Typography variant="body2" color="text.secondary">{b}</Typography>
+                                                </Stack>
                                             ))}
                                         </Stack>
 
-                                        {/* Enhanced Learn More Button */}
-                                        <motion.div
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
+                                        {/* Link-like action without nested anchor */}
+                                        <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 'auto' }}>
                                             <Button
-                                                variant="outlined"
+                                                component="span"
                                                 endIcon={<ArrowForward />}
-                                                component={RouterLink}
-                                                to="/services"
-                                                fullWidth
-                                                sx={{
-                                                    borderColor: 'primary.main',
+                                                sx={{ 
+                                                    alignSelf: 'flex-start',
+                                                    fontWeight: 700,
+                                                    px: 0,
+                                                    minWidth: 0,
                                                     color: 'primary.main',
-                                                    py: 1.5,
-                                                    mt: 'auto',
-                                                    fontWeight: 600,
-                                                    borderWidth: 2,
-                                                    '&:hover': {
-                                                        borderWidth: 2,
-                                                        borderColor: 'primary.main',
-                                                        bgcolor: 'rgba(34, 197, 94, 0.08)',
-                                                        transform: 'translateX(4px)',
-                                                    },
-                                                    transition: 'all 0.3s ease'
+                                                    '& .MuiButton-endIcon': { transition: 'transform 0.25s ease' },
+                                                    '&:hover .MuiButton-endIcon': { transform: 'translateX(4px)' }
                                                 }}
                                             >
                                                 Learn More
                                             </Button>
-                                        </motion.div>
+                                            <Button
+                                                component="span"
+                                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigate('/contact', { state: { selectedService: service.title } }); }}
+                                                sx={{ fontWeight: 700, color: 'text.primary', textDecoration: 'underline' }}
+                                            >
+                                                Get Quote
+                                            </Button>
+                                        </Stack>
                                     </CardContent>
                                 </Card>
                             </motion.div>
                         </Grid>
                     ))}
                 </Grid>
+            </Container>
 
-                {/* Enhanced CTA Section */}
+            {/* CTA banner */}
+            <Container maxWidth="lg" sx={{ mt: { xs: 8, md: 12 } }}>
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
                 >
-                    <Box sx={{ 
-                        textAlign: 'center', 
-                        mt: { xs: 8, md: 12 }, 
-                        p: { xs: 4, md: 6 },
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.95) 100%)',
-                        backdropFilter: 'blur(10px)',
-                        border: '1px solid',
-                        borderColor: 'rgba(34, 197, 94, 0.2)',
-                        borderRadius: 6,
-                        position: 'relative',
-                        overflow: 'hidden',
-                        '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            background: 'radial-gradient(circle at center, rgba(34, 197, 94, 0.05) 0%, transparent 70%)',
-                            pointerEvents: 'none',
-                        }
+                    <Box sx={{
+                        p: { xs: 3, md: 5 },
+                        borderRadius: 4,
+                        textAlign: 'center',
+                        color: 'white',
+                        background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+                        boxShadow: '0 20px 40px rgba(22,163,74,0.25)'
                     }}>
-                        <motion.div
-                            initial={{ scale: 0.9 }}
-                            whileInView={{ scale: 1 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                        >
-                            <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, mb: 3, color: 'text.primary' }}>
-                                Ready to Accelerate Your Growth?
-                            </Typography>
-                            <Typography variant="h6" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}>
-                                Let's discuss your goals and create a customized digital marketing strategy that delivers measurable results for your business.
-                            </Typography>
-                            <Stack 
-                                direction={{ xs: 'column', sm: 'row' }} 
-                                spacing={2} 
-                                justifyContent="center"
-                                alignItems="center"
+                        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1 }}>
+                            Ready to Elevate Your Digital Presence?
+                        </Typography>
+                        <Typography variant="h6" sx={{ opacity: 0.95, mb: 3 }}>
+                            Explore our full suite of services or talk to our team for a free strategy session.
+                        </Typography>
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+                            <Button
+                                component={RouterLink}
+                                to="/services"
+                                variant="contained"
+                                sx={{ bgcolor: 'white', color: 'primary.main', fontWeight: 800, px: 3, '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' } }}
+                                endIcon={<ArrowForward />}
                             >
-                                <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    <Button
-                                        variant="contained"
-                                        size="large"
-                                        component={RouterLink}
-                                        to="/contact"
-                                        sx={{
-                                            background: 'linear-gradient(45deg, #16a34a, #22c55e)',
-                                            color: 'common.white',
-                                            fontWeight: 700,
-                                            py: 2,
-                                            px: 5,
-                                            fontSize: '1.1rem',
-                                            boxShadow: '0 8px 20px rgba(34, 197, 94, 0.25)',
-                                            '&:hover': {
-                                                background: 'linear-gradient(45deg, #22c55e, #16a34a)',
-                                                transform: 'translateY(-2px)',
-                                                boxShadow: '0 12px 30px rgba(34, 197, 94, 0.35)',
-                                            },
-                                        }}
-                                    >
-                                        Get Free Consultation
-                                    </Button>
-                                </motion.div>
-                                <motion.div
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <Button
-                                        variant="outlined"
-                                        size="large"
-                                        component={RouterLink}
-                                        to="/portfolio"
-                                        sx={{
-                                            borderColor: 'primary.main',
-                                            color: 'primary.main',
-                                            py: 2,
-                                            px: 5,
-                                            fontSize: '1.1rem',
-                                            borderWidth: 2,
-                                            fontWeight: 600,
-                                            '&:hover': {
-                                                borderWidth: 2,
-                                                borderColor: 'primary.main',
-                                                bgcolor: 'rgba(34, 197, 94, 0.08)',
-                                                transform: 'translateY(-1px)',
-                                            },
-                                        }}
-                                    >
-                                        View Our Work
-                                    </Button>
-                                </motion.div>
-                            </Stack>
-                        </motion.div>
+                                Explore Services
+                            </Button>
+                            <Button
+                                component={RouterLink}
+                                to="/contact"
+                                variant="outlined"
+                                sx={{ borderColor: 'white', color: 'white', fontWeight: 800, px: 3, '&:hover': { borderColor: 'white', bgcolor: 'rgba(255,255,255,0.12)' } }}
+                                endIcon={<ArrowForward />}
+                            >
+                                Free Strategy Call
+                            </Button>
+                        </Stack>
                     </Box>
                 </motion.div>
             </Container>

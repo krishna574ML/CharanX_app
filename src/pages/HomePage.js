@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import HeroSection from '../components/home/HeroSection';
+import HeroSection from '../components/home/HeroSection_new';
 import ServicesOverview from '../components/home/ServicesOverview';
-import Testimonials from '../components/home/Testimonials';
 import ProcessSection from '../components/home/ProcessSection';
 
 const HomePage = () => {
@@ -21,9 +20,6 @@ const HomePage = () => {
             
             {/* Our Process - 4 modern blocks explaining how we work */}
             <ProcessSection />
-            
-            {/* Client Testimonials - Social proof and results */}
-            <Testimonials />
         </Box>
     );
 };

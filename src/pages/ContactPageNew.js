@@ -1,330 +1,172 @@
 import React, { useState, useEffect } from 'react';
-import { 
-    Container, 
-    Typography, 
-    Box, 
-    Grid, 
-    TextField, 
-    Button, 
-    Card, 
+import {
+    Container,
+    Typography,
+    Box,
+    Grid,
+    TextField,
+    Button,
+    Card,
     CardContent,
     Stack,
-    IconButton,
-    Snackbar,
-    Alert,
     Paper,
-    Divider,
     Avatar,
     useTheme,
     useMediaQuery,
-    Fab,
     Breadcrumbs,
     Link,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Chip,
     Select,
     MenuItem,
     FormControl,
     InputLabel,
-    TextareaAutosize,
-    Stepper,
-    Step,
-    StepLabel,
-    StepContent,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions
+    Snackbar,
+    Alert,
+    Chip,
+    IconButton
 } from '@mui/material';
-import { 
-    Phone, 
-    Email, 
-    LocationOn, 
-    Send,
+import {
+    Email,
     WhatsApp,
-    Schedule,
-    Business,
+    Send,
+    ArrowForward,
     Person,
+    Business,
     Message,
     CheckCircle,
-    ExpandMore,
-    CalendarToday,
+    LocationOn,
     AccessTime,
-    Star,
-    Support,
-    QuestionAnswer,
-    TrendingUp,
-    Web,
-    Campaign,
-    Analytics,
-    Brush,
-    Speed,
-    Security,
-    Verified,
-    AutoAwesome,
-    Close,
-    Launch,
-    ArrowForward
+    Phone,
+    Close
 } from '@mui/icons-material';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation, useNavigate, Link as RouterLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
 
-const ContactPage = () => {
+const ContactPageNew = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     
     const [formData, setFormData] = useState({
-        name: '',
+        fullName: '',
         email: '',
-        company: '',
-        phone: '',
-        service: location.state?.selectedService || '',
-        projectType: '',
-        budget: '',
-        timeline: '',
-        message: '',
-        preferredContact: 'email'
+        service: '',
+        message: ''
     });
     
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [activeStep, setActiveStep] = useState(0);
-    const [showConsultationDialog, setShowConsultationDialog] = useState(false);
-    const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
 
     const services = [
         'Social Media Marketing',
-        'Performance Marketing',
+        'Performance Marketing', 
         'Web Design & Development',
         'Brand Identity & Design',
         'Analytics & Business Intelligence',
         'E-commerce Solutions',
-        'SEO & Content Strategy',
-        'Complete Digital Transformation'
-    ];
-
-    const projectTypes = [
-        'New Business Launch',
-        'Business Growth & Scaling',
-        'Brand Refresh/Redesign',
-        'Website Development',
-        'Marketing Campaign',
-        'Ongoing Digital Support',
-        'Consultation & Strategy',
         'Other'
     ];
 
-    const budgetRanges = [
-        '₹25,000 - ₹50,000',
-        '₹50,000 - ₹1,00,000',
-        '₹1,00,000 - ₹2,50,000',
-        '₹2,50,000 - ₹5,00,000',
-        '₹5,00,000+',
-        'Custom Quote Required'
-    ];
-
-    const timelineOptions = [
-        'Urgent (1-2 weeks)',
-        'Fast Track (2-4 weeks)',
-        'Standard (1-2 months)',
-        'Flexible (2-3 months)',
-        'Long-term (3+ months)'
-    ];
-
-    const timeSlots = [
-        '9:00 AM - 10:00 AM',
-        '10:00 AM - 11:00 AM',
-        '11:00 AM - 12:00 PM',
-        '2:00 PM - 3:00 PM',
-        '3:00 PM - 4:00 PM',
-        '4:00 PM - 5:00 PM'
-    ];
-
-    const contactInfo = [
+    const contactMethods = [
         {
-            icon: <Phone />,
-            title: "Call Us",
-            details: "+91 9677303310",
-            subtitle: "Available 9 AM - 8 PM IST",
-            action: "tel:+919677303310",
-            color: "#16a34a"
+            icon: <WhatsApp sx={{ fontSize: 32 }} />,
+            title: 'WhatsApp',
+            subtitle: '+91 9677303310',
+            description: 'Quick response within minutes',
+            action: () => window.open('https://wa.me/919677303310', '_blank'),
+            color: '#25D366',
+            gradient: 'linear-gradient(135deg, #25D366 0%, #22C55E 100%)'
         },
         {
-            icon: <WhatsApp />,
-            title: "WhatsApp", 
-            details: "+91 7075012122",
-            subtitle: "24/7 Quick Response",
-            action: "https://wa.me/917075012122",
-            color: "#25d366"
-        },
-        {
-            icon: <Email />,
-            title: "Email Us",
-            details: "hello@charanx.com",
-            subtitle: "Response within 2 hours",
-            action: "mailto:hello@charanx.com",
-            color: "#3b82f6"
-        },
-        {
-            icon: <Schedule />,
-            title: "Book Consultation",
-            details: "Free Strategy Call",
-            subtitle: "30-minute expert consultation",
-            action: "consultation",
-            color: "#8b5cf6"
-        }
-    ];
-
-    const whyChooseUs = [
-        {
-            icon: <Verified />,
-            title: "500+ Projects",
-            description: "Successfully delivered across industries"
-        },
-        {
-            icon: <Speed />,
-            title: "Quick Response",
-            description: "Response within 2 hours guaranteed"
-        },
-        {
-            icon: <Support />,
-            title: "Expert Team",
-            description: "50+ certified digital marketing experts"
-        },
-        {
-            icon: <AutoAwesome />,
-            title: "Premium Quality",
-            description: "Award-winning creative and technical solutions"
-        }
-    ];
-
-    const faqs = [
-        {
-            question: "How quickly can you start my project?",
-            answer: "We can typically start within 24-48 hours of project confirmation. For urgent projects, we offer same-day start options with our priority service."
-        },
-        {
-            question: "What's included in your pricing?",
-            answer: "Our pricing includes strategy development, execution, ongoing optimization, regular reporting, and dedicated account management. No hidden fees, everything is transparent."
-        },
-        {
-            question: "Do you work with small businesses?",
-            answer: "Absolutely! We work with businesses of all sizes, from startups to large enterprises. We have specialized packages designed for small businesses and startups."
-        },
-        {
-            question: "Can I see examples of your work?",
-            answer: "Yes! Check our portfolio page for detailed case studies. We're happy to share relevant examples during our consultation call."
-        },
-        {
-            question: "What if I'm not satisfied with the results?",
-            answer: "We offer a satisfaction guarantee. If you're not happy with our work in the first 30 days, we'll revise it until you're satisfied or provide a full refund."
-        }
-    ];
-
-    const steps = [
-        {
-            label: 'Basic Information',
-            description: 'Tell us about yourself and your business'
-        },
-        {
-            label: 'Project Details',
-            description: 'Share your project requirements and goals'
-        },
-        {
-            label: 'Budget & Timeline',
-            description: 'Help us understand your budget and timeline'
-        },
-        {
-            label: 'Final Details',
-            description: 'Any additional information or specific requirements'
+            icon: <Email sx={{ fontSize: 32 }} />,
+            title: 'Email Us',
+            subtitle: 'info@charanx.com',
+            description: 'Detailed project discussions',
+            action: () => window.open('mailto:info@charanx.com', '_blank'),
+            color: '#3B82F6',
+            gradient: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)'
         }
     ];
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        // Check if we came from a service selection
+        if (location.state?.selectedService) {
+            setFormData(prev => ({
+                ...prev,
+                service: location.state.selectedService
+            }));
+        }
+    }, [location]);
 
     const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        // Basic validation
+        if (!formData.fullName || !formData.email || !formData.message) {
+            setSnackbar({
+                open: true,
+                message: 'Please fill in all required fields',
+                severity: 'error'
+            });
+            return;
+        }
+
+        // Format WhatsApp message
+        const whatsappMessage = `info! I'm interested in your services.
+
+Name: ${formData.fullName}
+Email: ${formData.email}
+Service: ${formData.service || 'General Inquiry'}
+Message: ${formData.message}
+
+Please get back to me within 2 hours as mentioned.`;
+
+        const whatsappUrl = `https://wa.me/919677303310?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(whatsappUrl, '_blank');
+
+        setSnackbar({
+            open: true,
+            message: 'Message sent! We\'ll get back to you within 2 hours.',
+            severity: 'success'
+        });
+
+        // Reset form
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
+            fullName: '',
+            email: '',
+            service: '',
+            message: ''
         });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        
-        // Simulate form submission
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setShowSuccess(true);
-            setFormData({ 
-                name: '', 
-                email: '', 
-                company: '', 
-                phone: '',
-                service: '', 
-                projectType: '',
-                budget: '',
-                timeline: '',
-                message: '',
-                preferredContact: 'email'
-            });
-            setActiveStep(0);
-        }, 2000);
-    };
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    const handleConsultationBooking = () => {
-        setShowConsultationDialog(true);
-    };
-
-    const handleTimeSlotSelect = (timeSlot) => {
-        setSelectedTimeSlot(timeSlot);
-        setShowConsultationDialog(false);
-        setShowSuccess(true);
-        // Here you would typically integrate with a calendar booking system
-    };
-
-    const isStepValid = (step) => {
-        switch (step) {
-            case 0:
-                return formData.name && formData.email && formData.company;
-            case 1:
-                return formData.service && formData.projectType;
-            case 2:
-                return formData.budget && formData.timeline;
-            case 3:
-                return true; // Message is optional
-            default:
-                return false;
-        }
+    const handleCloseSnackbar = () => {
+        setSnackbar(prev => ({ ...prev, open: false }));
     };
 
     return (
-        <Box sx={{ 
-            pt: 12, 
-            pb: 8, 
+        <Box sx={{
             minHeight: '100vh',
-            background: 'linear-gradient(180deg, rgba(22,163,74,0.02) 0%, rgba(255,255,255,1) 100%)'
+            background: 'linear-gradient(180deg, rgba(99,102,241,0.03) 0%, rgba(16,185,129,0.02) 50%, rgba(255,255,255,1) 100%)',
+            pt: { xs: 10, md: 12 },
+            pb: 8
         }}>
             <Container maxWidth="xl">
                 {/* Breadcrumbs */}
                 <Box sx={{ mb: 4 }}>
                     <Breadcrumbs aria-label="breadcrumb">
-                        <Link component={RouterLink} to="/" color="inherit">
+                        <Link component={RouterLink} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
                             Home
                         </Link>
                         <Typography color="text.primary" fontWeight="600">Contact</Typography>
@@ -338,676 +180,320 @@ const ContactPage = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <Box textAlign="center" sx={{ mb: 8 }}>
-                        <Typography 
-                            variant="h1" 
-                            component="h1" 
-                            sx={{ 
-                                fontWeight: 800,
+                        <Typography
+                            variant="h1"
+                            component="h1"
+                            sx={{
+                                fontWeight: 900,
                                 fontSize: { xs: '2.5rem', md: '4rem' },
                                 mb: 3,
-                                background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%)',
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #16a34a 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
-                                textShadow: '0 4px 20px rgba(22,163,74,0.1)'
+                                textShadow: '0 4px 20px rgba(22,163,74,0.1)',
+                                letterSpacing: '-0.02em'
                             }}
                         >
-                            Let's Create Something Amazing
+                            Start Your Project
                         </Typography>
-                        <Typography 
-                            variant="h5" 
-                            color="text.secondary" 
-                            sx={{ 
-                                mb: 4, 
-                                maxWidth: 800, 
-                                mx: 'auto', 
+                        <Typography
+                            variant="h5"
+                            color="text.secondary"
+                            sx={{
+                                mb: 6,
+                                maxWidth: 600,
+                                mx: 'auto',
                                 fontWeight: 400,
-                                lineHeight: 1.6
+                                lineHeight: 1.6,
+                                fontSize: { xs: '1.1rem', md: '1.2rem' }
                             }}
                         >
-                            Ready to transform your digital presence? Get in touch and let's discuss your next big project. 
-                            Our expert team is here to turn your vision into reality.
+                            Fill out the form and we'll get back to you within 2 hours.
                         </Typography>
-                        
-                        {/* Quick Stats */}
-                        <Grid container spacing={4} sx={{ mt: 4, mb: 6 }}>
-                            {whyChooseUs.map((item, index) => (
-                                <Grid item xs={6} md={3} key={index}>
-                                    <motion.div
-                                        initial={{ scale: 0.8, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    >
-                                        <Paper 
-                                            elevation={0}
-                                            sx={{ 
-                                                p: 3, 
-                                                textAlign: 'center',
-                                                background: 'rgba(255,255,255,0.8)',
-                                                backdropFilter: 'blur(10px)',
-                                                border: '1px solid rgba(22,163,74,0.1)',
-                                                borderRadius: 3,
-                                                transition: 'all 0.3s ease',
-                                                '&:hover': {
-                                                    transform: 'translateY(-5px)',
-                                                    boxShadow: '0 10px 30px rgba(22,163,74,0.1)'
-                                                }
-                                            }}
-                                        >
-                                            <Box sx={{ color: 'primary.main', mb: 1 }}>
-                                                {item.icon}
-                                            </Box>
-                                            <Typography variant="h6" fontWeight="700" color="primary.main">
-                                                {item.title}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {item.description}
-                                            </Typography>
-                                        </Paper>
-                                    </motion.div>
-                                </Grid>
-                            ))}
-                        </Grid>
                     </Box>
                 </motion.div>
 
                 <Grid container spacing={6}>
-                    {/* Contact Methods */}
-                    <Grid item xs={12} lg={4}>
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                        >
-                            <Typography variant="h4" fontWeight="700" sx={{ mb: 4 }}>
-                                Get In Touch
-                            </Typography>
-                            
-                            <Stack spacing={3} sx={{ mb: 4 }}>
-                                {contactInfo.map((info, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                                        whileHover={{ x: 10 }}
-                                    >
-                                        <Card
-                                            sx={{
-                                                p: 3,
-                                                background: 'rgba(255,255,255,0.9)',
-                                                backdropFilter: 'blur(10px)',
-                                                border: '1px solid rgba(22,163,74,0.1)',
-                                                borderRadius: 3,
-                                                cursor: info.action !== 'consultation' ? 'pointer' : 'default',
-                                                transition: 'all 0.3s ease',
-                                                '&:hover': {
-                                                    borderColor: info.color,
-                                                    boxShadow: `0 10px 30px ${info.color}20`
-                                                }
-                                            }}
-                                            onClick={() => {
-                                                if (info.action === 'consultation') {
-                                                    handleConsultationBooking();
-                                                } else if (info.action.startsWith('http')) {
-                                                    window.open(info.action, '_blank');
-                                                } else if (info.action.startsWith('tel') || info.action.startsWith('mailto')) {
-                                                    window.location.href = info.action;
-                                                }
-                                            }}
-                                        >
-                                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                <Avatar
-                                                    sx={{
-                                                        bgcolor: info.color,
-                                                        color: 'white',
-                                                        mr: 2,
-                                                        width: 50,
-                                                        height: 50
-                                                    }}
-                                                >
-                                                    {info.icon}
-                                                </Avatar>
-                                                <Box sx={{ flex: 1 }}>
-                                                    <Typography variant="h6" fontWeight="600">
-                                                        {info.title}
-                                                    </Typography>
-                                                    <Typography variant="body1" color="primary.main" fontWeight="600">
-                                                        {info.details}
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        {info.subtitle}
-                                                    </Typography>
-                                                </Box>
-                                                <ArrowForward sx={{ color: 'text.secondary' }} />
-                                            </Box>
-                                        </Card>
-                                    </motion.div>
-                                ))}
-                            </Stack>
-
-                            {/* Quick Contact Buttons */}
-                            <Stack spacing={2}>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    startIcon={<WhatsApp />}
-                                    component="a"
-                                    href="https://wa.me/917075012122"
-                                    target="_blank"
-                                    sx={{
-                                        background: '#25d366',
-                                        fontWeight: 700,
-                                        '&:hover': {
-                                            background: '#22c55e'
-                                        }
-                                    }}
-                                >
-                                    WhatsApp Now
-                                </Button>
-                                <Button
-                                    variant="outlined"
-                                    size="large"
-                                    startIcon={<Phone />}
-                                    component="a"
-                                    href="tel:+919677303310"
-                                    sx={{
-                                        borderColor: 'primary.main',
-                                        color: 'primary.main',
-                                        fontWeight: 700,
-                                        '&:hover': {
-                                            borderColor: 'primary.dark',
-                                            backgroundColor: 'rgba(22,163,74,0.08)'
-                                        }
-                                    }}
-                                >
-                                    Call Now
-                                </Button>
-                            </Stack>
-                        </motion.div>
-                    </Grid>
-
                     {/* Contact Form */}
                     <Grid item xs={12} lg={8}>
                         <motion.div
-                            initial={{ opacity: 0, x: 30 }}
+                            initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
                         >
                             <Paper
                                 elevation={0}
                                 sx={{
-                                    p: 4,
+                                    p: { xs: 4, md: 6 },
                                     background: 'rgba(255,255,255,0.9)',
-                                    backdropFilter: 'blur(10px)',
-                                    border: '1px solid rgba(22,163,74,0.1)',
-                                    borderRadius: 4
+                                    backdropFilter: 'blur(20px)',
+                                    border: '1px solid rgba(255,255,255,0.3)',
+                                    borderRadius: 4,
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                                 }}
                             >
-                                <Typography variant="h4" fontWeight="700" sx={{ mb: 2 }}>
-                                    Start Your Project
-                                </Typography>
-                                <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                                    Fill out the form below and we'll get back to you within 2 hours with a custom proposal.
-                                </Typography>
+                                <form onSubmit={handleSubmit}>
+                                    <Grid container spacing={4}>
+                                        {/* Name and Email Row */}
+                                        <Grid item xs={12} md={6}>
+                                            <TextField
+                                                fullWidth
+                                                label="Full Name"
+                                                name="fullName"
+                                                value={formData.fullName}
+                                                onChange={handleInputChange}
+                                                required
+                                                placeholder="Full Name * *"
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                        borderRadius: 3,
+                                                        background: 'rgba(255,255,255,0.8)',
+                                                        '&:hover fieldset': {
+                                                            borderColor: 'primary.main'
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <TextField
+                                                fullWidth
+                                                label="Email Address"
+                                                name="email"
+                                                type="email"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                required
+                                                placeholder="Email Address * *"
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                        borderRadius: 3,
+                                                        background: 'rgba(255,255,255,0.8)',
+                                                        '&:hover fieldset': {
+                                                            borderColor: 'primary.main'
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                        </Grid>
 
-                                <Stepper activeStep={activeStep} orientation="vertical">
-                                    {steps.map((step, index) => (
-                                        <Step key={step.label}>
-                                            <StepLabel>
-                                                <Typography variant="h6" fontWeight="600">
-                                                    {step.label}
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    {step.description}
-                                                </Typography>
-                                            </StepLabel>
-                                            <StepContent>
-                                                <Box component="form" sx={{ mt: 2, mb: 2 }}>
-                                                    {/* Step 0: Basic Information */}
-                                                    {index === 0 && (
-                                                        <Grid container spacing={3}>
-                                                            <Grid item xs={12} sm={6}>
-                                                                <TextField
-                                                                    fullWidth
-                                                                    label="Full Name *"
-                                                                    name="name"
-                                                                    value={formData.name}
-                                                                    onChange={handleInputChange}
-                                                                    variant="outlined"
-                                                                    required
-                                                                />
-                                                            </Grid>
-                                                            <Grid item xs={12} sm={6}>
-                                                                <TextField
-                                                                    fullWidth
-                                                                    label="Email Address *"
-                                                                    name="email"
-                                                                    type="email"
-                                                                    value={formData.email}
-                                                                    onChange={handleInputChange}
-                                                                    variant="outlined"
-                                                                    required
-                                                                />
-                                                            </Grid>
-                                                            <Grid item xs={12} sm={6}>
-                                                                <TextField
-                                                                    fullWidth
-                                                                    label="Company Name *"
-                                                                    name="company"
-                                                                    value={formData.company}
-                                                                    onChange={handleInputChange}
-                                                                    variant="outlined"
-                                                                    required
-                                                                />
-                                                            </Grid>
-                                                            <Grid item xs={12} sm={6}>
-                                                                <TextField
-                                                                    fullWidth
-                                                                    label="Phone Number"
-                                                                    name="phone"
-                                                                    value={formData.phone}
-                                                                    onChange={handleInputChange}
-                                                                    variant="outlined"
-                                                                />
-                                                            </Grid>
-                                                        </Grid>
-                                                    )}
+                                        {/* Service Selection */}
+                                        <Grid item xs={12} md={6}>
+                                            <FormControl fullWidth>
+                                                <InputLabel>Service Interested In</InputLabel>
+                                                <Select
+                                                    name="service"
+                                                    value={formData.service}
+                                                    onChange={handleInputChange}
+                                                    label="Service Interested In"
+                                                    sx={{
+                                                        borderRadius: 3,
+                                                        background: 'rgba(255,255,255,0.8)'
+                                                    }}
+                                                >
+                                                    {services.map((service) => (
+                                                        <MenuItem key={service} value={service}>
+                                                            {service}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
 
-                                                    {/* Step 1: Project Details */}
-                                                    {index === 1 && (
-                                                        <Grid container spacing={3}>
-                                                            <Grid item xs={12}>
-                                                                <FormControl fullWidth required>
-                                                                    <InputLabel>Service Needed</InputLabel>
-                                                                    <Select
-                                                                        name="service"
-                                                                        value={formData.service}
-                                                                        onChange={handleInputChange}
-                                                                        label="Service Needed"
-                                                                    >
-                                                                        {services.map((service) => (
-                                                                            <MenuItem key={service} value={service}>
-                                                                                {service}
-                                                                            </MenuItem>
-                                                                        ))}
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Grid>
-                                                            <Grid item xs={12}>
-                                                                <FormControl fullWidth required>
-                                                                    <InputLabel>Project Type</InputLabel>
-                                                                    <Select
-                                                                        name="projectType"
-                                                                        value={formData.projectType}
-                                                                        onChange={handleInputChange}
-                                                                        label="Project Type"
-                                                                    >
-                                                                        {projectTypes.map((type) => (
-                                                                            <MenuItem key={type} value={type}>
-                                                                                {type}
-                                                                            </MenuItem>
-                                                                        ))}
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Grid>
-                                                        </Grid>
-                                                    )}
+                                        {/* Message */}
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                label="Your Message"
+                                                name="message"
+                                                value={formData.message}
+                                                onChange={handleInputChange}
+                                                required
+                                                multiline
+                                                rows={6}
+                                                placeholder="Tell us about your project requirements..."
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                        borderRadius: 3,
+                                                        background: 'rgba(255,255,255,0.8)',
+                                                        '&:hover fieldset': {
+                                                            borderColor: 'primary.main'
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                        </Grid>
 
-                                                    {/* Step 2: Budget & Timeline */}
-                                                    {index === 2 && (
-                                                        <Grid container spacing={3}>
-                                                            <Grid item xs={12} sm={6}>
-                                                                <FormControl fullWidth required>
-                                                                    <InputLabel>Budget Range</InputLabel>
-                                                                    <Select
-                                                                        name="budget"
-                                                                        value={formData.budget}
-                                                                        onChange={handleInputChange}
-                                                                        label="Budget Range"
-                                                                    >
-                                                                        {budgetRanges.map((range) => (
-                                                                            <MenuItem key={range} value={range}>
-                                                                                {range}
-                                                                            </MenuItem>
-                                                                        ))}
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Grid>
-                                                            <Grid item xs={12} sm={6}>
-                                                                <FormControl fullWidth required>
-                                                                    <InputLabel>Preferred Timeline</InputLabel>
-                                                                    <Select
-                                                                        name="timeline"
-                                                                        value={formData.timeline}
-                                                                        onChange={handleInputChange}
-                                                                        label="Preferred Timeline"
-                                                                    >
-                                                                        {timelineOptions.map((option) => (
-                                                                            <MenuItem key={option} value={option}>
-                                                                                {option}
-                                                                            </MenuItem>
-                                                                        ))}
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Grid>
-                                                        </Grid>
-                                                    )}
-
-                                                    {/* Step 3: Final Details */}
-                                                    {index === 3 && (
-                                                        <Grid container spacing={3}>
-                                                            <Grid item xs={12}>
-                                                                <TextField
-                                                                    fullWidth
-                                                                    label="Project Details & Requirements"
-                                                                    name="message"
-                                                                    value={formData.message}
-                                                                    onChange={handleInputChange}
-                                                                    variant="outlined"
-                                                                    multiline
-                                                                    rows={4}
-                                                                    placeholder="Tell us more about your project goals, target audience, specific requirements, or any questions you have..."
-                                                                />
-                                                            </Grid>
-                                                            <Grid item xs={12}>
-                                                                <FormControl fullWidth>
-                                                                    <InputLabel>Preferred Contact Method</InputLabel>
-                                                                    <Select
-                                                                        name="preferredContact"
-                                                                        value={formData.preferredContact}
-                                                                        onChange={handleInputChange}
-                                                                        label="Preferred Contact Method"
-                                                                    >
-                                                                        <MenuItem value="email">Email</MenuItem>
-                                                                        <MenuItem value="phone">Phone Call</MenuItem>
-                                                                        <MenuItem value="whatsapp">WhatsApp</MenuItem>
-                                                                        <MenuItem value="consultation">Free Consultation Call</MenuItem>
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Grid>
-                                                        </Grid>
-                                                    )}
-
-                                                    <Box sx={{ mt: 3 }}>
-                                                        <Button
-                                                            disabled={!isStepValid(index)}
-                                                            onClick={index === steps.length - 1 ? handleSubmit : handleNext}
-                                                            variant="contained"
-                                                            endIcon={index === steps.length - 1 ? <Send /> : <ArrowForward />}
-                                                            sx={{
-                                                                mr: 1,
-                                                                background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
-                                                                fontWeight: 700,
-                                                                '&:hover': {
-                                                                    background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)'
-                                                                }
-                                                            }}
-                                                            disabled={isSubmitting}
-                                                        >
-                                                            {isSubmitting ? 'Submitting...' : (index === steps.length - 1 ? 'Send Message' : 'Continue')}
-                                                        </Button>
-                                                        {index > 0 && (
-                                                            <Button
-                                                                onClick={handleBack}
-                                                                variant="outlined"
-                                                                sx={{ ml: 1 }}
-                                                            >
-                                                                Back
-                                                            </Button>
-                                                        )}
-                                                    </Box>
-                                                </Box>
-                                            </StepContent>
-                                        </Step>
-                                    ))}
-                                </Stepper>
+                                        {/* Submit Button */}
+                                        <Grid item xs={12}>
+                                            <Button
+                                                type="submit"
+                                                variant="contained"
+                                                size="large"
+                                                endIcon={<Send />}
+                                                sx={{
+                                                    background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+                                                    color: 'white',
+                                                    fontWeight: 700,
+                                                    py: 2,
+                                                    px: 6,
+                                                    borderRadius: 3,
+                                                    fontSize: '1.1rem',
+                                                    '&:hover': {
+                                                        background: 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 10px 25px rgba(34,197,94,0.3)'
+                                                    },
+                                                    transition: 'all 0.3s ease'
+                                                }}
+                                            >
+                                                Send Message
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </form>
                             </Paper>
                         </motion.div>
                     </Grid>
-                </Grid>
 
-                {/* FAQ Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                    <Box sx={{ mt: 12, mb: 8 }}>
-                        <Typography 
-                            variant="h3" 
-                            align="center" 
-                            fontWeight="700" 
-                            sx={{ 
-                                mb: 6,
-                                background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
-                                backgroundClip: 'text',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent'
-                            }}
+                    {/* Contact Methods */}
+                    <Grid item xs={12} lg={4}>
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
                         >
-                            Frequently Asked Questions
-                        </Typography>
-                        
-                        <Grid container justifyContent="center">
-                            <Grid item xs={12} lg={8}>
-                                {faqs.map((faq, index) => (
+                            <Typography
+                                variant="h4"
+                                fontWeight="800"
+                                sx={{ mb: 4, color: '#1a1a1a' }}
+                            >
+                                Get In Touch
+                            </Typography>
+
+                            <Stack spacing={3}>
+                                {contactMethods.map((method, index) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
+                                        whileHover={{ scale: 1.02 }}
                                     >
-                                        <Accordion
+                                        <Paper
+                                            elevation={0}
+                                            onClick={method.action}
                                             sx={{
-                                                mb: 2,
+                                                p: 3,
                                                 background: 'rgba(255,255,255,0.9)',
                                                 backdropFilter: 'blur(10px)',
-                                                border: '1px solid rgba(22,163,74,0.1)',
+                                                border: '1px solid rgba(255,255,255,0.3)',
                                                 borderRadius: 3,
-                                                '&:before': { display: 'none' },
-                                                '&.Mui-expanded': {
-                                                    borderColor: 'primary.main'
+                                                cursor: 'pointer',
+                                                transition: 'all 0.3s ease',
+                                                '&:hover': {
+                                                    transform: 'translateY(-5px)',
+                                                    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                                                    borderColor: method.color
                                                 }
                                             }}
                                         >
-                                            <AccordionSummary
-                                                expandIcon={<ExpandMore />}
-                                                sx={{ p: 3 }}
-                                            >
-                                                <Typography variant="h6" fontWeight="600">
-                                                    {faq.question}
-                                                </Typography>
-                                            </AccordionSummary>
-                                            <AccordionDetails sx={{ px: 3, pb: 3 }}>
-                                                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-                                                    {faq.answer}
-                                                </Typography>
-                                            </AccordionDetails>
-                                        </Accordion>
+                                            <Stack direction="row" alignItems="center" spacing={2}>
+                                                <Avatar
+                                                    sx={{
+                                                        width: 60,
+                                                        height: 60,
+                                                        background: method.gradient,
+                                                        color: 'white'
+                                                    }}
+                                                >
+                                                    {method.icon}
+                                                </Avatar>
+                                                <Box sx={{ flex: 1 }}>
+                                                    <Typography variant="h6" fontWeight="700" sx={{ mb: 0.5 }}>
+                                                        {method.title}
+                                                    </Typography>
+                                                    <Typography 
+                                                        variant="body1" 
+                                                        sx={{ 
+                                                            color: method.color, 
+                                                            fontWeight: 600,
+                                                            mb: 0.5
+                                                        }}
+                                                    >
+                                                        {method.subtitle}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {method.description}
+                                                    </Typography>
+                                                </Box>
+                                                <ArrowForward sx={{ color: method.color }} />
+                                            </Stack>
+                                        </Paper>
                                     </motion.div>
                                 ))}
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </motion.div>
+                            </Stack>
 
-                {/* Emergency Contact Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                >
-                    <Paper 
-                        elevation={0}
-                        sx={{ 
-                            p: 6,
-                            textAlign: 'center',
-                            background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
-                            color: 'white',
-                            borderRadius: 4
-                        }}
-                    >
-                        <Typography variant="h4" fontWeight="700" sx={{ mb: 2 }}>
-                            Need Immediate Assistance?
-                        </Typography>
-                        <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-                            For urgent projects or immediate support, reach out to us directly.
-                        </Typography>
-                        <Stack 
-                            direction={{ xs: 'column', sm: 'row' }} 
-                            spacing={2} 
-                            justifyContent="center"
-                        >
-                            <Button
-                                variant="contained"
-                                size="large"
-                                startIcon={<Phone />}
-                                component="a"
-                                href="tel:+919677303310"
+                            {/* Quick Info */}
+                            <Paper
+                                elevation={0}
                                 sx={{
-                                    bgcolor: 'white',
-                                    color: 'primary.main',
-                                    fontWeight: 700,
-                                    px: 4,
-                                    '&:hover': {
-                                        bgcolor: 'rgba(255,255,255,0.9)'
-                                    }
-                                }}
-                            >
-                                Call: +91 9677303310
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                size="large"
-                                startIcon={<WhatsApp />}
-                                component="a"
-                                href="https://wa.me/917075012122"
-                                target="_blank"
-                                sx={{
-                                    borderColor: 'white',
+                                    mt: 4,
+                                    p: 4,
+                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                     color: 'white',
-                                    fontWeight: 700,
-                                    px: 4,
-                                    '&:hover': {
-                                        borderColor: 'white',
-                                        bgcolor: 'rgba(255,255,255,0.1)'
-                                    }
+                                    borderRadius: 3
                                 }}
                             >
-                                WhatsApp: +91 7075012122
-                            </Button>
-                        </Stack>
-                    </Paper>
-                </motion.div>
+                                <Typography variant="h6" fontWeight="700" sx={{ mb: 2 }}>
+                                    Why Choose CharanX?
+                                </Typography>
+                                <Stack spacing={2}>
+                                    <Stack direction="row" alignItems="center" spacing={2}>
+                                        <CheckCircle sx={{ fontSize: 20 }} />
+                                        <Typography variant="body2">Response within 2 hours</Typography>
+                                    </Stack>
+                                    <Stack direction="row" alignItems="center" spacing={2}>
+                                        <CheckCircle sx={{ fontSize: 20 }} />
+                                        <Typography variant="body2">Free consultation & strategy</Typography>
+                                    </Stack>
+                                    <Stack direction="row" alignItems="center" spacing={2}>
+                                        <CheckCircle sx={{ fontSize: 20 }} />
+                                        <Typography variant="body2">Proven track record</Typography>
+                                    </Stack>
+                                    <Stack direction="row" alignItems="center" spacing={2}>
+                                        <CheckCircle sx={{ fontSize: 20 }} />
+                                        <Typography variant="body2">Transparent pricing</Typography>
+                                    </Stack>
+                                </Stack>
+                            </Paper>
+                        </motion.div>
+                    </Grid>
+                </Grid>
             </Container>
 
-            {/* Floating WhatsApp Button */}
-            <Fab
-                color="success"
-                sx={{
-                    position: 'fixed',
-                    bottom: 24,
-                    right: 24,
-                    background: '#25d366',
-                    '&:hover': {
-                        background: '#22c55e'
-                    }
-                }}
-                component="a"
-                href="https://wa.me/917075012122"
-                target="_blank"
-            >
-                <WhatsApp />
-            </Fab>
-
-            {/* Consultation Booking Dialog */}
-            <Dialog
-                open={showConsultationDialog}
-                onClose={() => setShowConsultationDialog(false)}
-                maxWidth="sm"
-                fullWidth
-                PaperProps={{
-                    sx: { borderRadius: 4 }
-                }}
-            >
-                <DialogTitle sx={{ pb: 0 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Typography variant="h5" fontWeight="700">
-                            Book Free Consultation
-                        </Typography>
-                        <IconButton onClick={() => setShowConsultationDialog(false)}>
-                            <Close />
-                        </IconButton>
-                    </Box>
-                </DialogTitle>
-                <DialogContent sx={{ pt: 2 }}>
-                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                        Schedule a 30-minute strategy call with our experts. Choose your preferred time slot:
-                    </Typography>
-                    
-                    <Grid container spacing={2}>
-                        {timeSlots.map((slot) => (
-                            <Grid item xs={12} sm={6} key={slot}>
-                                <Button
-                                    variant="outlined"
-                                    fullWidth
-                                    sx={{
-                                        p: 2,
-                                        justifyContent: 'flex-start',
-                                        borderColor: 'rgba(22,163,74,0.3)',
-                                        '&:hover': {
-                                            borderColor: 'primary.main',
-                                            backgroundColor: 'rgba(22,163,74,0.05)'
-                                        }
-                                    }}
-                                    onClick={() => handleTimeSlotSelect(slot)}
-                                >
-                                    <AccessTime sx={{ mr: 1, fontSize: 20 }} />
-                                    {slot}
-                                </Button>
-                            </Grid>
-                        ))}
-                    </Grid>
-
-                    <Box sx={{ mt: 3, p: 2, bgcolor: 'rgba(22,163,74,0.05)', borderRadius: 2 }}>
-                        <Typography variant="body2" fontWeight="600" sx={{ mb: 1 }}>
-                            What to expect:
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            • Free 30-minute strategy session<br/>
-                            • Custom recommendations for your business<br/>
-                            • No obligation, just valuable insights<br/>
-                            • Direct access to our senior consultants
-                        </Typography>
-                    </Box>
-                </DialogContent>
-            </Dialog>
-
-            {/* Success Snackbar */}
-            <Snackbar 
-                open={showSuccess} 
-                autoHideDuration={6000} 
-                onClose={() => setShowSuccess(false)}
+            {/* Snackbar for notifications */}
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             >
                 <Alert 
-                    onClose={() => setShowSuccess(false)} 
-                    severity="success"
-                    variant="filled"
+                    onClose={handleCloseSnackbar} 
+                    severity={snackbar.severity}
                     sx={{ 
-                        background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+                        width: '100%',
+                        borderRadius: 2,
                         fontWeight: 600
                     }}
                 >
-                    {selectedTimeSlot 
-                        ? `Consultation booked for ${selectedTimeSlot}! We'll send you a confirmation email shortly.`
-                        : "Thank you for your message! We'll get back to you within 2 hours."
-                    }
+                    {snackbar.message}
                 </Alert>
             </Snackbar>
         </Box>
     );
 };
 
-export default ContactPage;
+export default ContactPageNew;

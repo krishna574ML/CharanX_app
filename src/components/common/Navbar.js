@@ -14,14 +14,12 @@ import {
     useMediaQuery,
     Badge,
 } from '@mui/material';
-import { Menu as MenuIcon, Close as CloseIcon, Phone } from '@mui/icons-material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
     { title: 'Home', path: '/' },
     { title: 'Services', path: '/services' },
-    { title: 'Portfolio', path: '/portfolio' },
-    { title: 'Blog', path: '/blog' },
 ];
 
 const Navbar = () => {
@@ -78,21 +76,39 @@ const Navbar = () => {
 
     return (
         <>
-            <AppBar
-                position="fixed"
-                elevation={scrolled ? 8 : 0}
-                sx={{
-                    zIndex: 1400,
-                    background: scrolled 
-                        ? 'rgba(255,255,255,0.95)' 
-                        : 'rgba(255,255,255,0.85)',
-                    color: 'text.primary',
-                    backdropFilter: 'blur(20px)',
-                    borderBottom: '1px solid',
-                    borderColor: scrolled ? 'rgba(15,23,42,0.12)' : 'rgba(15,23,42,0.06)',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
+            <motion.div
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
             >
+                <AppBar
+                    position="fixed"
+                    elevation={scrolled ? 12 : 0}
+                    sx={{
+                        zIndex: 1400,
+                        background: scrolled 
+                            ? 'rgba(255,255,255,0.98)' 
+                            : 'rgba(255,255,255,0.85)',
+                        color: 'text.primary',
+                        backdropFilter: 'blur(25px)',
+                        borderBottom: '1px solid',
+                        borderColor: scrolled ? 'rgba(15,23,42,0.15)' : 'rgba(15,23,42,0.08)',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: '100%',
+                            background: scrolled 
+                                ? 'linear-gradient(135deg, rgba(34, 197, 94, 0.02) 0%, rgba(16, 185, 129, 0.02) 100%)'
+                                : 'transparent',
+                            transition: 'all 0.4s ease',
+                            zIndex: -1
+                        }
+                    }}
+                >
                 <Toolbar sx={{ 
                     justifyContent: 'space-between', 
                     py: { xs: 1, md: 1.5 },
@@ -101,148 +117,220 @@ const Navbar = () => {
                     <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
                     >
-                        <Typography
-                            variant="h6"
+                        <Box
                             component={RouterLink}
                             to="/"
                             sx={{
-                                color: 'text.primary',
+                                display: 'flex',
+                                alignItems: 'center',
                                 textDecoration: 'none',
-                                fontWeight: 800,
-                                fontSize: { xs: '1.5rem', md: '1.75rem' },
-                                letterSpacing: '-0.02em',
-                                background: 'linear-gradient(90deg, #16a34a, #22c55e)',
-                                backgroundClip: 'text',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
+                                gap: 1,
+                                cursor: 'pointer',
+                                '&:hover': {
+                                    transform: 'scale(1.02)',
+                                    transition: 'transform 0.2s ease'
+                                }
                             }}
                         >
-                            charanX
-                        </Typography>
-                    </motion.div>
-                    
-                    {isMobile ? (
-                        <motion.div
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            <IconButton
-                                onClick={handleDrawerToggle}
+                            {/* Enhanced Logo with Icon */}
+                            <Box
                                 sx={{
-                                    color: 'text.primary',
-                                    bgcolor: 'rgba(34, 197, 94, 0.1)',
-                                    '&:hover': { 
-                                        bgcolor: 'rgba(34, 197, 94, 0.2)',
-                                        transform: 'scale(1.05)'
-                                    },
-                                    transition: 'all 0.3s ease'
+                                    width: { xs: 40, md: 48 },
+                                    height: { xs: 40, md: 48 },
+                                    borderRadius: '12px',
+                                    background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 8px 24px rgba(34, 197, 94, 0.3)',
+                                    position: 'relative',
+                                    '&::before': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        inset: -2,
+                                        borderRadius: '14px',
+                                        background: 'linear-gradient(135deg, #22c55e, #4ade80, #16a34a)',
+                                        zIndex: -1,
+                                        opacity: 0.7,
+                                        filter: 'blur(8px)'
+                                    }
                                 }}
                             >
-                                {drawerOpen ? <CloseIcon /> : <MenuIcon />}
-                            </IconButton>
-                        </motion.div>
-                    ) : (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                            {navLinks.map((link, index) => (
-                                <motion.div
-                                    key={link.title}
-                                    whileHover={{ y: -2 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <Button 
-                                        component={RouterLink} 
-                                        to={link.path}
-                                        sx={{
-                                            color: 'text.primary',
-                                            mx: 1,
-                                            fontSize: '0.95rem',
-                                            fontWeight: 600,
-                                            position: 'relative',
-                                            '&::after': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                width: location.pathname === link.path ? '100%' : '0%',
-                                                height: '3px',
-                                                bottom: -2,
-                                                left: 0,
-                                                bgcolor: 'primary.main',
-                                                borderRadius: '2px',
-                                                transition: 'width 0.3s ease',
-                                            },
-                                            '&:hover::after': {
-                                                width: '100%',
-                                            },
-                                        }}
-                                    >
-                                        {link.title}
-                                    </Button>
-                                </motion.div>
-                            ))}
-                            <motion.div
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <Button 
-                                    variant="contained" 
-                                    color="primary"
-                                    component={RouterLink} 
-                                    to="/contact"
-                                    startIcon={<Phone sx={{ fontSize: 18 }} />}
+                                <Typography
                                     sx={{
-                                        ml: 2,
-                                        px: 4,
-                                        py: 1.2,
-                                        borderRadius: '999px',
-                                        background: 'linear-gradient(45deg, #16a34a, #22c55e)',
-                                        fontWeight: 700,
-                                        fontSize: '0.9rem',
-                                        position: 'relative',
-                                        overflow: 'hidden',
-                                        boxShadow: '0 4px 12px rgba(34, 197, 94, 0.25)',
-                                        '&:hover': {
-                                            background: 'linear-gradient(45deg, #22c55e, #16a34a)',
-                                            boxShadow: '0 6px 20px rgba(34, 197, 94, 0.35)',
-                                        },
-                                        '&::before': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: -100,
-                                            width: '100%',
-                                            height: '100%',
-                                            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                                            transition: 'left 0.5s ease',
-                                        },
-                                        '&:hover::before': {
-                                            left: '100%',
-                                        }
+                                        color: 'white',
+                                        fontWeight: 900,
+                                        fontSize: { xs: '1rem', md: '1.2rem' },
+                                        textShadow: '0 2px 4px rgba(0,0,0,0.3)'
                                     }}
                                 >
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                        <span>Get Quote</span>
-                                        <Badge 
-                                            badgeContent="Free" 
-                                            sx={{ 
-                                                '& .MuiBadge-badge': { 
-                                                    fontSize: '0.7rem',
-                                                    fontWeight: 700,
-                                                    bgcolor: '#fbbf24',
-                                                    color: '#000',
-                                                    minWidth: 'auto',
-                                                    height: 16,
-                                                    borderRadius: 1
-                                                } 
-                                            }}
-                                        />
-                                    </Box>
-                                </Button>
-                            </motion.div>
-                        </Box>
-                    )}
-                </Toolbar>
-            </AppBar>
+                                    C
+                                </Typography>
+                            </Box>
+                            
+                            
+                                                        <Box>
+                                                            <Typography
+                                                                variant="h6"
+                                                                sx={{
+                                                                    color: 'text.primary',
+                                                                    fontWeight: 900,
+                                                                    fontSize: { xs: '1.4rem', md: '1.8rem' },
+                                                                    letterSpacing: '-0.03em',
+                                                                    background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #059669 100%)',
+                                                                    backgroundClip: 'text',
+                                                                    WebkitBackgroundClip: 'text',
+                                                                    WebkitTextFillColor: 'transparent',
+                                                                    lineHeight: 1,
+                                                                    position: 'relative',
+                                                                    '&::after': {
+                                                                        content: '""',
+                                                                        position: 'absolute',
+                                                                        bottom: -2,
+                                                                        left: 0,
+                                                                        width: '100%',
+                                                                        height: 2,
+                                                                        background: 'linear-gradient(90deg, #22c55e, transparent)',
+                                                                        borderRadius: 1,
+                                                                        opacity: 0,
+                                                                        transition: 'opacity 0.3s ease'
+                                                                    },
+                                                                    '&:hover::after': {
+                                                                        opacity: 1
+                                                                    }
+                                                                }}
+                                                            >
+                                                                charan<span style={{ color: '#22c55e', textShadow: '0 0 10px rgba(34, 197, 94, 0.5)' }}>X</span>
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="caption"
+                                                                sx={{
+                                                                    color: 'text.secondary',
+                                                                    fontSize: '0.65rem',
+                                                                    fontWeight: 600,
+                                                                    letterSpacing: '0.05em',
+                                                                    textTransform: 'uppercase',
+                                                                    opacity: 0.8,
+                                                                    display: { xs: 'none', md: 'block' }
+                                                                }}
+                                                            >
+                                                                Guntur • Vijayawada
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </motion.div>
+                                                
+                                                {isMobile ? (
+                                                    <motion.div
+                                                        whileTap={{ scale: 0.9 }}
+                                                    >
+                                                        <IconButton
+                                                            onClick={handleDrawerToggle}
+                                                            sx={{
+                                                                color: 'text.primary',
+                                                                bgcolor: 'rgba(34, 197, 94, 0.1)',
+                                                                '&:hover': { 
+                                                                    bgcolor: 'rgba(34, 197, 94, 0.2)',
+                                                                    transform: 'scale(1.05)'
+                                                                },
+                                                                transition: 'all 0.3s ease'
+                                                            }}
+                                                        >
+                                                            {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+                                                        </IconButton>
+                                                    </motion.div>
+                                                ) : (
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                        {navLinks.map((link, index) => (
+                                                            <motion.div
+                                                                key={link.title}
+                                                                whileHover={{ y: -2 }}
+                                                                transition={{ duration: 0.2 }}
+                                                            >
+                                                                <Button 
+                                                                    component={RouterLink} 
+                                                                    to={link.path}
+                                                                    sx={{
+                                                                        color: 'text.primary',
+                                                                        mx: 1,
+                                                                        fontSize: '0.95rem',
+                                                                        fontWeight: 600,
+                                                                        position: 'relative',
+                                                                        '&::after': {
+                                                                            content: '""',
+                                                                            position: 'absolute',
+                                                                            width: location.pathname === link.path ? '100%' : '0%',
+                                                                            height: '3px',
+                                                                            bottom: -2,
+                                                                            left: 0,
+                                                                            bgcolor: 'primary.main',
+                                                                            borderRadius: '2px',
+                                                                            transition: 'width 0.3s ease',
+                                                                        },
+                                                                        '&:hover::after': {
+                                                                            width: '100%',
+                                                                        },
+                                                                    }}
+                                                                >
+                                                                    {link.title}
+                                                                </Button>
+                                                            </motion.div>
+                                                        ))}
+                                                        <motion.div
+                                                            whileHover={{ scale: 1.05, y: -2 }}
+                                                            whileTap={{ scale: 0.95 }}
+                                                        >
+                                                            <Button 
+                                                                variant="contained" 
+                                                                color="primary"
+                                                                component={RouterLink} 
+                                                                to="/contact"
+                                                                sx={{
+                                                                    ml: 2,
+                                                                    px: 4,
+                                                                    py: 1.2,
+                                                                    borderRadius: '999px',
+                                                                    background: 'linear-gradient(45deg, #16a34a, #22c55e)',
+                                                                    fontWeight: 700,
+                                                                    fontSize: '0.9rem',
+                                                                    position: 'relative',
+                                                                    overflow: 'hidden',
+                                                                    boxShadow: '0 4px 12px rgba(34, 197, 94, 0.25)',
+                                                                    '&:hover': {
+                                                                        background: 'linear-gradient(45deg, #22c55e, #16a34a)',
+                                                                        boxShadow: '0 6px 20px rgba(34, 197, 94, 0.35)',
+                                                                    },
+                                                                    '&::before': {
+                                                                        content: '""',
+                                                                        position: 'absolute',
+                                                                        top: 0,
+                                                                        left: -100,
+                                                                        width: '100%',
+                                                                        height: '100%',
+                                                                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                                                                        transition: 'left 0.5s ease',
+                                                                    },
+                                                                    '&:hover::before': {
+                                                                        left: '100%',
+                                                                    }
+                                                                }}
+                                                            >
+                                                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                                    <span>Get Quote</span>
+                                                                </Box>
+                                                            </Button>
+                                                        </motion.div>
+                                                    </Box>
+                                                )}
+                                            </Toolbar>
+                                        </AppBar>
+                                        </motion.div>
 
-            {/* Enhanced Mobile Drawer */}
+                                        {/* Enhanced Mobile Drawer */}
             <AnimatePresence>
                 {drawerOpen && (
                     <Drawer
@@ -351,7 +439,6 @@ const Navbar = () => {
                                         component={RouterLink}
                                         to="/contact"
                                         onClick={handleDrawerToggle}
-                                        startIcon={<Phone />}
                                         sx={{
                                             py: 2,
                                             borderRadius: '999px',

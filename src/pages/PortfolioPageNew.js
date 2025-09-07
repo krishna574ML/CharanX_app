@@ -51,7 +51,6 @@ import {
     Favorite,
     BookmarkBorder,
     Language,
-    Phone,
     WhatsApp,
     Instagram,
     Facebook,
@@ -803,7 +802,6 @@ const PortfolioPage = () => {
                             <Button
                                 variant="contained"
                                 size="large"
-                                endIcon={<Phone />}
                                 onClick={handleGetQuote}
                                 sx={{
                                     bgcolor: 'white',
@@ -856,7 +854,7 @@ const PortfolioPage = () => {
                 }}
                 onClick={handleGetQuote}
             >
-                <Phone />
+                <WhatsApp />
             </Fab>
 
             {/* Project Detail Modal */}
