@@ -16,7 +16,7 @@ import {
     Campaign,
     TrendingUp,
     Web,
-    Analytics,
+    Science,
     ContentCopy,
     Search,
     ArrowForward
@@ -40,38 +40,24 @@ const ServicesOverview = () => {
         },
         {
             icon: <TrendingUp sx={{ fontSize: 40 }} />,
-            title: "Performance Marketing",
-            description: "Data-driven campaigns that deliver measurable ROI through PPC, display ads, and conversion optimization.",
+            title: "Digital Media Marketing",
+            description: "Data-driven digital campaigns that deliver measurable ROI through PPC, display ads, and conversion optimization.",
             gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-            features: ["Google Ads", "Facebook Ads", "Conversion Optimization"]
+            features: ["Google Ads", "Display Advertising", "Conversion Optimization"]
         },
         {
             icon: <Web sx={{ fontSize: 40 }} />,
-            title: "Web Design & Development",
-            description: "Create stunning, mobile-responsive websites that convert visitors into customers with modern design and functionality.",
+            title: "Web Development",
+            description: "Create stunning, mobile-responsive websites and web applications with modern design and cutting-edge functionality.",
             gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-            features: ["Custom Design", "Mobile-First", "E-commerce Solutions"]
+            features: ["Custom Development", "Mobile-First Design", "E-commerce Solutions"]
         },
         {
-            icon: <Analytics sx={{ fontSize: 40 }} />,
-            title: "Analytics & Insights",
-            description: "Transform data into actionable insights with comprehensive tracking, reporting, and performance analysis.",
+            icon: <Science sx={{ fontSize: 40 }} />,
+            title: "AI & Data Science",
+            description: "Leverage artificial intelligence and data science to unlock insights, automate processes, and drive intelligent business decisions.",
             gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-            features: ["Performance Tracking", "Custom Dashboards", "Insights Reports"]
-        },
-        {
-            icon: <ContentCopy sx={{ fontSize: 40 }} />,
-            title: "Content Strategy",
-            description: "Develop compelling content that tells your brand story and drives engagement across all digital channels.",
-            gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-            features: ["Content Planning", "Blog Writing", "Video Content"]
-        },
-        {
-            icon: <Search sx={{ fontSize: 40 }} />,
-            title: "SEO & Local Search",
-            description: "Improve your search rankings and local visibility with comprehensive SEO strategies and optimization.",
-            gradient: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)",
-            features: ["Technical SEO", "Local SEO", "Link Building"]
+            features: ["Machine Learning", "Data Analytics", "AI Automation"]
         }
     ];
 
@@ -188,7 +174,7 @@ const ServicesOverview = () => {
                 {/* Enhanced Services Grid */}
                 <Grid container spacing={{ xs: 3, md: 4 }}>
                     {services.map((service, index) => (
-                        <Grid item xs={12} sm={6} lg={4} key={index}>
+                        <Grid item xs={12} sm={6} md={6} key={index}>
                             <motion.div
                                 custom={index}
                                 variants={cardVariants}

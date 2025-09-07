@@ -365,17 +365,17 @@ const HeroSection = () => {
             {[
               { 
                 icon: <BarChart sx={{ fontSize: 40, color: '#22c55e' }} />,
-                title: 'Sey Suntemiss',
+                title: 'Social Media Marketing',
                 description: 'Strategic social media growth'
               },
               { 
                 icon: <CampaignOutlined sx={{ fontSize: 40, color: '#22c55e' }} />,
-                title: 'Hane Fur Dasts',
+                title: 'Digital Advertising',
                 description: 'Performance advertising campaigns'
               },
               { 
                 icon: <ShoppingCart sx={{ fontSize: 40, color: '#22c55e' }} />,
-                title: 'Comne Hn Bon Eon',
+                title: 'Website and E-commerce Solutions',
                 description: 'E-commerce optimization'
               },
             ].map((service, index) => (

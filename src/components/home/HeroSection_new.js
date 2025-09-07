@@ -367,91 +367,96 @@ const HeroSection = () => {
       </Container>
 
       {/* Key Services Section */}
-      <Box 
-        sx={{ 
-          bgcolor: 'rgba(255, 255, 255, 0.05)',
-          py: 4,
-          mt: 'auto'
-        }}
-      >
-        <Container maxWidth="xl">
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              color: 'rgba(255, 255, 255, 0.8)',
-              mb: 3,
+        <Box 
+          sx={{ 
+            bgcolor: 'rgba(255, 255, 255, 0.05)',
+            py: 4,
+            mt: 'auto'
+          }}
+        >
+          <Container maxWidth="xl">
+            <Typography 
+          variant="h6" 
+          sx={{ 
+            color: 'rgba(255, 255, 255, 0.8)',
+            mb: 3,
+            textAlign: 'center',
+            fontWeight: 600
+          }}
+            >
+          Key Services
+            </Typography>
+            
+            <Grid container spacing={4} justifyContent="center">
+          {[
+            { 
+              icon: <BarChart sx={{ fontSize: 40, color: '#22c55e' }} />,
+              title: 'Social Media Marketing',
+              description: 'Strategic social media growth'
+            },
+            { 
+              icon: <CampaignOutlined sx={{ fontSize: 40, color: '#22c55e' }} />,
+              title: 'Hane Fur Dasts',
+              description: 'Performance advertising campaigns'
+            },
+            { 
+              icon: <ShoppingCart sx={{ fontSize: 40, color: '#22c55e' }} />,
+              title: 'Website Solutions',
+              description: 'AI powered Website development'
+            },
+            {
+              icon: <Speed sx={{ fontSize: 40, color: '#22c55e' }} />,
+              title: 'AI and Data Strategy Systems',
+              description: 'Unlock insights and automation with AI-driven data solutions'
+            },
+          ].map((service, index) => (
+            <Grid item xs={12} sm={4} md={3} key={index}>
+              <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 * index }}
+            sx={{
               textAlign: 'center',
-              fontWeight: 600
+              p: 3,
+              borderRadius: 2,
+              bgcolor: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              '&:hover': {
+                bgcolor: 'rgba(255, 255, 255, 0.08)',
+                transform: 'translateY(-5px)',
+              },
+              transition: 'all 0.3s ease'
             }}
-          >
-            Key Services
-          </Typography>
-          
-          <Grid container spacing={4} justifyContent="center">
-            {[
-              { 
-                icon: <BarChart sx={{ fontSize: 40, color: '#22c55e' }} />,
-                title: 'Sey Suntemiss',
-                description: 'Strategic social media growth'
-              },
-              { 
-                icon: <CampaignOutlined sx={{ fontSize: 40, color: '#22c55e' }} />,
-                title: 'Hane Fur Dasts',
-                description: 'Performance advertising campaigns'
-              },
-              { 
-                icon: <ShoppingCart sx={{ fontSize: 40, color: '#22c55e' }} />,
-                title: 'Comne Hn Bon Eon',
-                description: 'E-commerce optimization'
-              },
-            ].map((service, index) => (
-              <Grid item xs={12} sm={4} key={index}>
-                <MotionBox
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 * index }}
-                  sx={{
-                    textAlign: 'center',
-                    p: 3,
-                    borderRadius: 2,
-                    bgcolor: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    '&:hover': {
-                      bgcolor: 'rgba(255, 255, 255, 0.08)',
-                      transform: 'translateY(-5px)',
-                    },
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  <Box sx={{ mb: 2 }}>
-                    {service.icon}
-                  </Box>
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
-                      color: 'white',
-                      fontWeight: 700,
-                      mb: 1
-                    }}
-                  >
-                    {service.title}
-                  </Typography>
-                  <Typography 
-                    variant="body2" 
-                    sx={{ 
-                      color: 'rgba(255, 255, 255, 0.7)',
-                    }}
-                  >
-                    {service.description}
-                  </Typography>
-                </MotionBox>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+              >
+            <Box sx={{ mb: 2 }}>
+              {service.icon}
+            </Box>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                color: 'white',
+                fontWeight: 700,
+                mb: 1
+              }}
+            >
+              {service.title}
+            </Typography>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: 'rgba(255, 255, 255, 0.7)',
+              }}
+            >
+              {service.description}
+            </Typography>
+              </MotionBox>
+            </Grid>
+          ))}
+            </Grid>
+          </Container>
+        </Box>
 
-      {/* CSS Animations */}
+        {/* CSS Animations */}
       <style jsx>{`
         @keyframes pulse {
           0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
