@@ -1,38 +1,359 @@
 import React from 'react';
-import { Box, Container, Typography, Link } from '@mui/material';
+import { 
+    Box, 
+    Container, 
+    Typography, 
+    Link, 
+    Grid, 
+    Stack, 
+    IconButton,
+    Divider,
+    useMediaQuery,
+    useTheme
+} from '@mui/material';
+import { 
+    Facebook, 
+    Instagram, 
+    LinkedIn, 
+    Twitter, 
+    YouTube,
+    Email,
+    Phone,
+    LocationOn,
+    ArrowUpward
+} from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const footerLinks = {
+        services: [
+            { name: 'Social Media Marketing', path: '/services' },
+            { name: 'Performance Marketing', path: '/services' },
+            { name: 'Web Design & Development', path: '/services' },
+            { name: 'Analytics & Insights', path: '/services' },
+            { name: 'Content Strategy', path: '/services' },
+            { name: 'SEO & Local Search', path: '/services' }
+        ],
+        company: [
+            { name: 'About Us', path: '/about' },
+            { name: 'Our Portfolio', path: '/portfolio' },
+            { name: 'Case Studies', path: '/portfolio' },
+            { name: 'Blog', path: '/blog' },
+            { name: 'Careers', path: '/careers' },
+            { name: 'Contact', path: '/contact' }
+        ],
+        legal: [
+            { name: 'Privacy Policy', path: '/privacy' },
+            { name: 'Terms of Service', path: '/terms' },
+            { name: 'Cookie Policy', path: '/cookies' },
+            { name: 'GDPR Compliance', path: '/gdpr' }
+        ]
+    };
+
+    const socialLinks = [
+        { 
+            icon: <Facebook />, 
+            url: 'https://facebook.com/charanx', 
+            color: '#4267B2',
+            name: 'Facebook' 
+        },
+        { 
+            icon: <Instagram />, 
+            url: 'https://instagram.com/charanx', 
+            color: '#E1306C',
+            name: 'Instagram' 
+        },
+        { 
+            icon: <LinkedIn />, 
+            url: 'https://linkedin.com/company/charanx', 
+            color: '#0077B5',
+            name: 'LinkedIn' 
+        },
+        { 
+            icon: <Twitter />, 
+            url: 'https://twitter.com/charanx', 
+            color: '#1DA1F2',
+            name: 'Twitter' 
+        },
+        { 
+            icon: <YouTube />, 
+            url: 'https://youtube.com/charanx', 
+            color: '#FF0000',
+            name: 'YouTube' 
+        }
+    ];
+
+    const contactInfo = [
+        { icon: <Email />, text: 'hello@charanx.com', href: 'mailto:hello@charanx.com' },
+        { icon: <Phone />, text: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+        { icon: <LocationOn />, text: '123 Digital Ave, New York, NY 10001', href: null }
+    ];
+
     return (
-        <Box 
-            component="footer" 
-            sx={{ 
-                py: 3, 
-                px: 2, 
-                mt: 'auto', 
-                backgroundColor: 'background.paper',
-                borderTop: '1px solid #333'
+        <Box
+            component="footer"
+            sx={{
+                background: 'background.paper',
+                borderTop: '1px solid',
+                borderColor: 'divider',
+                position: 'relative',
+                overflow: 'hidden'
             }}
         >
-            <Container maxWidth="lg">
-                {/* client logos row */}
-                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mb: 2 }}>
-                    {['AC','BN','CZ','DX','EN'].map((label,i) => (
-                        <Box key={i} sx={{
-                            width: 44, height: 44, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.06)',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: 'text.secondary'
-                        }}>{label}</Box>
-                    ))}
+            {/* Background Elements */}
+            <Box sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.12) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%)',
+                pointerEvents: 'none'
+            }} />
+
+            <Container maxWidth="lg" sx={{ position: 'relative' }}>
+                {/* Main Footer Content */}
+                <Box sx={{ py: { xs: 4, md: 6 } }}>
+                    <Grid container spacing={4}>
+                        {/* Company Info */}
+                        <Grid item xs={12} md={4}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6 }}
+                                viewport={{ once: true }}
+                            >
+                                <Typography 
+                                    variant="h4" 
+                                    component={RouterLink} 
+                                    to="/" 
+                                    sx={{ 
+                                        color: 'text.primary',
+                                        textDecoration: 'none',
+                                        fontWeight: 'bold',
+                                        mb: 2,
+                                        display: 'block'
+                                    }}
+                                >
+                                    CharanX
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7 }}>
+                                    Premier digital marketing agency specializing in social media management, 
+                                    performance marketing, and web design. Transform your brand's online presence 
+                                    with our data-driven solutions.
+                                </Typography>
+
+                                {/* Contact Info */}
+                                <Stack spacing={1.5}>
+                                    {contactInfo.map((item, index) => (
+                                        <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                            <Box sx={{ color: 'primary.main', display: 'flex' }}>
+                                                {item.icon}
+                                            </Box>
+                                            {item.href ? (
+                                                <Link 
+                                                    href={item.href} 
+                                                    color="text.secondary" 
+                                                    sx={{ 
+                                                        textDecoration: 'none',
+                                                        '&:hover': { color: 'primary.main' },
+                                                        transition: 'color 0.3s ease'
+                                                    }}
+                                                >
+                                                    {item.text}
+                                                </Link>
+                                            ) : (
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {item.text}
+                                                </Typography>
+                                            )}
+                                        </Box>
+                                    ))}
+                                </Stack>
+                            </motion.div>
+                        </Grid>
+
+                        {/* Services Links */}
+                        <Grid item xs={12} sm={6} md={2}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.1 }}
+                                viewport={{ once: true }}
+                            >
+                                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
+                                    Services
+                                </Typography>
+                                <Stack spacing={1}>
+                                    {footerLinks.services.map((link, index) => (
+                                        <Link
+                                            key={index}
+                                            component={RouterLink}
+                                            to={link.path}
+                                            color="text.secondary"
+                                            variant="body2"
+                                            sx={{
+                                                textDecoration: 'none',
+                                                '&:hover': { 
+                                                    color: 'primary.main',
+                                                    transform: 'translateX(4px)'
+                                                },
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ))}
+                                </Stack>
+                            </motion.div>
+                        </Grid>
+
+                        {/* Company Links */}
+                        <Grid item xs={12} sm={6} md={2}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
+                                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
+                                    Company
+                                </Typography>
+                                <Stack spacing={1}>
+                                    {footerLinks.company.map((link, index) => (
+                                        <Link
+                                            key={index}
+                                            component={RouterLink}
+                                            to={link.path}
+                                            color="text.secondary"
+                                            variant="body2"
+                                            sx={{
+                                                textDecoration: 'none',
+                                                '&:hover': { 
+                                                    color: 'primary.main',
+                                                    transform: 'translateX(4px)'
+                                                },
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ))}
+                                </Stack>
+                            </motion.div>
+                        </Grid>
+
+                        {/* Newsletter & Social */}
+                        <Grid item xs={12} md={4}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                viewport={{ once: true }}
+                            >
+                                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
+                                    Stay Connected
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                                    Follow us on social media for the latest digital marketing insights, 
+                                    tips, and updates from the CharanX team.
+                                </Typography>
+
+                                {/* Social Media Links */}
+                                <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
+                                    {socialLinks.map((social, index) => (
+                                        <IconButton
+                                            key={index}
+                                            href={social.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={`Follow us on ${social.name}`}
+                                            sx={{
+                                                bgcolor: 'rgba(2, 6, 23, 0.04)',
+                                                border: '1px solid',
+                                                borderColor: 'divider',
+                                                color: 'text.primary',
+                                                transition: 'all 0.3s ease',
+                                                '&:hover': {
+                                                    bgcolor: 'rgba(34, 197, 94, 0.1)',
+                                                    borderColor: 'primary.light',
+                                                    transform: 'translateY(-2px)'
+                                                },
+                                            }}
+                                        >
+                                            {social.icon}
+                                        </IconButton>
+                                    ))}
+                                </Stack>
+
+                                {/* Back to Top Button */}
+                                <IconButton
+                                    onClick={scrollToTop}
+                                    aria-label="Back to top"
+                                    sx={{
+                                        bgcolor: 'primary.main',
+                                        color: 'common.white',
+                                        '&:hover': {
+                                            bgcolor: 'primary.light',
+                                            transform: 'translateY(-2px)',
+                                        },
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                >
+                                    <ArrowUpward />
+                                </IconButton>
+                            </motion.div>
+                        </Grid>
+                    </Grid>
                 </Box>
 
-                <Typography variant="body2" color="text.secondary" align="center">
-                    {'© '}
-                    {new Date().getFullYear()}
-                    {' '}
-                    <Link color="inherit" href="https://charanx.com/">
-                        charanX.com
-                    </Link>
-                    . All Rights Reserved.
-                </Typography>
+                <Divider sx={{ borderColor: 'divider' }} />
+
+                {/* Bottom Footer */}
+                <Box sx={{ 
+                    py: 3,
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 2
+                }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                        © {new Date().getFullYear()} CharanX Digital Marketing Agency. All rights reserved.
+                    </Typography>
+
+                    {/* Legal Links */}
+                    <Stack 
+                        direction={{ xs: 'column', sm: 'row' }} 
+                        spacing={{ xs: 1, sm: 3 }}
+                        sx={{ textAlign: { xs: 'center', md: 'right' } }}
+                    >
+                        {footerLinks.legal.map((link, index) => (
+                            <Link
+                                key={index}
+                                component={RouterLink}
+                                to={link.path}
+                                color="text.secondary"
+                                variant="body2"
+                                sx={{
+                                    textDecoration: 'none',
+                                    '&:hover': { color: 'primary.main' },
+                                    transition: 'color 0.3s ease'
+                                }}
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                    </Stack>
+                </Box>
             </Container>
         </Box>
     );
