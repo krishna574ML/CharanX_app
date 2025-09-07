@@ -61,8 +61,7 @@ import {
     Web,
     Brush,
     Analytics,
-    ShoppingCart,
-    CheckCircle
+    ShoppingCart
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';

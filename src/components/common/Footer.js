@@ -54,9 +54,9 @@ const Footer = () => {
     };
 
     const contactInfo = [
-        { icon: <Email />, text: 'hello@charanx.com', href: 'mailto:hello@charanx.com' },
-        { icon: <Phone />, text: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-        { icon: <LocationOn />, text: '123 Digital Ave, New York, NY 10001', href: null }
+        { icon: <Email />, text: 'info@charanx.com', href: 'mailto:info@charanx.com' },
+        { icon: <Phone />, text: '+91 9677303310, 7075012122', href: 'tel:+919677303310' },
+        { icon: <LocationOn />, text: 'Guntur brodipet 2/14', href: null }
     ];
 
     return (

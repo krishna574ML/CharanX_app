@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Container,
-    Typography,
-    Box,
-    Grid,
-    Card,
+import { 
+    Container, 
+    Typography, 
+    Box, 
+    Grid, 
+    Card, 
     CardContent,
     Button,
     Stack,
@@ -19,23 +19,43 @@ import {
     DialogActions,
     IconButton,
     Paper,
+    Divider,
+    Avatar,
     useTheme,
     useMediaQuery,
     Fab,
+    Collapse,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Timeline,
+    TimelineItem,
+    TimelineSeparator,
+    TimelineConnector,
+    TimelineContent,
+    TimelineDot,
     Breadcrumbs,
     Link
 } from '@mui/material';
-import {
+import { 
     Campaign,
     TrendingUp,
     Web,
     Analytics,
+    ContentCopy,
+    Search,
     CheckCircle,
     Close,
     ArrowForward,
     Star,
+    AccessTime,
+    People,
+    TrendingUpSharp,
+    ExpandMore,
+    PlayArrow,
     Speed,
-    SupportAgent, // Replaced Support24 with a valid MUI icon
+    Security,
+    Support24,
     Verified,
     WorkspacePremium,
     AutoAwesome,
@@ -43,8 +63,17 @@ import {
     ShoppingCart,
     Brush,
     Code,
+    CampaignOutlined,
+    BarChart,
+    GetApp,
     Phone,
-    WhatsApp
+    WhatsApp,
+    Business,
+    Group,
+    LocationOn,
+    Schedule,
+    MonetizationOn,
+    Assignment
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
@@ -55,6 +84,8 @@ const ServicesPage = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [selectedService, setSelectedService] = useState(null);
     const [activeCategory, setActiveCategory] = useState('all');
+    const [hoveredCard, setHoveredCard] = useState(null);
+    const [showPricing, setShowPricing] = useState(false);
 
     const serviceCategories = [
         { id: 'all', label: 'All Services', icon: <WorkspacePremium /> },
@@ -80,7 +111,7 @@ const ServicesPage = () => {
             gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             features: [
                 "Content Strategy & Creation (20-30 posts/month)",
-                "Community Management & Engagement",
+                "Community Management & Engagement", 
                 "Paid Social Advertising (Facebook, Instagram, LinkedIn)",
                 "Influencer Partnerships & Collaborations",
                 "Advanced Analytics & Monthly Reports",
@@ -146,7 +177,7 @@ const ServicesPage = () => {
             processSteps: [
                 "Market Research & Competitor Analysis",
                 "Campaign Strategy & Setup",
-                "Creative Development & Testing",
+                "Creative Development & Testing", 
                 "Launch & Real-time Optimization",
                 "Performance Monitoring & Scaling",
                 "ROI Analysis & Strategic Refinement"
@@ -355,7 +386,7 @@ const ServicesPage = () => {
             description: "Quick turnaround without compromising quality"
         },
         {
-            icon: <SupportAgent />,
+            icon: <Support24 />,
             title: "24/7 Support",
             description: "Round-the-clock support for all your needs"
         },
@@ -366,8 +397,8 @@ const ServicesPage = () => {
         }
     ];
 
-    const filteredServices = activeCategory === 'all'
-        ? services
+    const filteredServices = activeCategory === 'all' 
+        ? services 
         : services.filter(service => service.category === activeCategory);
 
     useEffect(() => {
@@ -391,9 +422,9 @@ const ServicesPage = () => {
     };
 
     return (
-        <Box sx={{
-            pt: 12,
-            pb: 8,
+        <Box sx={{ 
+            pt: 12, 
+            pb: 8, 
             minHeight: '100vh',
             background: 'linear-gradient(180deg, rgba(22,163,74,0.02) 0%, rgba(255,255,255,1) 100%)'
         }}>
@@ -401,7 +432,7 @@ const ServicesPage = () => {
                 {/* Breadcrumbs */}
                 <Box sx={{ mb: 4 }}>
                     <Breadcrumbs aria-label="breadcrumb">
-                        <Link component={RouterLink} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                        <Link component={RouterLink} to="/" color="inherit">
                             Home
                         </Link>
                         <Typography color="text.primary" fontWeight="600">Services</Typography>
@@ -415,10 +446,10 @@ const ServicesPage = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <Box textAlign="center" sx={{ mb: 8 }}>
-                        <Typography
-                            variant="h1"
-                            component="h1"
-                            sx={{
+                        <Typography 
+                            variant="h1" 
+                            component="h1" 
+                            sx={{ 
                                 fontWeight: 800,
                                 fontSize: { xs: '2.5rem', md: '4rem' },
                                 mb: 3,
@@ -431,21 +462,21 @@ const ServicesPage = () => {
                         >
                             Premium Digital Solutions
                         </Typography>
-                        <Typography
-                            variant="h5"
-                            color="text.secondary"
-                            sx={{
-                                mb: 4,
-                                maxWidth: 800,
-                                mx: 'auto',
+                        <Typography 
+                            variant="h5" 
+                            color="text.secondary" 
+                            sx={{ 
+                                mb: 4, 
+                                maxWidth: 800, 
+                                mx: 'auto', 
                                 fontWeight: 400,
                                 lineHeight: 1.6
                             }}
                         >
-                            Transform your business with our comprehensive suite of digital marketing services.
+                            Transform your business with our comprehensive suite of digital marketing services. 
                             Designed to deliver measurable results and premium experiences.
                         </Typography>
-
+                        
                         {/* Stats Row */}
                         <Grid container spacing={4} sx={{ mt: 4, mb: 6 }}>
                             {[
@@ -460,10 +491,10 @@ const ServicesPage = () => {
                                         animate={{ scale: 1, opacity: 1 }}
                                         transition={{ duration: 0.5, delay: index * 0.1 }}
                                     >
-                                        <Paper
+                                        <Paper 
                                             elevation={0}
-                                            sx={{
-                                                p: 3,
+                                            sx={{ 
+                                                p: 3, 
                                                 textAlign: 'center',
                                                 background: 'rgba(255,255,255,0.8)',
                                                 backdropFilter: 'blur(10px)',
@@ -492,18 +523,17 @@ const ServicesPage = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <Box sx={{ mb: 6, display: 'flex', justifyContent: 'center' }}>
-                        <Paper
+                        <Paper 
                             elevation={0}
-                            sx={{
-                                p: 1,
+                            sx={{ 
+                                p: 1, 
                                 background: 'rgba(255,255,255,0.9)',
                                 backdropFilter: 'blur(10px)',
                                 border: '1px solid rgba(22,163,74,0.1)',
                                 borderRadius: 6,
                                 display: 'flex',
                                 flexWrap: 'wrap',
-                                gap: 1,
-                                justifyContent: 'center'
+                                gap: 1
                             }}
                         >
                             {serviceCategories.map((category) => (
@@ -519,11 +549,11 @@ const ServicesPage = () => {
                                         fontWeight: 600,
                                         textTransform: 'none',
                                         color: activeCategory === category.id ? 'white' : 'text.primary',
-                                        background: activeCategory === category.id
+                                        background: activeCategory === category.id 
                                             ? 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)'
                                             : 'transparent',
                                         '&:hover': {
-                                            background: activeCategory === category.id
+                                            background: activeCategory === category.id 
                                                 ? 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)'
                                                 : 'rgba(22,163,74,0.08)'
                                         }
@@ -552,11 +582,13 @@ const ServicesPage = () => {
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.6, delay: index * 0.1 }}
+                                        onHoverStart={() => setHoveredCard(service.id)}
+                                        onHoverEnd={() => setHoveredCard(null)}
                                         whileHover={{ y: -10 }}
                                         style={{ height: '100%' }}
                                     >
-                                        <Card
-                                            sx={{
+                                        <Card 
+                                            sx={{ 
                                                 height: '100%',
                                                 position: 'relative',
                                                 overflow: 'hidden',
@@ -566,8 +598,6 @@ const ServicesPage = () => {
                                                 borderRadius: 4,
                                                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 cursor: 'pointer',
-                                                display: 'flex',
-                                                flexDirection: 'column',
                                                 '&:hover': {
                                                     borderColor: 'primary.main',
                                                     boxShadow: '0 20px 40px rgba(22,163,74,0.15)',
@@ -608,37 +638,37 @@ const ServicesPage = () => {
                                             </Box>
 
                                             {/* Service Header */}
-                                            <Box
+                                            <Box 
                                                 className="service-header"
-                                                sx={{
+                                                sx={{ 
                                                     p: 3,
                                                     background: 'rgba(22,163,74,0.05)',
                                                     transition: 'all 0.4s ease',
                                                     position: 'relative'
                                                 }}
                                             >
-                                                <Box className="service-icon" sx={{
-                                                    color: 'primary.main',
+                                                <Box className="service-icon" sx={{ 
+                                                    color: 'primary.main', 
                                                     mb: 2,
                                                     transition: 'all 0.3s ease'
                                                 }}>
                                                     {service.icon}
                                                 </Box>
-                                                <Typography
-                                                    variant="h5"
+                                                <Typography 
+                                                    variant="h5" 
                                                     className="service-title"
-                                                    sx={{
-                                                        fontWeight: 700,
+                                                    sx={{ 
+                                                        fontWeight: 700, 
                                                         mb: 1,
                                                         transition: 'all 0.3s ease'
                                                     }}
                                                 >
                                                     {service.title}
                                                 </Typography>
-                                                <Typography
-                                                    variant="body2"
+                                                <Typography 
+                                                    variant="body2" 
                                                     className="service-subtitle"
-                                                    sx={{
+                                                    sx={{ 
                                                         color: 'text.secondary',
                                                         fontWeight: 500,
                                                         transition: 'all 0.3s ease'
@@ -648,7 +678,7 @@ const ServicesPage = () => {
                                                 </Typography>
                                             </Box>
 
-                                            <CardContent sx={{ p: 3, pt: 2, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                                            <CardContent sx={{ p: 3, pt: 2 }}>
                                                 {/* Rating */}
                                                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                                     <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
@@ -662,9 +692,9 @@ const ServicesPage = () => {
                                                     </Typography>
                                                 </Box>
 
-                                                <Typography
-                                                    variant="body2"
-                                                    color="text.secondary"
+                                                <Typography 
+                                                    variant="body2" 
+                                                    color="text.secondary" 
                                                     sx={{ mb: 3, lineHeight: 1.6 }}
                                                 >
                                                     {service.shortDesc}
@@ -686,17 +716,17 @@ const ServicesPage = () => {
                                                 </Box>
 
                                                 {/* Pricing */}
-                                                <Box sx={{ mb: 3, mt: 'auto' }}>
+                                                <Box sx={{ mb: 3 }}>
                                                     <Box sx={{ display: 'flex', alignItems: 'baseline', mb: 1 }}>
-                                                        <Typography
-                                                            variant="h6"
-                                                            color="primary.main"
+                                                        <Typography 
+                                                            variant="h6" 
+                                                            color="primary.main" 
                                                             fontWeight="700"
                                                         >
                                                             {service.price}
                                                         </Typography>
-                                                        <Typography
-                                                            variant="body2"
+                                                        <Typography 
+                                                            variant="body2" 
                                                             color="text.secondary"
                                                             sx={{ textDecoration: 'line-through', ml: 1 }}
                                                         >
@@ -761,11 +791,11 @@ const ServicesPage = () => {
                     transition={{ duration: 0.8, delay: 0.3 }}
                 >
                     <Box sx={{ mb: 8 }}>
-                        <Typography
-                            variant="h3"
-                            align="center"
-                            fontWeight="700"
-                            sx={{
+                        <Typography 
+                            variant="h3" 
+                            align="center" 
+                            fontWeight="700" 
+                            sx={{ 
                                 mb: 6,
                                 background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
                                 backgroundClip: 'text',
@@ -773,7 +803,7 @@ const ServicesPage = () => {
                                 WebkitTextFillColor: 'transparent'
                             }}
                         >
-                            Why Choose Us?
+                            Why Choose CharanX?
                         </Typography>
                         <Grid container spacing={4}>
                             {whyChooseUs.map((item, index) => (
@@ -783,12 +813,11 @@ const ServicesPage = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.6, delay: index * 0.1 }}
                                         whileHover={{ y: -5 }}
-                                        style={{ height: '100%' }}
                                     >
-                                        <Paper
+                                        <Paper 
                                             elevation={0}
-                                            sx={{
-                                                p: 4,
+                                            sx={{ 
+                                                p: 4, 
                                                 textAlign: 'center',
                                                 background: 'rgba(255,255,255,0.8)',
                                                 backdropFilter: 'blur(10px)',
@@ -802,8 +831,8 @@ const ServicesPage = () => {
                                                 }
                                             }}
                                         >
-                                            <Box sx={{
-                                                color: 'primary.main',
+                                            <Box sx={{ 
+                                                color: 'primary.main', 
                                                 mb: 2,
                                                 '& svg': { fontSize: 40 }
                                             }}>
@@ -829,25 +858,25 @@ const ServicesPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <Paper
+                    <Paper 
                         elevation={0}
-                        sx={{
-                            p: { xs: 3, sm: 6 },
+                        sx={{ 
+                            p: 6,
                             textAlign: 'center',
                             background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
                             color: 'white',
                             borderRadius: 4
                         }}
                     >
-                        <Typography variant="h4" fontWeight="700" sx={{ mb: 2, fontSize: { xs: '1.75rem', md: '2.5rem' } }}>
+                        <Typography variant="h4" fontWeight="700" sx={{ mb: 2 }}>
                             Ready to Transform Your Business?
                         </Typography>
-                        <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                        <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
                             Let's discuss your project and create a custom solution that drives results.
                         </Typography>
-                        <Stack
-                            direction={{ xs: 'column', sm: 'row' }}
-                            spacing={2}
+                        <Stack 
+                            direction={{ xs: 'column', sm: 'row' }} 
+                            spacing={2} 
                             justifyContent="center"
                         >
                             <Button
@@ -895,7 +924,6 @@ const ServicesPage = () => {
             {/* Floating Action Button for Quick Contact */}
             <Fab
                 color="primary"
-                aria-label="contact"
                 sx={{
                     position: 'fixed',
                     bottom: 24,
@@ -910,7 +938,7 @@ const ServicesPage = () => {
                 <Phone />
             </Fab>
 
-            {/* Service Detail Dialog */}
+            {/* Service Detail Modal */}
             <Dialog
                 open={selectedService !== null}
                 onClose={handleCloseDialog}
@@ -919,110 +947,176 @@ const ServicesPage = () => {
                 PaperProps={{
                     sx: {
                         borderRadius: 4,
-                        bgcolor: 'background.paper',
-                        backgroundImage: 'none',
+                        maxHeight: '90vh'
                     }
                 }}
             >
                 {selectedService && (
                     <>
-                        <DialogTitle sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
+                        <DialogTitle sx={{ 
+                            p: 0, 
+                            position: 'relative',
                             background: selectedService.gradient,
-                            color: 'white',
-                            p: 2
+                            color: 'white'
                         }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                {React.cloneElement(selectedService.icon, { sx: { fontSize: 32 } })}
-                                <Typography variant="h5" component="div" sx={{ fontWeight: 600 }}>
-                                    {selectedService.title}
-                                </Typography>
+                            <Box sx={{ p: 3 }}>
+                                <IconButton
+                                    onClick={handleCloseDialog}
+                                    sx={{ 
+                                        position: 'absolute', 
+                                        right: 8, 
+                                        top: 8,
+                                        color: 'white'
+                                    }}
+                                >
+                                    <Close />
+                                </IconButton>
+                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                                    <Box sx={{ mr: 2, '& svg': { fontSize: 48 } }}>
+                                        {selectedService.icon}
+                                    </Box>
+                                    <Box>
+                                        <Typography variant="h4" fontWeight="700">
+                                            {selectedService.title}
+                                        </Typography>
+                                        <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                            {selectedService.subtitle}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Star sx={{ color: '#fbbf24', mr: 0.5 }} />
+                                    <Typography variant="body1" fontWeight="600" sx={{ mr: 2 }}>
+                                        {selectedService.rating}
+                                    </Typography>
+                                    <Typography variant="body1" sx={{ opacity: 0.9 }}>
+                                        ({selectedService.reviews} reviews)
+                                    </Typography>
+                                </Box>
                             </Box>
-                            <IconButton
-                                aria-label="close"
-                                onClick={handleCloseDialog}
-                                sx={{ color: 'white' }}
-                            >
-                                <Close />
-                            </IconButton>
                         </DialogTitle>
-                        <DialogContent sx={{ p: { xs: 2, md: 4 } }}>
-                            <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7, color: 'text.secondary' }}>
+                        
+                        <DialogContent sx={{ p: 4 }}>
+                            <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.7 }}>
                                 {selectedService.shortDesc}
                             </Typography>
 
-                            <Grid container spacing={4}>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                                        What's Included:
-                                    </Typography>
-                                    <List dense>
-                                        {selectedService.features.map((feature, index) => (
-                                            <ListItem key={index} sx={{ py: 0.5, px: 0 }}>
-                                                <ListItemIcon sx={{ minWidth: 36 }}>
-                                                    <CheckCircle sx={{ color: 'primary.main', fontSize: 20 }} />
-                                                </ListItemIcon>
-                                                <ListItemText primary={feature} />
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </Grid>
+                            {/* Pricing Section */}
+                            <Paper elevation={0} sx={{ p: 3, mb: 4, bgcolor: 'rgba(22,163,74,0.05)', borderRadius: 3 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                                    <Box>
+                                        <Typography variant="h5" color="primary.main" fontWeight="700">
+                                            {selectedService.price}
+                                        </Typography>
+                                        <Typography 
+                                            variant="body2" 
+                                            color="text.secondary"
+                                            sx={{ textDecoration: 'line-through' }}
+                                        >
+                                            {selectedService.originalPrice}
+                                        </Typography>
+                                    </Box>
+                                    <Chip 
+                                        label={selectedService.discount} 
+                                        color="error" 
+                                        sx={{ fontWeight: 700 }}
+                                    />
+                                </Box>
+                                <Typography variant="body2" color="text.secondary">
+                                    {selectedService.timeline}
+                                </Typography>
+                            </Paper>
 
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                                        Key Deliverables:
-                                    </Typography>
-                                    <List dense>
-                                        {selectedService.deliverables.map((deliverable, index) => (
-                                            <ListItem key={index} sx={{ py: 0.5, px: 0 }}>
-                                                <ListItemIcon sx={{ minWidth: 36 }}>
-                                                    <ArrowForward sx={{ color: 'primary.main', fontSize: 20 }} />
-                                                </ListItemIcon>
-                                                <ListItemText primary={deliverable} />
-                                            </ListItem>
-                                        ))}
-                                    </List>
-
-                                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mt: 3 }}>
-                                        Platforms & Tools:
-                                    </Typography>
-                                    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
-                                        {selectedService.platforms.map((platform, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={platform}
-                                                variant="outlined"
-                                            />
-                                        ))}
-                                    </Stack>
+                            {/* Features */}
+                            <Box sx={{ mb: 4 }}>
+                                <Typography variant="h6" fontWeight="600" sx={{ mb: 2 }}>
+                                    What's Included:
+                                </Typography>
+                                <Grid container spacing={1}>
+                                    {selectedService.features.map((feature, index) => (
+                                        <Grid item xs={12} key={index}>
+                                            <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 1 }}>
+                                                <CheckCircle sx={{ fontSize: 20, color: 'primary.main', mr: 1.5, mt: 0.5 }} />
+                                                <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
+                                                    {feature}
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                    ))}
                                 </Grid>
-                            </Grid>
+                            </Box>
+
+                            {/* Process Steps */}
+                            <Box sx={{ mb: 4 }}>
+                                <Typography variant="h6" fontWeight="600" sx={{ mb: 3 }}>
+                                    Our Process:
+                                </Typography>
+                                <Timeline position="left">
+                                    {selectedService.processSteps.map((step, index) => (
+                                        <TimelineItem key={index}>
+                                            <TimelineSeparator>
+                                                <TimelineDot color="primary" />
+                                                {index < selectedService.processSteps.length - 1 && <TimelineConnector />}
+                                            </TimelineSeparator>
+                                            <TimelineContent>
+                                                <Typography variant="body2" fontWeight="600">
+                                                    Step {index + 1}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {step}
+                                                </Typography>
+                                            </TimelineContent>
+                                        </TimelineItem>
+                                    ))}
+                                </Timeline>
+                            </Box>
+
+                            {/* Case Study */}
+                            <Paper elevation={0} sx={{ p: 3, bgcolor: 'background.paper', borderRadius: 3 }}>
+                                <Typography variant="h6" fontWeight="600" sx={{ mb: 2 }}>
+                                    Success Story: {selectedService.caseStudy.client}
+                                </Typography>
+                                <Grid container spacing={2}>
+                                    {selectedService.caseStudy.results.map((result, index) => (
+                                        <Grid item xs={12} sm={4} key={index}>
+                                            <Box sx={{ textAlign: 'center', p: 2 }}>
+                                                <Typography variant="h6" color="primary.main" fontWeight="700">
+                                                    {result.split(' ')[0]}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {result.substring(result.indexOf(' ') + 1)}
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Paper>
                         </DialogContent>
-                        <DialogActions sx={{ p: 3, justifyContent: 'space-between' }}>
-                            <Typography variant="h6" sx={{ fontWeight: 600, color: 'primary.main' }}>
-                                {selectedService.price}
-                            </Typography>
-                            <Stack direction="row" spacing={1}>
-                                <Button onClick={handleCloseDialog}>
-                                    Close
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => handleGetQuote(selectedService)}
-                                    sx={{
-                                        background: 'linear-gradient(90deg, #16a34a 0%, #22c55e 100%)',
-                                        color: 'common.white',
-                                        fontWeight: 600,
-                                        '&:hover': {
-                                            background: 'linear-gradient(90deg, #15803d 0%, #16a34a 100%)',
-                                        },
-                                    }}
-                                >
-                                    Get Started Now
-                                </Button>
-                            </Stack>
+
+                        <DialogActions sx={{ p: 4, pt: 0 }}>
+                            <Button
+                                variant="outlined"
+                                onClick={handleCloseDialog}
+                                sx={{ mr: 2 }}
+                            >
+                                Close
+                            </Button>
+                            <Button
+                                variant="contained"
+                                endIcon={<ArrowForward />}
+                                onClick={() => {
+                                    handleCloseDialog();
+                                    handleGetQuote(selectedService);
+                                }}
+                                sx={{
+                                    background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+                                    '&:hover': {
+                                        background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)'
+                                    }
+                                }}
+                            >
+                                Get Quote Now
+                            </Button>
                         </DialogActions>
                     </>
                 )}
