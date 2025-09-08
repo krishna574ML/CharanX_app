@@ -19,7 +19,6 @@ import {
     DialogActions,
     IconButton,
     Paper,
-    useTheme,
     Breadcrumbs,
     Link,
     Avatar
@@ -46,7 +45,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const ServicesPage = () => {
-    const theme = useTheme();
     const navigate = useNavigate();
     const [selectedService, setSelectedService] = useState(null);
     const [activeCategory, setActiveCategory] = useState('all');

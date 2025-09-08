@@ -9,7 +9,6 @@ import {
     Stack,
     Paper,
     Avatar,
-    useTheme,
     Breadcrumbs,
     Link,
     Select,
@@ -30,7 +29,6 @@ import { motion } from 'framer-motion';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const ContactPageNew = () => {
-    const theme = useTheme();
     const location = useLocation();
     
     const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Typography, Button, Stack, Chip, useTheme, Container, Grid } from '@mui/material';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { Box, Typography, Button, Stack, Chip, Container, Grid } from '@mui/material';
+import { motion } from 'framer-motion';
 import { Speed, BarChart, CampaignOutlined, ShoppingCart } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,6 @@ const MotionBox = motion(Box);
 
 const HeroSection = () => {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleStartJourney = () => {
     navigate('/contact');
