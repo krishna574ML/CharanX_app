@@ -8,7 +8,7 @@
     "start:mobile:win": "set HOST=0.0.0.0&&react-scripts start",
     "start:mobile:unix": "HOST=0.0.0.0 react-scripts start",
     "start:mobile": "npm run start:mobile:win",
-    "build": "react-scripts build && cp build/index.html build/404.html",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",

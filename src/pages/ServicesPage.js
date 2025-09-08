@@ -20,11 +20,9 @@ import {
     IconButton,
     Paper,
     useTheme,
-    useMediaQuery,
     Breadcrumbs,
     Link,
-    Avatar,
-    Divider
+    Avatar
 } from '@mui/material';
 import {
     Campaign,
@@ -34,20 +32,15 @@ import {
     CheckCircle,
     Close,
     ArrowForward,
-    Star,
     SupportAgent,
-    Verified,
     WorkspacePremium,
     AutoAwesome,
-    Insights,
     ShoppingCart,
     Brush,
     Code,
     WhatsApp,
     Rocket,
-    Timeline,
-    DesignServices,
-    DataObject
+    Timeline
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
@@ -57,7 +50,6 @@ const ServicesPage = () => {
     const navigate = useNavigate();
     const [selectedService, setSelectedService] = useState(null);
     const [activeCategory, setActiveCategory] = useState('all');
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const serviceCategories = [
         { 

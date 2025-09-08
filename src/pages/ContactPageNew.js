@@ -6,13 +6,10 @@ import {
     Grid,
     TextField,
     Button,
-    Card,
-    CardContent,
     Stack,
     Paper,
     Avatar,
     useTheme,
-    useMediaQuery,
     Breadcrumbs,
     Link,
     Select,
@@ -20,32 +17,21 @@ import {
     FormControl,
     InputLabel,
     Snackbar,
-    Alert,
-    Chip,
-    IconButton
+    Alert
 } from '@mui/material';
 import {
     Email,
     WhatsApp,
     Send,
     ArrowForward,
-    Person,
-    Business,
-    Message,
-    CheckCircle,
-    LocationOn,
-    AccessTime,
-    Phone,
-    Close
+    CheckCircle
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
-import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const ContactPageNew = () => {
     const theme = useTheme();
-    const navigate = useNavigate();
     const location = useLocation();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     
     const [formData, setFormData] = useState({
         fullName: '',

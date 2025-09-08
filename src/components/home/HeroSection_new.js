@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { Box, Typography, Button, Stack, Chip, useMediaQuery, useTheme, Avatar, AvatarGroup, Container, Grid, IconButton } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Button, Stack, Chip, useTheme, Container, Grid } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { TrendingUp, Speed, StarRate, CheckCircle, BarChart, CampaignOutlined, ShoppingCart, Menu as MenuIcon } from '@mui/icons-material';
+import { Speed, BarChart, CampaignOutlined, ShoppingCart } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const MotionBox = motion(Box);
@@ -9,27 +9,9 @@ const MotionBox = motion(Box);
 const HeroSection = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 300], [0, -50]);
-  const y2 = useTransform(scrollY, [0, 300], [0, 25]);
-  const rotate = useTransform(scrollY, [0, 300], [0, 360]);
 
   const handleStartJourney = () => {
     navigate('/contact');
-  };
-
-  // Floating animation variants
-  const floatingVariants = {
-    animate: {
-      y: [-10, 10, -10],
-      rotate: [-5, 5, -5],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
   };
 
   const staggerContainer = {

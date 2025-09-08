@@ -12,7 +12,6 @@ import {
     ListItem,
     useTheme,
     useMediaQuery,
-    Badge,
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';

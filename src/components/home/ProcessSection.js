@@ -9,21 +9,14 @@ import {
   Avatar,
   Button,
   useTheme,
-  useMediaQuery,
-  IconButton
+  useMediaQuery
 } from '@mui/material';
 import {
   Forum,
-  Verified,
   DesignServices,
   RocketLaunch,
   PlayArrow,
   TrendingUp,
-  Groups,
-  Analytics,
-  AutoAwesome,
-  Speed,
-  Timeline,
   CheckCircle
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
