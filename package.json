@@ -2,7 +2,7 @@
   "name": "charanx-react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://charanx.com",
+  "homepage": "/",
   "scripts": {
     "start": "react-scripts start",
     "start:mobile:win": "set HOST=0.0.0.0&&react-scripts start",

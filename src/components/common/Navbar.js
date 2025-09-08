@@ -224,24 +224,64 @@ const Navbar = () => {
                                                 </motion.div>
                                                 
                                                 {isMobile ? (
-                                                    <motion.div
-                                                        whileTap={{ scale: 0.9 }}
-                                                    >
-                                                        <IconButton
-                                                            onClick={handleDrawerToggle}
-                                                            sx={{
-                                                                color: 'text.primary',
-                                                                bgcolor: 'rgba(34, 197, 94, 0.1)',
-                                                                '&:hover': { 
-                                                                    bgcolor: 'rgba(34, 197, 94, 0.2)',
-                                                                    transform: 'scale(1.05)'
-                                                                },
-                                                                transition: 'all 0.3s ease'
-                                                            }}
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                        {/* Mobile CTA Button - Compact */}
+                                                        <motion.div
+                                                            whileHover={{ scale: 1.05 }}
+                                                            whileTap={{ scale: 0.95 }}
                                                         >
-                                                            {drawerOpen ? <CloseIcon /> : <MenuIcon />}
-                                                        </IconButton>
-                                                    </motion.div>
+                                                            <Button 
+                                                                variant="contained" 
+                                                                color="primary"
+                                                                component={RouterLink} 
+                                                                to="/contact"
+                                                                size="small"
+                                                                sx={{
+                                                                    px: 2.5,
+                                                                    py: 0.8,
+                                                                    borderRadius: '20px',
+                                                                    background: 'linear-gradient(45deg, #16a34a, #22c55e)',
+                                                                    fontWeight: 600,
+                                                                    fontSize: '0.8rem',
+                                                                    boxShadow: '0 3px 10px rgba(34, 197, 94, 0.25)',
+                                                                    '&:hover': {
+                                                                        background: 'linear-gradient(45deg, #22c55e, #16a34a)',
+                                                                        boxShadow: '0 4px 15px rgba(34, 197, 94, 0.35)',
+                                                                    },
+                                                                }}
+                                                            >
+                                                                Quote
+                                                            </Button>
+                                                        </motion.div>
+                                                        
+                                                        {/* Enhanced Mobile Menu Button */}
+                                                        <motion.div
+                                                            whileTap={{ scale: 0.9 }}
+                                                        >
+                                                            <IconButton
+                                                                onClick={handleDrawerToggle}
+                                                                sx={{
+                                                                    color: 'text.primary',
+                                                                    bgcolor: 'rgba(34, 197, 94, 0.1)',
+                                                                    width: 44,
+                                                                    height: 44,
+                                                                    '&:hover': { 
+                                                                        bgcolor: 'rgba(34, 197, 94, 0.2)',
+                                                                        transform: 'scale(1.05)'
+                                                                    },
+                                                                    transition: 'all 0.3s ease',
+                                                                    border: '1px solid rgba(34, 197, 94, 0.2)',
+                                                                }}
+                                                            >
+                                                                <motion.div
+                                                                    animate={{ rotate: drawerOpen ? 90 : 0 }}
+                                                                    transition={{ duration: 0.3 }}
+                                                                >
+                                                                    {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+                                                                </motion.div>
+                                                            </IconButton>
+                                                        </motion.div>
+                                                    </Box>
                                                 ) : (
                                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                         {navLinks.map((link, index) => (
@@ -454,6 +494,42 @@ const Navbar = () => {
                                     >
                                         Get Free Quote
                                     </Button>
+                                </motion.div>
+
+                                {/* Mobile Contact Info */}
+                                <motion.div
+                                    initial={{ y: 20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.8 }}
+                                >
+                                    <Box sx={{ 
+                                        mt: 4, 
+                                        pt: 3, 
+                                        borderTop: '1px solid rgba(34, 197, 94, 0.2)',
+                                        textAlign: 'center'
+                                    }}>
+                                        <Typography variant="body2" sx={{ 
+                                            color: 'text.secondary',
+                                            fontSize: '0.85rem',
+                                            mb: 1
+                                        }}>
+                                            📍 Guntur • Vijayawada
+                                        </Typography>
+                                        <Typography variant="body2" sx={{ 
+                                            color: 'text.secondary',
+                                            fontSize: '0.85rem',
+                                            mb: 2
+                                        }}>
+                                            📱 +91 96773 03310
+                                        </Typography>
+                                        <Typography variant="caption" sx={{ 
+                                            color: 'primary.main',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 600
+                                        }}>
+                                            ✨ Digital Growth Agency
+                                        </Typography>
+                                    </Box>
                                 </motion.div>
                             </Box>
                         </motion.div>

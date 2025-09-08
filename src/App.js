@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import FloatingWhatsApp from './components/common/FloatingWhatsApp';
+import ScrollToTop from './components/common/ScrollToTopLeftSide';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPageNew from './pages/ContactPageNew';
@@ -22,6 +23,7 @@ function App() {
         </Box>
         <Footer />
         <FloatingWhatsApp />
+        <ScrollToTop />
       </Box>
     </Router>
   );
