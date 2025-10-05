@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import HeroSection from '../components/home/HeroSection_new';
-import ServicesOverview from '../components/home/ServicesOverview';
-import ProcessSection from '../components/home/ProcessSection';
+import HeroSectionRevamped from '../components/home/HeroSectionRevamped';
+import ServicesOverviewRevamped from '../components/home/ServicesOverviewRevamped';
+import ProcessSectionRevamped from '../components/home/ProcessSectionRevamped';
 
 const HomePage = () => {
     return (
@@ -12,14 +12,14 @@ const HomePage = () => {
             bgcolor: 'background.default',
             color: 'text.primary'
         }}>
-            {/* Hero Section - Full viewport height with engaging content */}
-            <HeroSection />
+            {/* Hero Section - Ultra-modern with gradient background */}
+            <HeroSectionRevamped />
             
-            {/* Services Overview - Showcase our expertise */}
-            <ServicesOverview />
+            {/* Services Overview - Enhanced cards with hover effects */}
+            <ServicesOverviewRevamped />
             
-            {/* Our Process - 4 modern blocks explaining how we work */}
-            <ProcessSection />
+            {/* Our Process - Step-by-step journey visualization */}
+            <ProcessSectionRevamped />
         </Box>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Navbar from './components/common/Navbar';
+import NavbarRevamped from './components/common/NavbarRevamped';
 import Footer from './components/common/Footer';
 import FloatingWhatsApp from './components/common/FloatingWhatsApp';
 import ScrollToTop from './components/common/ScrollToTopLeftSide';
@@ -13,8 +13,8 @@ function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'background.default' }}>
-        <Navbar />
-        <Box component="main" sx={{ flexGrow: 1, pt: { xs: 8, md: 10 } }}>
+        <NavbarRevamped />
+        <Box component="main" sx={{ flexGrow: 1, pt: { xs: 7, md: 9 } }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />
